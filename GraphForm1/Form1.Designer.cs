@@ -37,8 +37,9 @@ namespace GraphForm1
             this.edgesListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.deleteNodeButton = new System.Windows.Forms.Button();
+            this.deleteEdgeButton = new System.Windows.Forms.Button();
+            this.grafPanel = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,9 +47,9 @@ namespace GraphForm1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mouseStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 427);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(762, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -62,7 +63,7 @@ namespace GraphForm1
             // 
             this.radioDrawNode.AutoSize = true;
             this.radioDrawNode.Checked = true;
-            this.radioDrawNode.Location = new System.Drawing.Point(559, 12);
+            this.radioDrawNode.Location = new System.Drawing.Point(528, 12);
             this.radioDrawNode.Name = "radioDrawNode";
             this.radioDrawNode.Size = new System.Drawing.Size(79, 17);
             this.radioDrawNode.TabIndex = 1;
@@ -83,18 +84,17 @@ namespace GraphForm1
             // nodesListBox
             // 
             this.nodesListBox.FormattingEnabled = true;
-            this.nodesListBox.Location = new System.Drawing.Point(559, 59);
+            this.nodesListBox.Location = new System.Drawing.Point(528, 59);
             this.nodesListBox.Name = "nodesListBox";
-            this.nodesListBox.Size = new System.Drawing.Size(79, 95);
+            this.nodesListBox.Size = new System.Drawing.Size(99, 95);
             this.nodesListBox.TabIndex = 3;
-            this.nodesListBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nodesListBox_MouseClick);
             // 
             // edgesListBox
             // 
             this.edgesListBox.FormattingEnabled = true;
             this.edgesListBox.Location = new System.Drawing.Point(644, 59);
             this.edgesListBox.Name = "edgesListBox";
-            this.edgesListBox.Size = new System.Drawing.Size(144, 95);
+            this.edgesListBox.Size = new System.Drawing.Size(99, 95);
             this.edgesListBox.TabIndex = 4;
             // 
             // label1
@@ -109,37 +109,52 @@ namespace GraphForm1
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(556, 43);
+            this.label2.Location = new System.Drawing.Point(525, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Nodes:";
             // 
-            // button1
+            // deleteNodeButton
             // 
-            this.button1.Location = new System.Drawing.Point(559, 176);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.deleteNodeButton.Location = new System.Drawing.Point(528, 176);
+            this.deleteNodeButton.Name = "deleteNodeButton";
+            this.deleteNodeButton.Size = new System.Drawing.Size(99, 23);
+            this.deleteNodeButton.TabIndex = 7;
+            this.deleteNodeButton.Text = "Delete Node";
+            this.deleteNodeButton.UseVisualStyleBackColor = true;
+            this.deleteNodeButton.Click += new System.EventHandler(this.deleteNodeButton_Click);
             // 
-            // button2
+            // deleteEdgeButton
             // 
-            this.button2.Location = new System.Drawing.Point(644, 176);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.deleteEdgeButton.Location = new System.Drawing.Point(644, 176);
+            this.deleteEdgeButton.Name = "deleteEdgeButton";
+            this.deleteEdgeButton.Size = new System.Drawing.Size(99, 23);
+            this.deleteEdgeButton.TabIndex = 8;
+            this.deleteEdgeButton.Text = "Delete Edge";
+            this.deleteEdgeButton.UseVisualStyleBackColor = true;
+            this.deleteEdgeButton.Click += new System.EventHandler(this.deleteEdgeButton_Click);
+            // 
+            // grafPanel
+            // 
+            this.grafPanel.BackColor = System.Drawing.Color.Transparent;
+            this.grafPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.grafPanel.Location = new System.Drawing.Point(0, 0);
+            this.grafPanel.Name = "grafPanel";
+            this.grafPanel.Size = new System.Drawing.Size(500, 400);
+            this.grafPanel.TabIndex = 9;
+            this.grafPanel.Click += new System.EventHandler(this.grafPanel_Click);
+            this.grafPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.grafPanel_Paint);
+            this.grafPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.grafPanel_MouseMove);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(762, 449);
+            this.Controls.Add(this.grafPanel);
+            this.Controls.Add(this.deleteEdgeButton);
+            this.Controls.Add(this.deleteNodeButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.edgesListBox);
@@ -151,8 +166,6 @@ namespace GraphForm1
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Click += new System.EventHandler(this.Form1_Click);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -170,8 +183,9 @@ namespace GraphForm1
         private System.Windows.Forms.ListBox edgesListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button deleteNodeButton;
+        private System.Windows.Forms.Button deleteEdgeButton;
+        private System.Windows.Forms.Panel grafPanel;
     }
 }
 
