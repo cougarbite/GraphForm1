@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrafLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,96 +11,103 @@ using System.Windows.Forms;
 
 namespace GraphForm1
 {
-    public class Node
-    {
-        //public List<Node> nodes = new List<Node>();
-        public int X, Y;
-        string name;
-        public Node(int xCoord, int yCoord, string nodeName)
-        {
-            X = xCoord;
-            Y = yCoord;
-            name = nodeName;
-        }
-
-        public override string ToString()
-        {
-            return this.name + $" ({this.X},{this.Y})";
-        }
-    }
     public partial class Form1 : Form
     {
         Graphics g;
-        Pen p;
+        Pen p = new Pen(Color.Black,5);
+        Font f = new Font("Arial", 10);
         Point cursor;
-        int k = 0, l = 0; 
-        static int n = 1;
 
+        Graf graf = new Graf();
         List<Node> nodes = new List<Node>();
-
-
-        Point[] points = new Point[20];
-
-        Point start = new Point();
-        Point end = new Point();
+        List<Edge> edges = new List<Edge>();
 
         public Form1()
         {
             InitializeComponent();
-            g = this.CreateGraphics();
-            p = new Pen(Color.Black, 4);
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void grafPanel_MouseMove(object sender, MouseEventArgs e)
         {
             cursor = this.PointToClient(Cursor.Position);
             mouseStatus.Text = "x: " + cursor.X + "y: " + cursor.Y;
         }
 
-        private void Form1_Click(object sender, EventArgs e)
+        private void grafPanel_Click(object sender, EventArgs e)
         {
-            //if (radioDrawNode.Checked)
-            //{
-            //    string name = "v" + k;
-            //    g.DrawEllipse(p, cursor.X, cursor.Y, 3, 3);
-            //    Point n = new Point(cursor.X, cursor.Y);
-
-            //    nodesListBox.Items.Add(n);
-            //}
+            g = grafPanel.CreateGraphics();
 
             if (radioDrawNode.Checked)
             {
-                string name = "v" + Form1.n++;
-                Node node = new Node(cursor.X, cursor.Y, name);
-                g.DrawEllipse(p, cursor.X, cursor.Y, 3, 3);
-                //Point n = new Point(cursor.X, cursor.Y);
+                Node node = new Node(cursor.X, cursor.Y);
+                g.DrawString("v" + node.Id.ToString(), f, Brushes.Black, cursor.X - 5, cursor.Y + 7);
+                g.DrawEllipse(p, cursor.X, cursor.Y, 5, 5);
+
                 nodes.Add(node);
-                nodesListBox.Items.Add(node);
+                graf.Nodes = nodes;
+                RefreshNodeList();
             }
-
-        }
-
-        private void nodesListBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (l % 2 == 0)
+            else if (radioDrawEdge.Checked)
             {
-                start.X = ((Node)nodesListBox.SelectedItem).X;
-                start.Y = ((Node)nodesListBox.SelectedItem).Y;
-                l++;
-            }
-            else if (l % 2 == 1)
-            {
-                end.X = ((Node)nodesListBox.SelectedItem).X;
-                end.Y = ((Node)nodesListBox.SelectedItem).Y;
-                DrawEdge(new Pen(Color.GreenYellow,2), start, end);
-                edgesListBox.Items.Add($"From ({start.X},{start.Y}) to ({end.X},{end.Y})");
-                l++;
+                Edge edge = new Edge();
+                //TODO - Check this method
+                g.DrawLine(p,100,100,300,300);
+                graf.Edges = edges;
+                RefreshEdgeList();
             }
         }
 
-        private void DrawEdge(Pen pen, Point start, Point end)
+        private void RefreshNodeList()
         {
-            g.DrawLine(pen, start, end);
+            nodesListBox.DataSource = null;
+            nodesListBox.DataSource = graf.Nodes;
+            nodesListBox.SelectedIndex = graf.Nodes.Count - 1;
+        }
+
+        private void deleteNodeButton_Click(object sender, EventArgs e)
+        {
+            if (graf.Nodes.Count > 0)
+            {
+                graf.Nodes.RemoveAt(nodesListBox.SelectedIndex);
+                RefreshNodeList();
+            }
+        }
+
+        private void RefreshEdgeList()
+        {
+            edgesListBox.DataSource = null;
+            edgesListBox.DataSource = graf.Edges;
+            edgesListBox.SelectedIndex = graf.Edges.Count - 1;
+        }
+
+        private void deleteEdgeButton_Click(object sender, EventArgs e)
+        {
+            if (graf.Edges.Count > 0)
+            {
+                graf.Edges.RemoveAt(edgesListBox.SelectedIndex);
+                RefreshNodeList();
+            }
+        }
+
+        private Node GetNode()
+        {
+            Node pointedNode = new Node(cursor.X, cursor.Y);
+
+            foreach (Node node in graf.Nodes)
+            {
+                if (node.XCoord == pointedNode.XCoord && node.YCoord == pointedNode.YCoord)
+                {
+                    return node;
+                }
+                else
+                    return null;
+
+            }
+            return new Node(cursor.X, cursor.Y);
+        }
+        private void grafPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
