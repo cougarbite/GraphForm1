@@ -59,7 +59,6 @@ namespace WpfGrafApp1
                     Canvas.SetZIndex(newRectangle, 1);
                     drawCanvas.Children.Add(newRectangle);
                     Node newNode = CreateNode(newRectangle);
-
                     nodePairs.Add(newRectangle, newNode);
                 }
             }
@@ -82,20 +81,10 @@ namespace WpfGrafApp1
                         {
                             newLine.Stroke = Brushes.Red;
                             newLine.StrokeThickness = 2;
-
                             newLine.X1 = Mouse.GetPosition(drawCanvas).X;
                             newLine.Y1 = Mouse.GetPosition(drawCanvas).Y;
-
-
                             Rectangle selectedRectangle = (Rectangle)e.OriginalSource;
                             node1 = nodePairs[selectedRectangle];
-
-                            //node1 = selectedNode;
-
-
-                            //TODO - bug. incrementeaza createdNodes cand de fapt nu sunt create noduri noi
-
-                            //node1 = ((int)e.GetPosition(drawCanvas).X, (int)e.GetPosition(drawCanvas).Y);
                             n++;
                         }
                     }
@@ -105,18 +94,12 @@ namespace WpfGrafApp1
                         {
                             newLine.X2 = Mouse.GetPosition(drawCanvas).X;
                             newLine.Y2 = Mouse.GetPosition(drawCanvas).Y;
-
-
                             Rectangle selectedRectangle = (Rectangle)e.OriginalSource;
                             node2 = nodePairs[selectedRectangle];
-
-
-                            //node2 = new Node((int)newLine.X2, (int)newLine.Y2);
                             n++;
                             Canvas.SetZIndex(newLine, 0);
                             drawCanvas.Children.Add(newLine);
                             Edge newEdge = CreateEdge(node1, node2);
-
                             edgePairs.Add(newLine, newEdge);
                             newLine = new Line();
                         }
