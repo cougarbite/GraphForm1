@@ -34,7 +34,7 @@ namespace GrafLib
 
         public override string ToString()
         {
-            return this.Name + $"v{this.Id} ({this.XCoord},{this.YCoord})";
+            return $"v{this.Id} ({this.XCoord},{this.YCoord})";
         }
     }
 }

@@ -8,11 +8,22 @@ namespace GrafLib
 {
     public class Edge : IDisplayUI
     {
-        public int L { get; set; } = 1;
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<Edge> AdjacentEdges { get; set; }
-        public List<Node> AdjacentNodes { get; set; }
+        public List<Edge> AdjacentEdges { get; set; } = new List<Edge>();
+        public List<Node> AdjacentNodes { get; set; } = new List<Node>();
+        public static int createdEdges = 1;
 
+        public Edge()
+        {
+            //createdEdges++;
+        }
+        public Edge(Node p1, Node p2)
+        {
+            AdjacentNodes.Add(p1);
+            AdjacentNodes.Add(p2);
+            Id = createdEdges++;
+        }
         public void Draw()
         {
 
@@ -20,7 +31,7 @@ namespace GrafLib
 
         public override string ToString()
         {
-            return this.Name + $" = ({this.AdjacentNodes[0].Name},{this.AdjacentNodes[1].Name})";
+            return $"e{this.Id} = (v{this.AdjacentNodes[0].Id},v{this.AdjacentNodes[1].Id})";
         }
     }
 }

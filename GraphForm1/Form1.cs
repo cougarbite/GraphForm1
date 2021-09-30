@@ -50,7 +50,7 @@ namespace GraphForm1
             else if (radioDrawEdge.Checked)
             {
                 Edge edge = new Edge();
-                //TODO - Check this method
+                //TODO - Check the method below
                 g.DrawLine(p,100,100,300,300);
                 graf.Edges = edges;
                 RefreshEdgeList();
