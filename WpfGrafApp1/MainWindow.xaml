@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGrafApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="851.577">
+        Title="Graf App" Height="500" Width="851.577">
     <Grid Margin="0,0,2,0">
         <Canvas Name="drawCanvas" Background ="AntiqueWhite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Height="400" Margin="10,10,0,0" Focusable="True" MouseLeftButtonDown="drawCanvas_MouseLeftButtonDown" MouseMove="drawCanvas_MouseMove"/>
         <Label x:Name="mouseStatus" Content="Label" HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Width="500"/>
