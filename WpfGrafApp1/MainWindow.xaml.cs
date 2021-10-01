@@ -44,8 +44,15 @@ namespace WpfGrafApp1
                 {
                     Rectangle selectedRectangle = (Rectangle)e.OriginalSource;
                     Node selectedNode = nodePairs[selectedRectangle];
+
+                    //remove from Graf list
+                    graf.Nodes.Remove(selectedNode);
                     nodes.Remove(selectedNode);
+
+                    //remove from graphics
                     drawCanvas.Children.Remove(selectedRectangle);
+
+                    //remove from dictionary
                     nodePairs.Remove(selectedRectangle);
                     RefreshNodesListBox();
                 }
@@ -68,8 +75,15 @@ namespace WpfGrafApp1
                 {
                     Line selectedLine = (Line)e.OriginalSource;
                     Edge selectedEdge = edgePairs[selectedLine];
+
+                    //remove from Graf list
+                    graf.Edges.Remove(selectedEdge);
                     edges.Remove(selectedEdge);
+
+                    //remove from graphics
                     drawCanvas.Children.Remove(selectedLine);
+
+                    //remove from dictionary
                     edgePairs.Remove(selectedLine);
                     RefreshEdgesListBox();
                 }
@@ -126,12 +140,12 @@ namespace WpfGrafApp1
         private void RefreshNodesListBox()
         {
             nodesListBox.ItemsSource = null;
-            nodesListBox.ItemsSource = nodes;
+            nodesListBox.ItemsSource = graf.Nodes;
         }
         private void RefreshEdgesListBox()
         {
             edgesListBox.ItemsSource = null;
-            edgesListBox.ItemsSource = edges;
+            edgesListBox.ItemsSource = graf.Edges;
         }
         private void drawCanvas_MouseMove(object sender, MouseEventArgs e)
         {
