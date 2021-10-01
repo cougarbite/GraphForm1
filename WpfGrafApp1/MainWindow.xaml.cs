@@ -29,6 +29,7 @@ namespace WpfGrafApp1
 
         // Variabila pentru capetele unei muchii.
         int n = 0;
+
         Dictionary<Rectangle, Node> nodePairs = new Dictionary<Rectangle, Node>();
         Dictionary<Line, Edge> edgePairs = new Dictionary<Line, Edge>();
         public MainWindow()
