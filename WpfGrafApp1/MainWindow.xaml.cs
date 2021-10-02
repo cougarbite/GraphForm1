@@ -21,6 +21,7 @@ namespace WpfGrafApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        //TODO - check graf id when ctor is called
         Graf graf = new Graf();
         List<Node> nodes = new List<Node>();
         List<Edge> edges = new List<Edge>();
@@ -152,6 +153,11 @@ namespace WpfGrafApp1
 
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
+            ClearCanvasAndDeleteGraf();
+        }
+
+        private void ClearCanvasAndDeleteGraf()
+        {
             drawCanvas.Children.Clear();
             graf = new Graf();
             nodes = new List<Node>();
@@ -165,6 +171,8 @@ namespace WpfGrafApp1
         private void CreateGrafButton_Click(object sender, RoutedEventArgs e)
         {
             SaveGrafToFile();
+            mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
+            ClearCanvasAndDeleteGraf();
             //CheckForAdjacentNodes(graf);
             //CheckForAdjacentEdges(graf);
         }
@@ -172,7 +180,6 @@ namespace WpfGrafApp1
         private void SaveGrafToFile()
         {
             Rect rect = new Rect(drawCanvas.Margin.Left, drawCanvas.Margin.Top, drawCanvas.ActualWidth, drawCanvas.ActualHeight);
-            //Rect rect = new Rect(drawCanvas.RenderSize);
             RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
               (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
             rtb.Render(drawCanvas);
