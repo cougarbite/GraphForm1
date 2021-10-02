@@ -87,15 +87,5 @@ namespace GrafLib
             }
             return output;
         }
-
-        public void VerifyAdjacentEdges(Graf graf)
-        {
-
-        }
-
-        public void VerifyAdjacentNodes(Graf graf)
-        {
-
-        }
     }
 }
