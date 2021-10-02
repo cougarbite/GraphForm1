@@ -22,8 +22,8 @@ namespace GrafLib
 
         public Graf()
         {
-            createdGrafs++;
-            Name = "Graf " + createdGrafs;
+            DateTime time = DateTime.Now;
+            Name = $"Graf {time.Hour}{time.Minute}{time.Second} " + createdGrafs++;
         }
     }
 }
