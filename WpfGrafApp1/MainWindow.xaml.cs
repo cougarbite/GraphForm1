@@ -164,8 +164,28 @@ namespace WpfGrafApp1
 
         private void CreateGrafButton_Click(object sender, RoutedEventArgs e)
         {
-            CheckForAdjacentNodes(graf);
-            CheckForAdjacentEdges(graf);
+            SaveGrafToFile();
+            //CheckForAdjacentNodes(graf);
+            //CheckForAdjacentEdges(graf);
+        }
+
+        private void SaveGrafToFile()
+        {
+            Rect rect = new Rect(drawCanvas.Margin.Left, drawCanvas.Margin.Top, drawCanvas.ActualWidth, drawCanvas.ActualHeight);
+            //Rect rect = new Rect(drawCanvas.RenderSize);
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
+              (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            rtb.Render(drawCanvas);
+            //endcode as PNG
+            BitmapEncoder pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+            //save to memory stream
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+
+            pngEncoder.Save(ms);
+            ms.Close();
+            System.IO.File.WriteAllBytes("graf.png", ms.ToArray());
         }
 
         private void CheckForAdjacentNodes(Graf g)
