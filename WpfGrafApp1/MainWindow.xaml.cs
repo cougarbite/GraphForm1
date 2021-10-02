@@ -185,7 +185,7 @@ namespace WpfGrafApp1
 
             pngEncoder.Save(ms);
             ms.Close();
-            System.IO.File.WriteAllBytes("graf.png", ms.ToArray());
+            System.IO.File.WriteAllBytes($@"..\..\Grafuri\{graf.Name}.png", ms.ToArray());
         }
 
         private void CheckForAdjacentNodes(Graf g)
