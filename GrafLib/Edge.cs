@@ -20,9 +20,36 @@ namespace GrafLib
         }
         public Edge(Node p1, Node p2)
         {
-            AdjacentNodes.Add(p1);
-            AdjacentNodes.Add(p2);
             Id = createdEdges++;
+
+            //Adaug nodurile unite de muchie
+            this.AdjacentNodes.Add(p1);
+            this.AdjacentNodes.Add(p2);
+
+            //Adaug la lista muchiilor adiacente, muchiile fiecarui varfului
+            foreach (Node node in this.AdjacentNodes)
+            {
+                foreach (Edge edge in node.AdjacentEdges)
+                {
+                    this.AdjacentEdges.Add(edge);
+                }
+            }
+
+            p1.AdjacentNodes.Add(p2);
+            p1.AdjacentEdges.Add(this);
+            p2.AdjacentNodes.Add(p1);
+            p2.AdjacentEdges.Add(this);
+        }
+        public void DeleteEdge()
+        {
+            Node p1 = this.AdjacentNodes[0];
+            Node p2 = this.AdjacentNodes[1];
+            p1.AdjacentNodes.Remove(p2);
+            p2.AdjacentNodes.Remove(p1);
+            foreach (Edge adjacentEdge in  this.AdjacentEdges)
+            {
+                adjacentEdge.AdjacentEdges.Remove(this);
+            }
         }
         public void Draw()
         {

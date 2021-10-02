@@ -76,6 +76,7 @@ namespace WpfGrafApp1
                 {
                     Line selectedLine = (Line)e.OriginalSource;
                     Edge selectedEdge = edgePairs[selectedLine];
+                    selectedEdge.DeleteEdge();
 
                     //remove from Graf list
                     graf.Edges.Remove(selectedEdge);

@@ -25,6 +25,8 @@ namespace GrafLib
             XCoord = X;
             YCoord = Y;
             Id = createdNodes++;
+            this.AdjacentNodes = new List<Node>();
+            this.AdjacentEdges = new List<Edge>();
         }
 
         public void Draw()
