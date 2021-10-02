@@ -172,8 +172,14 @@ namespace WpfGrafApp1
             SaveGrafToFile();
             mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
             ClearCanvasAndDeleteGraf();
-            //CheckForAdjacentNodes(graf);
-            //CheckForAdjacentEdges(graf);
+            CreateMatrixes(graf);
+        }
+
+        private void CreateMatrixes(Graf g)
+        {
+            
+            //TODO - Create graf's matrixes
+            throw new NotImplementedException();
         }
 
         private void SaveGrafToFile()
