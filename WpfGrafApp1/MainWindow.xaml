@@ -15,6 +15,8 @@
         <Label x:Name="edgesListLabel" Content="Edges:" HorizontalAlignment="Left" Margin="695,38,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="nodesListBox" HorizontalAlignment="Left" Height="200" Margin="533,69,0,0" VerticalAlignment="Top" Width="120"/>
         <ListBox x:Name="edgesListBox" HorizontalAlignment="Left" Height="200" Margin="695,69,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="CreateGrafButton" Content="Create graf" HorizontalAlignment="Left" Margin="537,299,0,0" VerticalAlignment="Top" Width="116" Click="CreateGrafButton_Click"/>
+        <Button x:Name="DeleteGrafButton" Content="Delete graf" HorizontalAlignment="Left" Margin="537,324,0,0" VerticalAlignment="Top" Width="116" Click="DeleteGrafButton_Click"/>
 
     </Grid>
 </Window>
