@@ -148,6 +148,35 @@ namespace WpfGrafApp1
             edgesListBox.ItemsSource = null;
             edgesListBox.ItemsSource = graf.Edges;
         }
+
+        private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
+        {
+            drawCanvas.Children.Clear();
+            graf = new Graf();
+            nodes = new List<Node>();
+            edges = new List<Edge>();
+            RefreshNodesListBox();
+            RefreshEdgesListBox();
+            Node.createdNodes = 1;
+            Edge.createdEdges = 1;
+        }
+
+        private void CreateGrafButton_Click(object sender, RoutedEventArgs e)
+        {
+            CheckForAdjacentNodes(graf);
+            CheckForAdjacentEdges(graf);
+        }
+
+        private void CheckForAdjacentNodes(Graf g)
+        {
+
+            throw new NotImplementedException();
+        }
+        private void CheckForAdjacentEdges(Graf g)
+        {
+            throw new NotImplementedException();
+        }
+
         private void drawCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             mouseStatus.Content = $"X: {Mouse.GetPosition(drawCanvas).X} Y:{Mouse.GetPosition(drawCanvas).Y}";
