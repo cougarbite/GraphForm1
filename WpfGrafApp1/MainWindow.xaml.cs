@@ -21,7 +21,6 @@ namespace WpfGrafApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TODO - check graf id when ctor is called
         Graf graf = new Graf();
         List<Node> nodes = new List<Node>();
         List<Edge> edges = new List<Edge>();
@@ -193,16 +192,6 @@ namespace WpfGrafApp1
             pngEncoder.Save(ms);
             ms.Close();
             System.IO.File.WriteAllBytes($@"..\..\Grafuri\{graf.Name}.png", ms.ToArray());
-        }
-
-        private void CheckForAdjacentNodes(Graf g)
-        {
-
-            throw new NotImplementedException();
-        }
-        private void CheckForAdjacentEdges(Graf g)
-        {
-            throw new NotImplementedException();
         }
 
         private void drawCanvas_MouseMove(object sender, MouseEventArgs e)
