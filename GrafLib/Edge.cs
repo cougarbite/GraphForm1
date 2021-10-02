@@ -32,6 +32,7 @@ namespace GrafLib
                 foreach (Edge edge in node.AdjacentEdges)
                 {
                     this.AdjacentEdges.Add(edge);
+                    edge.AdjacentEdges.Add(this);
                 }
             }
 
@@ -50,6 +51,8 @@ namespace GrafLib
             {
                 adjacentEdge.AdjacentEdges.Remove(this);
             }
+            p1.AdjacentEdges.Remove(this);
+            p2.AdjacentEdges.Remove(this);
         }
         public void Draw()
         {
