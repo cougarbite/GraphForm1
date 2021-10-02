@@ -17,5 +17,13 @@ namespace GrafLib
         public int[,] AdjacencyMatrix { get; set; }
         public int[,] IncidencyMatrix { get; set; }
         public int[,] KirchhoffMatrix { get; set; }
+
+        public static int createdGrafs = 1;
+
+        public Graf()
+        {
+            createdGrafs++;
+            Name = "Graf " + createdGrafs;
+        }
     }
 }
