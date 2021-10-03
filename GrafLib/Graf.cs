@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrafLib
 {
-    public class Graf
+    public class Graf : IDisplayUI
     {
         public string Name { get; set; }
         public List<Node> Nodes { get; set; }
@@ -24,6 +24,44 @@ namespace GrafLib
         {
             DateTime time = DateTime.Now;
             Name = $"Graf {time.Hour}{time.Minute}{time.Second} " + createdGrafs++;
+        }
+
+        public void Draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int[,] CreateAfromK(int[,] aMatrix)
+        {
+
+            throw new NotImplementedException();
+
+        }
+
+        public int[,] CreateAfromI(int[,] aMatrix)
+        {
+            throw new NotImplementedException();
+
+        }
+        public int[,] CreateIfromA(int[,] iMatrix)
+        {
+            throw new NotImplementedException();
+
+        }
+        public int[,] CreateIfromK(int[,] iMatrix)
+        {
+            throw new NotImplementedException();
+
+        }
+        public int[,] CreateKfromA(int[,] kMatrix)
+        {
+            throw new NotImplementedException();
+
+        }
+        public int[,] CreateKfromI(int[,] kMatrix)
+        {
+            throw new NotImplementedException();
+
         }
     }
 }

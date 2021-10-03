@@ -177,7 +177,8 @@ namespace WpfGrafApp1
 
         private void CreateMatrixes(Graf g)
         {
-            
+            Actions a = new Actions();
+            graf.AdjacencyMatrix = a.CreateAdjacencyMatrix(graf);
             //TODO - Create graf's matrixes
             throw new NotImplementedException();
         }
@@ -198,6 +199,39 @@ namespace WpfGrafApp1
             pngEncoder.Save(ms);
             ms.Close();
             System.IO.File.WriteAllBytes($@"..\..\Grafuri\{graf.Name}.png", ms.ToArray());
+        }
+        private int CreateSwitch()
+        {
+            int output = 0;
+
+
+            return output;
+        }
+        private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
+        {
+            switch (CreateSwitch())
+            {
+                case 0:
+                    graf.CreateAfromI(graf.AdjacencyMatrix);
+                        break;
+                case 1:
+                    graf.CreateAfromK(graf.AdjacencyMatrix);
+                    break;
+                case 2:
+                    graf.CreateIfromA(graf.IncidencyMatrix);
+                    break;
+                case 3:
+                    graf.CreateIfromK(graf.IncidencyMatrix);
+                    break;
+                case 4:
+                    graf.CreateKfromA(graf.KirchhoffMatrix);
+                    break;
+                case 5:
+                    graf.CreateKfromI(graf.KirchhoffMatrix);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void drawCanvas_MouseMove(object sender, MouseEventArgs e)

@@ -21,7 +21,7 @@
         <ComboBox HorizontalAlignment="Left" Margin="695,297,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="To:" HorizontalAlignment="Left" Margin="695,326,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="695,348,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="CreateMatrixButton" Content="Create Matrix" HorizontalAlignment="Left" Margin="695,390,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="CreateMatrixButton" Content="Create Matrix" HorizontalAlignment="Left" Margin="695,390,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click"/>
 
     </Grid>
 </Window>
