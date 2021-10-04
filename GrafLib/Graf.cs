@@ -122,9 +122,29 @@ namespace GrafLib
             return resultingMatrix;
         }
 
-        public int[,] CreateAfromI(int[,] iMatrix)
+        public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
         {
-            throw new NotImplementedException();
+            //TODO - Implement i to a
+            int[,] resultingMatrix = new int[nodes,nodes];
+            resultingMatrix[0, 0] = 0;
+            for (int i = 0; i < nodes; i++)
+            {
+                for (int j = 1; j <= edges; j++)
+                {
+                    if (iMatrix[i, j] == 1&& iMatrix[i,j+1] == 1)
+                    {
+                        resultingMatrix[i, j+1] = 1;
+                        resultingMatrix[i+1, j] = 1;
+                    }
+                    else
+                    {
+                        resultingMatrix[i, j+1] = 0;
+                        resultingMatrix[i+1, j] = 0;
+                    }
+                }
+            }
+
+            return resultingMatrix;
         }
         public int[,] CreateIfromA(int[,] aMatrix)
         {
@@ -140,20 +160,37 @@ namespace GrafLib
         }
         public int[,] CreateKfromI(int[,] iMatrix, int nodes, int edges)
         {
-            int grade = 0;
+            int grade = 0, n = 0, m = 0;
             int[,] resultingMatrix = new int[nodes, nodes];
             for (int i = 0; i < nodes; i++)
             {
                 for (int j = 0; j < edges; j++)
                 {
-                    grade++;
+                    if (i == j)
+                    {
+                        for (int k = 0; k < edges; k++)
+                        {
+                            if (iMatrix[i,k] == 1)
+                                grade++;
+                        }
+                        resultingMatrix[i, j] = grade;
+                        grade = 0;
+                    }
+                    else
+                    {
+                        if (iMatrix[i, j] == 1)
+                            for (int l = 0; l < nodes; l++)
+                            {
+                                //TODO - finish this shit
+
+
+
+                                resultingMatrix[i, j] = -1;
+                            }
+                        else
+                            resultingMatrix[i, j] = 0;
+                    }
                 }
-                if (grade == 0)
-                    resultingMatrix[i, 0] = 0;
-                else
-                    resultingMatrix[i, 0] = grade;
-                grade = 0;
-                //TODO - de continuat logica
             }
             return resultingMatrix;
         }
