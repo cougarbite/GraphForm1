@@ -35,6 +35,18 @@ namespace WpfGrafApp1
         public MainWindow()
         {
             InitializeComponent();
+            InitializeComboBoxes();
+        }
+
+        private void InitializeComboBoxes()
+        {
+            fromMatrixComboBox.Items.Add("Adjacency Matrix");
+            fromMatrixComboBox.Items.Add("Incidency Matrix");
+            fromMatrixComboBox.Items.Add("Kirchhoff Matrix");
+
+            toMatrixComboBox.Items.Add("Adjacency Matrix");
+            toMatrixComboBox.Items.Add("Incidency Matrix");
+            toMatrixComboBox.Items.Add("Kirchhoff Matrix");
         }
 
         private void drawCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -171,8 +183,23 @@ namespace WpfGrafApp1
         {
             SaveGrafToFile();
             mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
+            //CreateMatrixes(graf);
+            //DrawMatrixes(graf);
             ClearCanvasAndDeleteGraf();
-            CreateMatrixes(graf);
+        }
+
+        private void DrawMatrixes(Graf graf)
+        {
+            //TODO - implement method
+            Grid grid = new Grid();
+            grid.Width = 400;
+            grid.HorizontalAlignment = HorizontalAlignment.Left;
+            grid.VerticalAlignment = VerticalAlignment.Top;
+            grid.ShowGridLines = true;
+            grid.Background = new SolidColorBrush(Colors.AliceBlue);
+            
+
+            drawCanvas.Children.Add(grid);
         }
 
         private void CreateMatrixes(Graf g)
@@ -180,7 +207,6 @@ namespace WpfGrafApp1
             Actions a = new Actions();
             graf.AdjacencyMatrix = a.CreateAdjacencyMatrix(graf);
             //TODO - Create graf's matrixes
-            throw new NotImplementedException();
         }
 
         private void SaveGrafToFile()
@@ -198,21 +224,82 @@ namespace WpfGrafApp1
 
             pngEncoder.Save(ms);
             ms.Close();
+            if (!System.IO.Directory.Exists(@"..\..\Grafuri"))
+            {
+                System.IO.Directory.CreateDirectory(@"..\..\Grafuri");
+            }
             System.IO.File.WriteAllBytes($@"..\..\Grafuri\{graf.Name}.png", ms.ToArray());
         }
         private int CreateSwitch()
         {
             int output = 0;
 
-
             return output;
         }
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
+            // From Adjacency Matrix
+            if (fromMatrixComboBox.SelectedIndex == 0)
+            {
+                // To Incidency Matrix
+                if (toMatrixComboBox.SelectedIndex == 1)
+                {
+                    graf.CreateIfromA(graf.AdjacencyMatrix);
+                }
+                // To Kirchhoff Matrix
+                else if (toMatrixComboBox.SelectedIndex == 2)
+                {
+                    graf.CreateKfromA(graf.IncidencyMatrix);
+                }
+                else
+                {
+                    MessageBox.Show("Select a final matrix!");
+                }
+            }
+            // From Incidency Matrix
+            else if (fromMatrixComboBox.SelectedIndex == 1)
+            {
+                // To Adjacency Matrix
+                if (toMatrixComboBox.SelectedIndex == 0)
+                {
+                    graf.CreateAfromI(graf.IncidencyMatrix);
+                }
+                // To Kirchhoff Matrix
+                else if (toMatrixComboBox.SelectedIndex == 2)
+                {
+                    graf.CreateKfromI(graf.IncidencyMatrix);
+                }
+                else
+                {
+                    MessageBox.Show("Select a final matrix!");
+                }
+            }
+            // From Kirchhoff Matrix
+            else if (fromMatrixComboBox.SelectedIndex == 2)
+            {
+                // To Adjacency Matrix
+                if (toMatrixComboBox.SelectedIndex == 0)
+                {
+                    graf.CreateAfromK(graf.KirchhoffMatrix);
+                }
+                // To Incidency Matrix
+                else if (toMatrixComboBox.SelectedIndex == 1)
+                {
+                    graf.CreateIfromK(graf.KirchhoffMatrix);
+                }
+                else
+                {
+                    MessageBox.Show("Select a final matrix!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a matrix to start from!");
+            }
+
             switch (CreateSwitch())
             {
                 case 0:
-                    graf.CreateAfromI(graf.AdjacencyMatrix);
                         break;
                 case 1:
                     graf.CreateAfromK(graf.AdjacencyMatrix);
@@ -238,5 +325,7 @@ namespace WpfGrafApp1
         {
             mouseStatus.Content = $"X: {Mouse.GetPosition(drawCanvas).X} Y:{Mouse.GetPosition(drawCanvas).Y}";
         }
+
+        
     }
 }
