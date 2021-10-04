@@ -87,7 +87,5 @@ namespace GrafLib
             }
             return output;
         }
-
-
     }
 }
