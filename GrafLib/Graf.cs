@@ -95,12 +95,16 @@ namespace GrafLib
             }
             return output;
         }
-
-        public void Draw()
+        public int[,] CreateIfromA(int[,] aMatrix)
         {
+            //TODO - Implement this method A => K
             throw new NotImplementedException();
         }
-
+        public int[,] CreateKfromA(int[,] aMatrix)
+        {
+            //TODO - Implement this method A => K
+            throw new NotImplementedException();
+        }
         public int[,] CreateAfromK(int[,] kMatrix)
         {
             int rows = kMatrix.Length / 3, cols = rows;
@@ -118,7 +122,11 @@ namespace GrafLib
             }
             return resultingMatrix;
         }
-
+        public int[,] CreateIfromK(int[,] kMatrix)
+        {
+            //TODO - Implement this method A => K
+            throw new NotImplementedException();
+        }
         public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
         {
             //TODO - Implement i to a
@@ -143,20 +151,9 @@ namespace GrafLib
 
             return resultingMatrix;
         }
-        public int[,] CreateIfromA(int[,] aMatrix)
-        {
-            throw new NotImplementedException();
-        }
-        public int[,] CreateIfromK(int[,] kMatrix)
-        {
-            throw new NotImplementedException();
-        }
-        public int[,] CreateKfromA(int[,] aMatrix)
-        {
-            throw new NotImplementedException();
-        }
         public int[,] CreateKfromI(int[,] iMatrix, int nodes, int edges)
         {
+            //TODO - Implement this crappy method
             int grade = 0, n = 0, m = 0;
             int[,] resultingMatrix = new int[nodes, nodes];
             for (int i = 0; i < nodes; i++)
