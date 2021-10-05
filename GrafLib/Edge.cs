@@ -9,11 +9,6 @@ namespace GrafLib
         public List<Edge> AdjacentEdges { get; set; } = new List<Edge>();
         public List<Node> AdjacentNodes { get; set; } = new List<Node>();
         public static int createdEdges = 1;
-
-        public Edge()
-        {
-            //createdEdges++;
-        }
         public Edge(Node p1, Node p2)
         {
             Id = createdEdges++;
@@ -50,11 +45,6 @@ namespace GrafLib
             p1.AdjacentEdges.Remove(this);
             p2.AdjacentEdges.Remove(this);
         }
-        public void Draw()
-        {
-
-        }
-
         public override string ToString()
         {
             return $"e{this.Id} = (v{this.AdjacentNodes[0].Id},v{this.AdjacentNodes[1].Id})";

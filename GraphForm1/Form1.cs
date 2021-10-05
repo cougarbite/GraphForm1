@@ -31,7 +31,6 @@ namespace GraphForm1
         private void grafPanel_Click(object sender, EventArgs e)
         {
             g = grafPanel.CreateGraphics();
-
             if (radioDrawNode.Checked)
             {
                 Node node = new Node(cursor.X, cursor.Y);
@@ -44,11 +43,20 @@ namespace GraphForm1
             }
             else if (radioDrawEdge.Checked)
             {
-                Edge edge = new Edge();
+                int count = 0;
+                if (count % 2 == 0)
+                {
+                    count++;
+                }
+                else if (count % 2 == 1)
+                {
+                    Node n2 = new Node(cursor.X, cursor.Y);
+                    count++;
+                    //g.DrawLine(p,n1.XCoord, n1.YCoord, n2.XCoord, n2.YCoord);
+                    graf.Edges = edges;
+                    RefreshEdgeList();
+                }
                 //TODO - Check the method below
-                g.DrawLine(p, 100, 100, 300, 300);
-                graf.Edges = edges;
-                RefreshEdgeList();
             }
         }
 

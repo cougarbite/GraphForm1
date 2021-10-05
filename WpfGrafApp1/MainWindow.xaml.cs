@@ -41,7 +41,20 @@ namespace WpfGrafApp1
             toMatrixComboBox.Items.Add("Incidency Matrix");
             toMatrixComboBox.Items.Add("Kirchhoff Matrix");
         }
-
+        private void RefreshNodesListBox()
+        {
+            nodesListBox.ItemsSource = null;
+            nodesListBox.ItemsSource = graf.Nodes;
+        }
+        private void RefreshEdgesListBox()
+        {
+            edgesListBox.ItemsSource = null;
+            edgesListBox.ItemsSource = graf.Edges;
+        }
+        private void drawCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            mouseStatus.Content = $"X: {Mouse.GetPosition(drawCanvas).X} Y:{Mouse.GetPosition(drawCanvas).Y}";
+        }
         private void drawCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (drawNodeRadioButton.IsChecked == true)
@@ -144,22 +157,6 @@ namespace WpfGrafApp1
             RefreshEdgesListBox();
             return edge;
         }
-        private void RefreshNodesListBox()
-        {
-            nodesListBox.ItemsSource = null;
-            nodesListBox.ItemsSource = graf.Nodes;
-        }
-        private void RefreshEdgesListBox()
-        {
-            edgesListBox.ItemsSource = null;
-            edgesListBox.ItemsSource = graf.Edges;
-        }
-
-        private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClearCanvasAndDeleteGraf();
-        }
-
         private void ClearCanvasAndDeleteGraf()
         {
             drawCanvas.Children.Clear();
@@ -171,7 +168,6 @@ namespace WpfGrafApp1
             Node.createdNodes = 1;
             Edge.createdEdges = 1;
         }
-
         private void CreateGrafButton_Click(object sender, RoutedEventArgs e)
         {
             SaveGrafToFile();
@@ -180,7 +176,10 @@ namespace WpfGrafApp1
             //DrawMatrixes(graf);
             ClearCanvasAndDeleteGraf();
         }
-
+        private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearCanvasAndDeleteGraf();
+        }
         private void DrawMatrixes(Graf graf)
         {
             //TODO - implement method
@@ -194,14 +193,10 @@ namespace WpfGrafApp1
 
             drawCanvas.Children.Add(grid);
         }
-
         private void CreateMatrixes(Graf g)
         {
-            Actions a = new Actions();
-            graf.AdjacencyMatrix = a.CreateAdjacencyMatrix(graf);
             //TODO - Create graf's matrixes
         }
-
         private void SaveGrafToFile()
         {
             Rect rect = new Rect(drawCanvas.Margin.Left, drawCanvas.Margin.Top, drawCanvas.ActualWidth, drawCanvas.ActualHeight);
@@ -313,12 +308,5 @@ namespace WpfGrafApp1
                     break;
             }
         }
-
-        private void drawCanvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            mouseStatus.Content = $"X: {Mouse.GetPosition(drawCanvas).X} Y:{Mouse.GetPosition(drawCanvas).Y}";
-        }
-
-
     }
 }
