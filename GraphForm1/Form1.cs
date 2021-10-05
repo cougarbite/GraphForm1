@@ -1,12 +1,7 @@
 ﻿using GrafLib;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GraphForm1
@@ -14,7 +9,7 @@ namespace GraphForm1
     public partial class Form1 : Form
     {
         Graphics g;
-        Pen p = new Pen(Color.Black,5);
+        Pen p = new Pen(Color.Black, 5);
         Font f = new Font("Arial", 10);
         Point cursor;
 
@@ -51,7 +46,7 @@ namespace GraphForm1
             {
                 Edge edge = new Edge();
                 //TODO - Check the method below
-                g.DrawLine(p,100,100,300,300);
+                g.DrawLine(p, 100, 100, 300, 300);
                 graf.Edges = edges;
                 RefreshEdgeList();
             }

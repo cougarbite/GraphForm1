@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GrafLib
 {
-    public class Edge : IDisplayUI
+    public class Edge
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -47,7 +43,7 @@ namespace GrafLib
             Node p2 = this.AdjacentNodes[1];
             p1.AdjacentNodes.Remove(p2);
             p2.AdjacentNodes.Remove(p1);
-            foreach (Edge adjacentEdge in  this.AdjacentEdges)
+            foreach (Edge adjacentEdge in this.AdjacentEdges)
             {
                 adjacentEdge.AdjacentEdges.Remove(this);
             }
