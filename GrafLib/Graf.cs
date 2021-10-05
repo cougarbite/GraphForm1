@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrafLib
 {
-    public class Graf : IDisplayUI
+    public class Graf : IMainWindow
     {
         public string Name { get; set; }
         public List<Node> Nodes { get; set; }
@@ -107,13 +104,13 @@ namespace GrafLib
         public int[,] CreateAfromK(int[,] kMatrix)
         {
             int rows = kMatrix.Length / 3, cols = rows;
-            int[,] resultingMatrix = new int[rows,cols];
+            int[,] resultingMatrix = new int[rows, cols];
 
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    if (kMatrix[i,j] == -1)
+                    if (kMatrix[i, j] == -1)
                         resultingMatrix[i, j] = 1;
                     else
                         resultingMatrix[i, j] = 0;
@@ -125,21 +122,21 @@ namespace GrafLib
         public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
         {
             //TODO - Implement i to a
-            int[,] resultingMatrix = new int[nodes,nodes];
+            int[,] resultingMatrix = new int[nodes, nodes];
             resultingMatrix[0, 0] = 0;
             for (int i = 0; i < nodes; i++)
             {
                 for (int j = 1; j <= edges; j++)
                 {
-                    if (iMatrix[i, j] == 1&& iMatrix[i,j+1] == 1)
+                    if (iMatrix[i, j] == 1 && iMatrix[i, j + 1] == 1)
                     {
-                        resultingMatrix[i, j+1] = 1;
-                        resultingMatrix[i+1, j] = 1;
+                        resultingMatrix[i, j + 1] = 1;
+                        resultingMatrix[i + 1, j] = 1;
                     }
                     else
                     {
-                        resultingMatrix[i, j+1] = 0;
-                        resultingMatrix[i+1, j] = 0;
+                        resultingMatrix[i, j + 1] = 0;
+                        resultingMatrix[i + 1, j] = 0;
                     }
                 }
             }
@@ -170,7 +167,7 @@ namespace GrafLib
                     {
                         for (int k = 0; k < edges; k++)
                         {
-                            if (iMatrix[i,k] == 1)
+                            if (iMatrix[i, k] == 1)
                                 grade++;
                         }
                         resultingMatrix[i, j] = grade;

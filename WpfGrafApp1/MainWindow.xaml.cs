@@ -1,17 +1,10 @@
 ﻿using GrafLib;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WpfGrafApp1
@@ -197,7 +190,7 @@ namespace WpfGrafApp1
             grid.VerticalAlignment = VerticalAlignment.Top;
             grid.ShowGridLines = true;
             grid.Background = new SolidColorBrush(Colors.AliceBlue);
-            
+
 
             drawCanvas.Children.Add(grid);
         }
@@ -262,12 +255,12 @@ namespace WpfGrafApp1
                 // To Adjacency Matrix
                 if (toMatrixComboBox.SelectedIndex == 0)
                 {
-                    graf.CreateAfromI(graf.IncidencyMatrix);
+                    graf.CreateAfromI(graf.IncidencyMatrix, graf.Edges.Count, graf.Nodes.Count);
                 }
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromI(graf.IncidencyMatrix);
+                    graf.CreateKfromI(graf.IncidencyMatrix, graf.Edges.Count, graf.Nodes.Count);
                 }
                 else
                 {
@@ -300,7 +293,7 @@ namespace WpfGrafApp1
             switch (CreateSwitch())
             {
                 case 0:
-                        break;
+                    break;
                 case 1:
                     graf.CreateAfromK(graf.AdjacencyMatrix);
                     break;
@@ -314,7 +307,7 @@ namespace WpfGrafApp1
                     graf.CreateKfromA(graf.KirchhoffMatrix);
                     break;
                 case 5:
-                    graf.CreateKfromI(graf.KirchhoffMatrix);
+                    //graf.CreateKfromI(graf.KirchhoffMatrix);
                     break;
                 default:
                     break;
@@ -326,6 +319,6 @@ namespace WpfGrafApp1
             mouseStatus.Content = $"X: {Mouse.GetPosition(drawCanvas).X} Y:{Mouse.GetPosition(drawCanvas).Y}";
         }
 
-        
+
     }
 }
