@@ -56,7 +56,6 @@ namespace GraphForm1
                     graf.Edges = edges;
                     RefreshEdgeList();
                 }
-                //TODO - Check the method below
             }
         }
 

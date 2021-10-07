@@ -23,10 +23,10 @@ namespace GrafLib
             Name = $"Graf {time.Hour}{time.Minute}{time.Second} " + createdGrafs++;
         }
 
-        //
-        // Static methods for creating matrix representation of the Graph
-        //
-
+        ////////////////////////////////////////////////////////////////////
+        // Static methods for creating matrix representation of the Graph //
+        ////////////////////////////////////////////////////////////////////
+        
         public static int[,] CreateAdjacencyMatrix(Graf graf)
         {
             //TODO - check for graph without nodes
@@ -105,9 +105,15 @@ namespace GrafLib
             return output;
         }
 
-        //
-        // Methods for transforming from one matrix to another
-        //
+        /////////////////////////////////////////////////////////
+        // Methods for transforming from one matrix to another //
+        /////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aMatrix"></param>
+        /// <returns></returns>
         public int[,] CreateIfromA(int[,] aMatrix)
         {
             //TODO - Implement i from a
@@ -254,13 +260,13 @@ namespace GrafLib
             return resultingMatrix;
         }
         /// <summary>
-        /// 
+        /// Creaza matricea lui Kirchoff din matricea de incidenta.
         /// </summary>
-        /// <param name="iMatrix"></param>
-        /// <returns></returns>
+        /// <param name="iMatrix">Matricea de baza.</param>
+        /// <returns>Matricea lui Kirchoff rezultata din matricea de baza.</returns>
         public int[,] CreateKfromI(int[,] iMatrix)
         {
-            //TODO - Implement k from i
+            //TODO - Check for solutions when edges < nodes
             int edges = 0;
             //Aflam numarul de muchii
             foreach (int val in iMatrix)
@@ -271,15 +277,23 @@ namespace GrafLib
             int nodes = iMatrix.Length / edges;
 
             int[,] resultingMatrix = new int[nodes, nodes];
-            int x = 0, y = 0, counter = 0;
+            int x = 0, y = 0, counter = 0, grade = 0;
             for (int i = 0; i < edges; i++)
             {
                 for (int j = 0; j < nodes; j++)
                 {
+                    //Daca e vorba despre acelasi nod, ii aflam gradul si il punem in matrice
                     if (i == j)
                     {
-                        //TODO - implement node's grade
-                        resultingMatrix[i, j] = 9;
+                        for (int k = 0; k < edges; k++)
+                        {
+                            if (iMatrix[k, j] == 1)
+                            {
+                                grade++;
+                            }
+                        }
+                        resultingMatrix[i, j] = grade;
+                        grade = 0;
                     }
 
                     if (iMatrix[i, j] == 1 && counter % 2 == 0)
@@ -297,7 +311,6 @@ namespace GrafLib
                 resultingMatrix[y, x] = -1;
             }
             return resultingMatrix;
-            //throw new NotImplementedException();
         }
     }
 }

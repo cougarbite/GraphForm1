@@ -184,7 +184,7 @@ namespace WpfGrafApp1
         }
         private void DrawMatrixes(Graf graf)
         {
-            //TODO - implement method
+            //TODO - implement method for listing matrix transformation & graf details
             Grid grid = new Grid();
             grid.Width = 400;
             grid.HorizontalAlignment = HorizontalAlignment.Left;
