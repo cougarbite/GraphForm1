@@ -216,15 +216,12 @@ namespace GrafLib
             throw new NotImplementedException();
         }
         /// <summary>
-        /// 
+        /// Creaza matricea de adiacenta din matricea de incidenta.
         /// </summary>
-        /// <param name="iMatrix"></param>
-        /// <param name="nodes"></param>
-        /// <param name="edges"></param>
-        /// <returns></returns>
+        /// <param name="iMatrix">Matricea de baza.</param>
+        /// <returns>Matricea de adiacenta rezultata din matricea de baza.</returns>
         public int[,] CreateAfromI(int[,] iMatrix)
         {
-            //TODO - Implement a from i
             int edges = 0;
             //Aflam numarul de muchii
             foreach (int val in iMatrix)
@@ -260,16 +257,47 @@ namespace GrafLib
         /// 
         /// </summary>
         /// <param name="iMatrix"></param>
-        /// <param name="nodes"></param>
-        /// <param name="edges"></param>
         /// <returns></returns>
-        public int[,] CreateKfromI(int[,] iMatrix, int nodes, int edges)
+        public int[,] CreateKfromI(int[,] iMatrix)
         {
             //TODO - Implement k from i
-            int[,] resultingMatrix = new int[nodes, nodes];
+            int edges = 0;
+            //Aflam numarul de muchii
+            foreach (int val in iMatrix)
+                if (val == 1)
+                    edges++;
+            edges /= 2;
 
+            int nodes = iMatrix.Length / edges;
+
+            int[,] resultingMatrix = new int[nodes, nodes];
+            int x = 0, y = 0, counter = 0;
+            for (int i = 0; i < edges; i++)
+            {
+                for (int j = 0; j < nodes; j++)
+                {
+                    if (i == j)
+                    {
+                        //TODO - implement node's grade
+                        resultingMatrix[i, j] = 9;
+                    }
+
+                    if (iMatrix[i, j] == 1 && counter % 2 == 0)
+                    {
+                        x = j;
+                        counter++;
+                    }
+                    else if (iMatrix[i, j] == 1 && counter % 2 == 1)
+                    {
+                        y = j;
+                        counter++;
+                    }
+                }
+                resultingMatrix[x, y] = -1;
+                resultingMatrix[y, x] = -1;
+            }
             return resultingMatrix;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

@@ -253,7 +253,7 @@ namespace WpfGrafApp1
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromI(graf.IncidencyMatrix, graf.Edges.Count, graf.Nodes.Count);
+                    graf.CreateKfromI(graf.IncidencyMatrix);
                 }
                 else
                 {
