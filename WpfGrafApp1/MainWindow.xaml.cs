@@ -248,7 +248,7 @@ namespace WpfGrafApp1
                 // To Adjacency Matrix
                 if (toMatrixComboBox.SelectedIndex == 0)
                 {
-                    graf.CreateAfromI(graf.IncidencyMatrix, graf.Edges.Count, graf.Nodes.Count);
+                    graf.CreateAfromI(graf.IncidencyMatrix);
                 }
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)

@@ -114,14 +114,15 @@ namespace GrafLib
             int nodes = (int)Math.Sqrt(aMatrix.Length), edges = 0;
 
             //Aflam numarul de muchii
-            foreach (int n in aMatrix)
-                if (n == 1)
+            foreach (int val in aMatrix)
+                if (val == 1)
                     edges++;
             edges /= 2;
 
             int[,] resultingMatrix = new int[edges,nodes];
 
-            for (int i = 0; i < edges; i++)
+            int k;
+            for (int i = 0; i < nodes; i++)
             {
                 for (int j = 0; j < nodes; j++)
                 {
@@ -129,6 +130,8 @@ namespace GrafLib
                     {
                         continue;
                     }
+                    if (aMatrix[i, j] == 1)
+                        resultingMatrix[i, j] = 1;
                     else
                         resultingMatrix[i, j] = 0;
                 }
@@ -219,13 +222,39 @@ namespace GrafLib
         /// <param name="nodes"></param>
         /// <param name="edges"></param>
         /// <returns></returns>
-        public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
+        public int[,] CreateAfromI(int[,] iMatrix)
         {
             //TODO - Implement a from i
-            int[,] resultingMatrix = new int[nodes, nodes];
+            int edges = 0;
+            //Aflam numarul de muchii
+            foreach (int val in iMatrix)
+                if (val == 1)
+                    edges++;
+            edges /= 2;
 
+            int nodes = iMatrix.Length/edges;
+
+            int[,] resultingMatrix = new int[nodes, nodes];
+            int x = 0, y = 0, counter = 0;
+            for (int i = 0; i < edges; i++)
+            {
+                for (int j = 0; j < nodes; j++)
+                {
+                    if (iMatrix[i,j] == 1 && counter % 2 == 0)
+                    {
+                        x = j;
+                        counter++;
+                    }
+                    else if (iMatrix[i,j] == 1 && counter % 2 == 1)
+                    {
+                        y = j;
+                        counter++;
+                    }
+                }
+                resultingMatrix[x, y] = 1;
+                resultingMatrix[y, x] = 1;
+            }
             return resultingMatrix;
-            throw new NotImplementedException();
         }
         /// <summary>
         /// 
