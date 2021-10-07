@@ -170,11 +170,13 @@ namespace WpfGrafApp1
         }
         private void CreateGrafButton_Click(object sender, RoutedEventArgs e)
         {
+            graf.AdjacencyMatrix = Graf.CreateAdjacencyMatrix(graf);
+            graf.KirchhoffMatrix = Graf.CreateKirchhoffMatrix(graf);
+            graf.IncidencyMatrix = Graf.CreateIncidencyMatrix(graf);
             SaveGrafToFile();
             mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
-            //CreateMatrixes(graf);
             //DrawMatrixes(graf);
-            ClearCanvasAndDeleteGraf();
+            //ClearCanvasAndDeleteGraf();
         }
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
@@ -192,10 +194,6 @@ namespace WpfGrafApp1
 
 
             drawCanvas.Children.Add(grid);
-        }
-        private void CreateMatrixes(Graf g)
-        {
-            //TODO - Create graf's matrixes
         }
         private void SaveGrafToFile()
         {
@@ -237,7 +235,7 @@ namespace WpfGrafApp1
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromA(graf.IncidencyMatrix);
+                    graf.CreateKfromA(graf.AdjacencyMatrix);
                 }
                 else
                 {

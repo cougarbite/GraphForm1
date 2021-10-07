@@ -23,8 +23,13 @@ namespace GrafLib
             Name = $"Graf {time.Hour}{time.Minute}{time.Second} " + createdGrafs++;
         }
 
-        public int[,] CreateAdjacencyMatrix(Graf graf)
+        //
+        // Static methods for creating matrix representation of the Graph
+        //
+
+        public static int[,] CreateAdjacencyMatrix(Graf graf)
         {
+            //TODO - check for graph without nodes
             int i = 0, j = 0, length = graf.Nodes.Count;
             int[,] output = new int[length, length];
 
@@ -40,16 +45,18 @@ namespace GrafLib
                         output[i, j] = 0;
                     j++;
                 }
+                j = 0;
                 i++;
             }
             return output;
         }
 
-        public int[,] CreateIncidencyMatrix(Graf graf)
+        public static int[,] CreateIncidencyMatrix(Graf graf)
         {
-            int i = 0, j = 0, length = graf.Nodes.Count;
-            int[,] output = new int[length, length];
+            int i = 0, j = 0, nodes = graf.Nodes.Count, edges = graf.Edges.Count;
+            int[,] output = new int[edges, nodes];
 
+            //TODO - check for graph without edges
             foreach (Edge edge in graf.Edges)
             {
                 foreach (Node node in graf.Nodes)
@@ -62,12 +69,13 @@ namespace GrafLib
                         output[i, j] = 0;
                     j++;
                 }
+                j = 0;
                 i++;
             }
             return output;
         }
 
-        public int[,] CreateKirchhoffMatrix(Graf graf)
+        public static int[,] CreateKirchhoffMatrix(Graf graf)
         {
             int i = 0, j = 0, length = graf.Nodes.Count;
             int[,] output = new int[length, length];
@@ -84,109 +92,155 @@ namespace GrafLib
                     {
                         if (node1.AdjacentNodes.Contains(node2))
                         {
-                            output[i, j] = 1;
+                            output[i, j] = -1;
                         }
                         else
                             output[i, j] = 0;
                     }
                     j++;
                 }
+                j = 0;
                 i++;
             }
             return output;
         }
+
+        //
+        // Methods for transforming from one matrix to another
+        //
         public int[,] CreateIfromA(int[,] aMatrix)
         {
-            //TODO - Implement this method A => K
-            throw new NotImplementedException();
+            //TODO - Implement i from a
+            int nodes = (int)Math.Sqrt(aMatrix.Length), edges = 0;
+
+            //Aflam numarul de muchii
+            foreach (int n in aMatrix)
+                if (n == 1)
+                    edges++;
+            edges /= 2;
+
+            int[,] resultingMatrix = new int[edges,nodes];
+
+            for (int i = 0; i < edges; i++)
+            {
+                for (int j = 0; j < nodes; j++)
+                {
+                    if (i == j)
+                    {
+                        continue;
+                    }
+                    else
+                        resultingMatrix[i, j] = 0;
+                }
+            }
+
+            return resultingMatrix;
+            //throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Creaza matricea lui Kirchoff din matricea de adiacenta.
+        /// </summary>
+        /// <param name="aMatrix">Matricea de baza.</param>
+        /// <returns>Matricea lui Kirchoff rezultata din matricea de baza.</returns>
         public int[,] CreateKfromA(int[,] aMatrix)
         {
-            //TODO - Implement this method A => K
-            throw new NotImplementedException();
-        }
-        public int[,] CreateAfromK(int[,] kMatrix)
-        {
-            int rows = kMatrix.Length / 3, cols = rows;
-            int[,] resultingMatrix = new int[rows, cols];
-
-            for (int i = 0; i < rows; i++)
+            int grade = 0, n = (int)Math.Sqrt(aMatrix.Length);
+            int[,] resultingMatrix = new int[n, n];
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (kMatrix[i, j] == -1)
-                        resultingMatrix[i, j] = 1;
+                    //Daca e vorba despre acelasi nod, ii aflam gradul si il punem in matrice
+                    if (i == j)
+                    {
+                        for (int k = 0; k < n; k++)
+                        {
+                            if (aMatrix[i, k] == 1)
+                            {
+                                grade++;
+                            }
+                        }
+                        resultingMatrix[i, j] = grade;
+                        grade = 0;
+                    }
+                    //Daca nodurile sunt adiacente, punem un -1 in matrice
+                    else if (aMatrix[i, j] == 1)
+                        resultingMatrix[i, j] = -1;
+                    //Daca nodurile nu sunt adiacente, punem un 0 in matrice
                     else
                         resultingMatrix[i, j] = 0;
                 }
             }
             return resultingMatrix;
         }
-        public int[,] CreateIfromK(int[,] kMatrix)
+        /// <summary>
+        /// Creaza matricea de adiacenta din matricea lui Kirchoff.
+        /// </summary>
+        /// <param name="kMatrix">Matricea de baza.</param>
+        /// <returns>Matricea de adiacenta rezultata din matricea de baza.</returns>
+        public int[,] CreateAfromK(int[,] kMatrix)
         {
-            //TODO - Implement this method A => K
-            throw new NotImplementedException();
-        }
-        public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
-        {
-            //TODO - Implement i to a
-            int[,] resultingMatrix = new int[nodes, nodes];
-            resultingMatrix[0, 0] = 0;
-            for (int i = 0; i < nodes; i++)
+            int n = (int)Math.Sqrt(kMatrix.Length);
+            int[,] resultingMatrix = new int[n, n];
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 1; j <= edges; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (iMatrix[i, j] == 1 && iMatrix[i, j + 1] == 1)
-                    {
-                        resultingMatrix[i, j + 1] = 1;
-                        resultingMatrix[i + 1, j] = 1;
-                    }
-                    else
-                    {
-                        resultingMatrix[i, j + 1] = 0;
-                        resultingMatrix[i + 1, j] = 0;
-                    }
-                }
-            }
-
-            return resultingMatrix;
-        }
-        public int[,] CreateKfromI(int[,] iMatrix, int nodes, int edges)
-        {
-            //TODO - Implement this crappy method
-            int grade = 0, n = 0, m = 0;
-            int[,] resultingMatrix = new int[nodes, nodes];
-            for (int i = 0; i < nodes; i++)
-            {
-                for (int j = 0; j < edges; j++)
-                {
+                    //Daca e vorba despre acelasi nod, punem in matrice 0
                     if (i == j)
                     {
-                        for (int k = 0; k < edges; k++)
-                        {
-                            if (iMatrix[i, k] == 1)
-                                grade++;
-                        }
-                        resultingMatrix[i, j] = grade;
-                        grade = 0;
+                        resultingMatrix[i, j] = 0;
                     }
+                    //Daca nodurile sunt adiacente, punem un 1 in matrice
+                    else if (kMatrix[i, j] == -1)
+                        resultingMatrix[i, j] = 1;
+                    //Daca nodurile nu sunt adiacente, punem un 0 in matrice
                     else
-                    {
-                        if (iMatrix[i, j] == 1)
-                            for (int l = 0; l < nodes; l++)
-                            {
-                                //TODO - finish this shit
-
-
-
-                                resultingMatrix[i, j] = -1;
-                            }
-                        else
-                            resultingMatrix[i, j] = 0;
-                    }
+                        resultingMatrix[i, j] = 0;
                 }
             }
             return resultingMatrix;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kMatrix"></param>
+        /// <returns></returns>
+        public int[,] CreateIfromK(int[,] kMatrix)
+        {
+            //TODO - Implement i from k
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iMatrix"></param>
+        /// <param name="nodes"></param>
+        /// <param name="edges"></param>
+        /// <returns></returns>
+        public int[,] CreateAfromI(int[,] iMatrix, int nodes, int edges)
+        {
+            //TODO - Implement a from i
+            int[,] resultingMatrix = new int[nodes, nodes];
+
+            return resultingMatrix;
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iMatrix"></param>
+        /// <param name="nodes"></param>
+        /// <param name="edges"></param>
+        /// <returns></returns>
+        public int[,] CreateKfromI(int[,] iMatrix, int nodes, int edges)
+        {
+            //TODO - Implement k from i
+            int[,] resultingMatrix = new int[nodes, nodes];
+
+            return resultingMatrix;
+            throw new NotImplementedException();
         }
     }
 }
