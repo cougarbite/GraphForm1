@@ -7,17 +7,17 @@
         mc:Ignorable="d"
         Title="Details" Height="459.026" Width="812.894">
     <Grid>
-        <Label x:Name="GrafNodesLabel" Content="V(G)={}" HorizontalAlignment="Left" Margin="10,352,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="GrafEdgesLabel" Content="E(G) = {}" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GrafNodesLabel" Content="V(G)={}" HorizontalAlignment="Left" Margin="10,312,0,0" VerticalAlignment="Top" Width="772"/>
+        <Label x:Name="GrafEdgesLabel" Content="E(G) = {}" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top" Width="772"/>
         <Grid HorizontalAlignment="Left" Height="275" Margin="332,32,0,0" VerticalAlignment="Top" Width="450" Background="#FFF1E6E6"/>
         <Label Content="Matrice" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
-        <Label x:Name="grafMaxGradeLabel" Content="Delta(G) =" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="grafMinGradeLabel" Content="Gama(G) = " HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="grafNodesLabel" Content="|G| = " HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="grafMaxGradeLabel" Content="Delta(G) =" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label x:Name="grafMinGradeLabel" Content="Gama(G) = " HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label x:Name="grafNodesLabel" Content="|G| = " HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top" Width="60"/>
         <Image x:Name="grafImage" HorizontalAlignment="Left" Height="200" Margin="10,32,0,0" VerticalAlignment="Top" Width="300" Stretch="Fill"/>
         <Label x:Name="grafNameLabel" Content="Label" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="grafEdgesLabel" Content="||G|| = " HorizontalAlignment="Left" Margin="214,250,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="closeDetailsButton" Content="Close" HorizontalAlignment="Left" Margin="707,386,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label x:Name="grafEdgesLabel" Content="||G|| = " HorizontalAlignment="Left" Margin="214,250,0,0" VerticalAlignment="Top" Width="60"/>
+        <Button x:Name="closeDetailsButton" Content="Close" HorizontalAlignment="Left" Margin="707,386,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Foreground="#FFF50C0C"/>
 
     </Grid>
 </Window>
