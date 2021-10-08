@@ -109,20 +109,20 @@ namespace GrafLib
             int output = 0;
             foreach (Node node in graf.Nodes)
             {
-                if (node.AdjacentEdges.Count > output)
-                    output = node.AdjacentEdges.Count;
+                if (node.Grade > output)
+                    output = node.Grade;
             }
             return output;
         }
 
         public static int FindMinGrade(Graf graf)
         {
-            int output = graf.Nodes[0].AdjacentEdges.Count;
+            int output = graf.Nodes[0].Grade;
             foreach (Node node in graf.Nodes)
             {
-                if (node.AdjacentEdges.Count < output)
+                if (node.Grade < output)
                 {
-                    output = node.AdjacentEdges.Count;
+                    output = node.Grade;
                 }
             }
             return output;

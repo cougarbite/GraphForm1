@@ -31,6 +31,8 @@ namespace GrafLib
             p1.AdjacentEdges.Add(this);
             p2.AdjacentNodes.Add(p1);
             p2.AdjacentEdges.Add(this);
+            p1.Grade = p1.AdjacentEdges.Count;
+            p2.Grade = p2.AdjacentEdges.Count;
         }
         public void DeleteEdge()
         {

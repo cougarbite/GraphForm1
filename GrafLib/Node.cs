@@ -9,6 +9,7 @@ namespace GrafLib
         public string Name { get; set; }
         public int XCoord { get; set; }
         public int YCoord { get; set; }
+        public int Grade { get; set; }
         public List<Node> AdjacentNodes;
         public List<Edge> AdjacentEdges;
         public static int createdNodes = 1;
