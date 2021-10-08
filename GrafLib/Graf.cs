@@ -28,7 +28,13 @@ namespace GrafLib
         
         public static int[,] CreateAdjacencyMatrix(Graf graf)
         {
-            //TODO - check for graph without nodes
+            if (graf.Nodes is null)
+            {
+                List<Node> nodes = new List<Node>();
+                graf.Nodes = nodes;
+                return new int[graf.Nodes.Count, graf.Nodes.Count];
+            }
+
             int i = 0, j = 0, length = graf.Nodes.Count;
             int[,] output = new int[length, length];
 
@@ -52,26 +58,35 @@ namespace GrafLib
 
         public static int[,] CreateIncidencyMatrix(Graf graf)
         {
-            int i = 0, j = 0, nodes = graf.Nodes.Count, edges = graf.Edges.Count;
-            int[,] output = new int[edges, nodes];
-
-            //TODO - check for graph without edges
-            foreach (Edge edge in graf.Edges)
+            if (graf.Edges is null)
             {
-                foreach (Node node in graf.Nodes)
-                {
-                    if (edge.AdjacentNodes.Contains(node))
-                    {
-                        output[i, j] = 1;
-                    }
-                    else
-                        output[i, j] = 0;
-                    j++;
-                }
-                j = 0;
-                i++;
+                List<Edge> edges = new List<Edge>();
+                graf.Edges = edges;
+                return new int[1,graf.Nodes.Count];
             }
-            return output;
+            else
+            {
+                int i = 0, j = 0, nodes = graf.Nodes.Count, edges = graf.Edges.Count;
+                int[,] output = new int[edges, nodes];
+
+                //TODO - check for graph without edges
+                foreach (Edge edge in graf.Edges)
+                {
+                    foreach (Node node in graf.Nodes)
+                    {
+                        if (edge.AdjacentNodes.Contains(node))
+                        {
+                            output[i, j] = 1;
+                        }
+                        else
+                            output[i, j] = 0;
+                        j++;
+                    }
+                    j = 0;
+                    i++;
+                }
+                return output;
+            }
         }
 
         public static int[,] CreateKirchhoffMatrix(Graf graf)
@@ -117,15 +132,22 @@ namespace GrafLib
 
         public static int FindMinGrade(Graf graf)
         {
-            int output = graf.Nodes[0].Grade;
-            foreach (Node node in graf.Nodes)
+            if (graf.Nodes.Count == 0)
             {
-                if (node.Grade < output)
-                {
-                    output = node.Grade;
-                }
+                return 0;
             }
-            return output;
+            else
+            {
+                int output = graf.Nodes[0].Grade;
+                foreach (Node node in graf.Nodes)
+                {
+                    if (node.Grade < output)
+                    {
+                        output = node.Grade;
+                    }
+                }
+                return output;
+            }
         }
 
         /////////////////////////////////////////////////////////

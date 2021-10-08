@@ -23,7 +23,7 @@
         <ComboBox x:Name="toMatrixComboBox" HorizontalAlignment="Left" Margin="695,353,0,0" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="TransformMatrixButton" Content="Transform Matrix" HorizontalAlignment="Left" Margin="695,380,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click" Height="22"/>
         <Button x:Name="ViewGrafButton" Content="View Details" HorizontalAlignment="Left" Margin="533,326,0,0" VerticalAlignment="Top" Width="120" Click="ViewGrafButton_Click" Height="22"/>
-        <Button x:Name="CloseApplicationButton" Content="Close App" HorizontalAlignment="Left" Margin="695,440,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click" Foreground="#FFF50C0C" Height="22"/>
+        <Button x:Name="CloseAppButton" Content="Close App" HorizontalAlignment="Left" Margin="695,420,0,0" VerticalAlignment="Top" Width="120" Height="22" Foreground="#FFF50C0C" Click="CloseAppButton_Click"/>
 
     </Grid>
 </Window>

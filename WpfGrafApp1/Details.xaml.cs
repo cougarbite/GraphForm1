@@ -40,12 +40,50 @@ namespace WpfGrafApp1
             grafImage.Source = new BitmapImage(new Uri($@"C:\Users\darks\source\repos\GraphForm1\WpfGrafApp1\Grafuri\{selectedGraf.Name}.png"));
             grafMaxGradeLabel.Content = $"Δ(G) = {selectedGraf.MaxGrade}";
             grafMinGradeLabel.Content = $"δ(G) = {selectedGraf.MinGrade}";
-            grafNodesLabel.Content = $"|G| = {selectedGraf.Nodes.Count}";
-            grafEdgesLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
-
+            grafNCountLabel.Content = $"|G| = {selectedGraf.Nodes.Count}";
+            grafECountLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
+            grafNodesLabel.Content = ConvertNodesToString(selectedGraf.Nodes);
+            grafEdgesLabel.Content = ConvertEdgesToString(selectedGraf.Edges);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private string ConvertNodesToString(List<Node> list)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("V(G) = {");
+
+            if (list.Count == 0)
+                sb.Append(" Ø ");
+            else
+            {
+                foreach (Node node in list)
+                {
+                    sb.Append($" {node.Name} ");
+                }
+            }
+            sb.Append("}");
+            return sb.ToString();
+        }
+
+        private string ConvertEdgesToString(List<Edge> list)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("E(G) = {");
+
+            if (list.Count == 0)
+            {
+                sb.Append(" Ø ");
+            }
+            else
+            {
+                foreach (Edge edge in list)
+                {
+                    sb.Append($" {edge.Name}");
+                }
+            }
+            sb.Append("}");
+            return sb.ToString();
+        }
+        private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

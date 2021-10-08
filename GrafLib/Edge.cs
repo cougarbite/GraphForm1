@@ -12,7 +12,7 @@ namespace GrafLib
         public Edge(Node p1, Node p2)
         {
             Id = createdEdges++;
-
+            Name = "e" + Id;
             //Adaug nodurile unite de muchie
             this.AdjacentNodes.Add(p1);
             this.AdjacentNodes.Add(p2);

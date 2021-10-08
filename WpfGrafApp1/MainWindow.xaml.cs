@@ -229,6 +229,11 @@ namespace WpfGrafApp1
             details.Show();
         }
 
+        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
             // From Adjacency Matrix
