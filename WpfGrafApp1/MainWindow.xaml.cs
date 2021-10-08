@@ -224,6 +224,9 @@ namespace WpfGrafApp1
         }
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
+            Details details = new Details(graf);
+            details.Show();
+            
             // From Adjacency Matrix
             if (fromMatrixComboBox.SelectedIndex == 0)
             {

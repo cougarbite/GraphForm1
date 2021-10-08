@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfGrafApp1.Details"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfGrafApp1"
+        mc:Ignorable="d"
+        Title="Details" Height="450" Width="800">
+    <Grid>
+        <Label x:Name="GrafNodesLabel" Content="V(G)={}" HorizontalAlignment="Left" Margin="10,352,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GrafEdgesLabel" Content="E(G) = {}" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Left" Height="275" Margin="332,32,0,0" VerticalAlignment="Top" Width="450" Background="#FFF1E6E6"/>
+        <Label Content="Matrice" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
+        <Label x:Name="GrafMaxGradeLabel" Content="Delta(G) =" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GrafMinGradeLabel" Content="Gama(G) = " HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="GrafCardinalLabel" Content="|N|(G) = " HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="grafImage" HorizontalAlignment="Left" Height="200" Margin="10,32,0,0" VerticalAlignment="Top" Width="300" Stretch="Fill"/>
+        <Label x:Name="grafNameLabel" Content="Label" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

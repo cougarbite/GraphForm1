@@ -144,7 +144,6 @@ namespace GrafLib
             }
 
             return resultingMatrix;
-            //throw new NotImplementedException();
         }
 
         /// <summary>
