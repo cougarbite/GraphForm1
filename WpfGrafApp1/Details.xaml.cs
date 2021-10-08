@@ -44,6 +44,7 @@ namespace WpfGrafApp1
             grafECountLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
             grafNodesLabel.Content = ConvertNodesToString(selectedGraf.Nodes);
             grafEdgesLabel.Content = ConvertEdgesToString(selectedGraf.Edges);
+            grafDataGrid.ItemsSource = selectedGraf.IncidencyMatrix;
         }
 
         private string ConvertNodesToString(List<Node> list)
@@ -60,7 +61,7 @@ namespace WpfGrafApp1
                     sb.Append($" {node.Name} ");
                 }
             }
-            sb.Append("}");
+            sb.Append(" }");
             return sb.ToString();
         }
 
