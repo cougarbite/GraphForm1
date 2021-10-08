@@ -77,7 +77,7 @@ namespace WpfGrafApp1
             {
                 foreach (Edge edge in list)
                 {
-                    sb.Append($" {edge.Name}");
+                    sb.Append($" ({edge.AdjacentNodes[0].Name}, {edge.AdjacentNodes[1].Name}) ");
                 }
             }
             sb.Append("}");

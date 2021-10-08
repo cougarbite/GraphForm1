@@ -34,26 +34,28 @@ namespace GrafLib
                 graf.Nodes = nodes;
                 return new int[graf.Nodes.Count, graf.Nodes.Count];
             }
-
-            int i = 0, j = 0, length = graf.Nodes.Count;
-            int[,] output = new int[length, length];
-
-            foreach (Node node1 in graf.Nodes)
+            else
             {
-                foreach (Node node2 in graf.Nodes)
+                int i = 0, j = 0, length = graf.Nodes.Count;
+                int[,] output = new int[length, length];
+
+                foreach (Node node1 in graf.Nodes)
                 {
-                    if (node1.AdjacentNodes.Contains(node2))
+                    foreach (Node node2 in graf.Nodes)
                     {
-                        output[i, j] = 1;
+                        if (node1.AdjacentNodes.Contains(node2))
+                        {
+                            output[i, j] = 1;
+                        }
+                        else
+                            output[i, j] = 0;
+                        j++;
                     }
-                    else
-                        output[i, j] = 0;
-                    j++;
+                    j = 0;
+                    i++;
                 }
-                j = 0;
-                i++;
+                return output;
             }
-            return output;
         }
 
         public static int[,] CreateIncidencyMatrix(Graf graf)

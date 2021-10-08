@@ -15,7 +15,7 @@
         <Label x:Name="grafNCountLabel" Content="|G| = " HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top" Width="60"/>
         <Image x:Name="grafImage" HorizontalAlignment="Left" Height="200" Margin="10,32,0,0" VerticalAlignment="Top" Width="300" Stretch="Fill"/>
         <Label x:Name="grafNameLabel" Content="Label" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="grafECountLabel" Content="||G|| = " HorizontalAlignment="Left" Margin="214,250,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label x:Name="grafECountLabel" Content="||G|| = " HorizontalAlignment="Left" Margin="121,281,0,0" VerticalAlignment="Top" Width="60"/>
         <DataGrid x:Name="grafDataGrid" HorizontalAlignment="Left" Height="271" Margin="332,36,0,0" VerticalAlignment="Top" Width="450"/>
 
     </Grid>

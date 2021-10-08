@@ -46,6 +46,9 @@ namespace GrafLib
             }
             p1.AdjacentEdges.Remove(this);
             p2.AdjacentEdges.Remove(this);
+
+            p1.Grade = p1.AdjacentEdges.Count;
+            p2.Grade = p2.AdjacentEdges.Count;
         }
         public override string ToString()
         {
