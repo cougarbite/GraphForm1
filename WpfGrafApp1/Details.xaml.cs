@@ -36,8 +36,18 @@ namespace WpfGrafApp1
 
         private void PopulateForm()
         {
-            grafNameLabel.Content = selectedGraf.Name;
+            grafNameLabel.Content = $"Nume : {selectedGraf.Name}";
             grafImage.Source = new BitmapImage(new Uri($@"C:\Users\darks\source\repos\GraphForm1\WpfGrafApp1\Grafuri\{selectedGraf.Name}.png"));
+            grafMaxGradeLabel.Content = $"Δ(G) = {selectedGraf.MaxGrade}";
+            grafMinGradeLabel.Content = $"δ(G) = {selectedGraf.MinGrade}";
+            grafNodesLabel.Content = $"|G| = {selectedGraf.Nodes.Count}";
+            grafEdgesLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

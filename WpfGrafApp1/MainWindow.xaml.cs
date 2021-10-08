@@ -177,8 +177,6 @@ namespace WpfGrafApp1
             graf.MinGrade = Graf.FindMinGrade(graf);
             SaveGrafToFile();
             mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
-            //DrawMatrixes(graf);
-            //ClearCanvasAndDeleteGraf();
         }
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
@@ -224,11 +222,15 @@ namespace WpfGrafApp1
 
             return output;
         }
-        private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
+
+        private void ViewGrafButton_Click(object sender, RoutedEventArgs e)
         {
             Details details = new Details(graf);
             details.Show();
-            
+        }
+
+        private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
+        {
             // From Adjacency Matrix
             if (fromMatrixComboBox.SelectedIndex == 0)
             {
