@@ -60,7 +60,7 @@ namespace WpfGrafApp1
                     sb.Append($" {node.Name} ");
                 }
             }
-            sb.Append("}");
+            sb.Append(" }");
             return sb.ToString();
         }
 
