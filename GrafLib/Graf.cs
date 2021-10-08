@@ -8,7 +8,6 @@ namespace GrafLib
         public string Name { get; set; }
         public List<Node> Nodes { get; set; }
         public List<Edge> Edges { get; set; }
-        public int Grade { get; set; }
         public int MaxGrade { get; set; }
         public int MinGrade { get; set; }
         public int[,] AdjacencyMatrix { get; set; }
@@ -101,6 +100,30 @@ namespace GrafLib
                 }
                 j = 0;
                 i++;
+            }
+            return output;
+        }
+
+        public static int FindMaxGrade(Graf graf)
+        {
+            int output = 0;
+            foreach (Node node in graf.Nodes)
+            {
+                if (node.AdjacentEdges.Count > output)
+                    output = node.AdjacentEdges.Count;
+            }
+            return output;
+        }
+
+        public static int FindMinGrade(Graf graf)
+        {
+            int output = graf.Nodes[0].AdjacentEdges.Count;
+            foreach (Node node in graf.Nodes)
+            {
+                if (node.AdjacentEdges.Count < output)
+                {
+                    output = node.AdjacentEdges.Count;
+                }
             }
             return output;
         }

@@ -173,6 +173,8 @@ namespace WpfGrafApp1
             graf.AdjacencyMatrix = Graf.CreateAdjacencyMatrix(graf);
             graf.KirchhoffMatrix = Graf.CreateKirchhoffMatrix(graf);
             graf.IncidencyMatrix = Graf.CreateIncidencyMatrix(graf);
+            graf.MaxGrade = Graf.FindMaxGrade(graf);
+            graf.MinGrade = Graf.FindMinGrade(graf);
             SaveGrafToFile();
             mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
             //DrawMatrixes(graf);
