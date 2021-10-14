@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace GrafLib
@@ -12,6 +13,7 @@ namespace GrafLib
         public int Grade { get; set; }
         public List<Node> AdjacentNodes;
         public List<Edge> AdjacentEdges;
+        public bool isVisited = false;
         public static int createdNodes = 1;
         public Node(int X, int Y)
         {

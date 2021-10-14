@@ -44,7 +44,7 @@ namespace WpfGrafApp1
             grafECountLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
             grafNodesLabel.Content = ConvertNodesToString(selectedGraf.Nodes);
             grafEdgesLabel.Content = ConvertEdgesToString(selectedGraf.Edges);
-            grafDataGrid.ItemsSource = selectedGraf.IncidencyMatrix;
+            //grafDataGrid.ItemsSource = selectedGraf.IncidencyMatrix;
         }
 
         private string ConvertNodesToString(List<Node> list)
@@ -84,9 +84,42 @@ namespace WpfGrafApp1
             sb.Append("}");
             return sb.ToString();
         }
+
+        private void DFS(Node start, Stack<Node> unvisitedNodes, StringBuilder visited)
+        {
+            start.isVisited = true;
+            //visited.Add(start);
+            visited.Append(start.Name + " -> ");
+            foreach (Node node in start.AdjacentNodes)
+                if (!node.isVisited && !unvisitedNodes.Contains(node))
+                    unvisitedNodes.Push(node);
+
+            while (unvisitedNodes.Count > 0)
+                DFS(unvisitedNodes.Pop(), unvisitedNodes, visited);
+        }
+
+
         private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void algoritmBFSButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void algritmDFSButton_Click(object sender, RoutedEventArgs e)
+        {
+            Random random = new Random();
+            int index = random.Next(selectedGraf.Nodes.Count);
+            Node start = selectedGraf.Nodes[index];
+            Stack<Node> stack = new Stack<Node>();
+            StringBuilder visited = new StringBuilder();
+            DFS(start, stack, visited);
+            visited.Remove(visited.Length - 4, 4);
+            string output = visited.ToString();
+            grafDataGrid.ItemsSource = output;
         }
     }
 }
