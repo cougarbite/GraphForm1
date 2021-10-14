@@ -98,19 +98,44 @@ namespace WpfGrafApp1
                 DFS(unvisitedNodes.Pop(), unvisitedNodes, visited);
         }
 
+        private void BFS(Node start, Queue<Node> queuedNodes, StringBuilder visited)
+        {
+            start.isVisited = true;
+            visited.Append(start.Name + " -> ");
+            foreach (Node node in start.AdjacentNodes)
+                if (!node.isVisited && !queuedNodes.Contains(node))
+                    queuedNodes.Enqueue(node);
 
+            while (queuedNodes.Count > 0)
+                BFS(queuedNodes.Dequeue(), queuedNodes, visited);
+        }
         private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        private void ResetVisitedNodes(Graf graf)
+        {
+            foreach (Node node in graf.Nodes)
+                node.isVisited = false;
+        }
         private void algoritmBFSButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            ResetVisitedNodes(selectedGraf);
+            Random random = new Random();
+            int index = random.Next(selectedGraf.Nodes.Count);
+            Node start = selectedGraf.Nodes[index];
+            Queue<Node> queue = new Queue<Node>();
+            StringBuilder visited = new StringBuilder();
+            BFS(start, queue, visited);
+            visited.Remove(visited.Length - 4, 4);
+            string output = visited.ToString();
+            MessageBox.Show(output, "BFS - Parcurgerea in adancime", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void algritmDFSButton_Click(object sender, RoutedEventArgs e)
         {
+            ResetVisitedNodes(selectedGraf);
             Random random = new Random();
             int index = random.Next(selectedGraf.Nodes.Count);
             Node start = selectedGraf.Nodes[index];
@@ -119,7 +144,7 @@ namespace WpfGrafApp1
             DFS(start, stack, visited);
             visited.Remove(visited.Length - 4, 4);
             string output = visited.ToString();
-            grafDataGrid.ItemsSource = output;
+            MessageBox.Show(output, "DFS - Parcurgerea in latime", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
