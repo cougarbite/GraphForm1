@@ -133,7 +133,7 @@ namespace WpfGrafApp1
             MessageBox.Show(output, "BFS - Parcurgerea in adancime", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void algritmDFSButton_Click(object sender, RoutedEventArgs e)
+        private void algoritmDFSButton_Click(object sender, RoutedEventArgs e)
         {
             ResetVisitedNodes(selectedGraf);
             Random random = new Random();
