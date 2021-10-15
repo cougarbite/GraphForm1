@@ -44,6 +44,8 @@ namespace WpfGrafApp1
             grafECountLabel.Content = $"||G|| = {selectedGraf.Edges.Count}";
             grafNodesLabel.Content = ConvertNodesToString(selectedGraf.Nodes);
             grafEdgesLabel.Content = ConvertEdgesToString(selectedGraf.Edges);
+            grafNCoverage.Content = $"β0(G) = {Graf.FindNodeCover(selectedGraf)}";
+            grafECoverage.Content = $"β1(G) = {Graf.FindEdgeCover(selectedGraf)}";
             //grafDataGrid.ItemsSource = selectedGraf.IncidencyMatrix;
         }
 
@@ -119,6 +121,12 @@ namespace WpfGrafApp1
             foreach (Node node in graf.Nodes)
                 node.isVisited = false;
         }
+        private void ResetCoveredEdges(Graf graf)
+        {
+            foreach (Edge node in graf.Edges)
+                node.isCovered = false;
+        }
+
         private void algoritmBFSButton_Click(object sender, RoutedEventArgs e)
         {
             ResetVisitedNodes(selectedGraf);
@@ -145,6 +153,15 @@ namespace WpfGrafApp1
             visited.Remove(visited.Length - 4, 4);
             string output = visited.ToString();
             MessageBox.Show(output, "DFS - Parcurgerea in latime", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void MaximalSizeCliqueButton_Click(object sender, RoutedEventArgs e)
+        {
+            ResetVisitedNodes(selectedGraf);
+            ResetCoveredEdges(selectedGraf);
+            Graf.FindMaximalSizeClique(selectedGraf);
+            string output = "";
+            MessageBox.Show(output, "Bron Kerbosch - Multimea stabila interior maxima", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

@@ -151,6 +151,61 @@ namespace GrafLib
                 return output;
             }
         }
+        public static int FindNodeCover(Graf selectedGraf)
+        {
+            //TODO - De implementat logica gasirii acoperiri minime de varfuri
+
+            return 0;
+        }
+
+        public static int FindEdgeCover(Graf graf)
+        {
+            int output = 0;
+
+            output = (int)Math.Ceiling(graf.Nodes.Count / 2.0);
+
+            return output;
+        }
+
+        public static List<List<Node>> FindMaximalSizeClique(Graf graf)
+        {
+            List<List<Node>> multimiStabileInterior = new List<List<Node>>();
+            List<Node> multimeStabilaInterior = new List<Node>();
+            List<Node> noduriPotentiale = new List<Node>();
+            List<Node> noduriFolosite = new List<Node>();
+
+            noduriPotentiale = graf.Nodes;
+
+            List<Node> BronKerbosch(List<Node> noduriDisponibile, List<Node>noduriIndisponibile)
+            {
+                while ((noduriDisponibile.Count > 0))
+                {
+                    //Luam un nod din lista de noduri a grafului
+                    foreach (Node node in noduriDisponibile)
+                    {
+                        //Il plasam in multimea stabile interior
+                        multimeStabilaInterior.Add(node);
+
+                        //Crem lista cu nodurile potentiale de adaugat in multimea stabila interior relativ la nodul selectat
+                        List<Node> noduriPotentialeRelative = noduriDisponibile;
+
+                        //Scoatem din lista nodurilor potentiale relative nodurile adiacente cu nodul selectat
+                        foreach (Node adj in node.AdjacentNodes)
+                        {
+                            noduriPotentialeRelative.Remove(adj);
+                            noduriFolosite.Add(adj);
+                        }
+                        //aici noduriPotentialRelative e corect
+                        BronKerbosch(noduriDisponibile, noduriIndisponibile);
+                    }
+                }
+                return multimeStabilaInterior;
+            }
+
+            multimiStabileInterior.Add(multimeStabilaInterior);
+
+            return multimiStabileInterior;
+        }
 
         /////////////////////////////////////////////////////////
         // Methods for transforming from one matrix to another //
