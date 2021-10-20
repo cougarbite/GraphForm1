@@ -68,24 +68,26 @@ namespace WpfGrafApp1
                     graf.Nodes.Remove(selectedNode);
                     nodes.Remove(selectedNode);
 
+                    //remove associated TexBox from graphics
+                    drawCanvas.Children.RemoveAt(drawCanvas.Children.IndexOf(selectedRectangle)+1);
+
                     //remove from graphics
                     drawCanvas.Children.Remove(selectedRectangle);
-
                     //remove from dictionary
                     nodePairs.Remove(selectedRectangle);
                     RefreshNodesListBox();
                 }
                 else
                 {
-                    //Ellipse ellipse = new Ellipse { Width = 20, Height = 20, Stroke = Brushes.Black, StrokeThickness = 5 };
-                    //Canvas.
                     Rectangle newRectangle = new Rectangle { Width = 10, Height = 10, Stroke = Brushes.Black, StrokeThickness = 5 };
                     Canvas.SetLeft(newRectangle, Mouse.GetPosition(drawCanvas).X - 5);
                     Canvas.SetTop(newRectangle, Mouse.GetPosition(drawCanvas).Y - 5);
-                    Canvas.SetZIndex(newRectangle, 1);
+                    Canvas.SetZIndex(newRectangle, 2);
                     drawCanvas.Children.Add(newRectangle);
                     Node newNode = CreateNode(newRectangle);
                     nodePairs.Add(newRectangle, newNode);
+
+                    DrawText(Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0,0, 0));
                 }
             }
             else if (drawEdgeRadioButton.IsChecked == true)
@@ -157,6 +159,18 @@ namespace WpfGrafApp1
             RefreshEdgesListBox();
             return edge;
         }
+
+        private void DrawText(double x, double y, string text, Color color)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = text;
+            textBlock.Foreground = new SolidColorBrush(color);
+            Canvas.SetLeft(textBlock, x);
+            Canvas.SetTop(textBlock, y);
+            Canvas.SetZIndex(textBlock, 1);
+            drawCanvas.Children.Add(textBlock);
+        }
+
         private void ClearCanvasAndDeleteGraf()
         {
             drawCanvas.Children.Clear();
