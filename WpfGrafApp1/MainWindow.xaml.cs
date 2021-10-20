@@ -102,6 +102,9 @@ namespace WpfGrafApp1
                     graf.Edges.Remove(selectedEdge);
                     edges.Remove(selectedEdge);
 
+                    //remove associated TexBox from graphics
+                    drawCanvas.Children.RemoveAt(drawCanvas.Children.IndexOf(selectedLine) + 1);
+
                     //remove from graphics
                     drawCanvas.Children.Remove(selectedLine);
 
@@ -137,6 +140,9 @@ namespace WpfGrafApp1
                             drawCanvas.Children.Add(newLine);
                             Edge newEdge = CreateEdge(node1, node2);
                             edgePairs.Add(newLine, newEdge);
+
+                            DrawText((newLine.X2 - newLine.X1) / 2 + newLine.X1, (newLine.Y2 - newLine.Y1) / 2 + newLine.Y1, newEdge.Name, Color.FromRgb(0, 0, 0));
+
                             newLine = new Line();
                         }
                     }
