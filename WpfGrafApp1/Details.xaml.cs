@@ -46,7 +46,9 @@ namespace WpfGrafApp1
             grafEdgesLabel.Content = ConvertEdgesToString(selectedGraf.Edges);
             grafNCoverage.Content = $"β0(G) = {Graf.FindNodeCover(selectedGraf)}";
             grafECoverage.Content = $"β1(G) = {Graf.FindEdgeCover(selectedGraf)}";
-            //grafDataGrid.ItemsSource = selectedGraf.IncidencyMatrix;
+            PopulateAdjacencyGrid(selectedGraf.AdjacencyMatrix);
+            PopulateIncidenceGrid(selectedGraf.IncidenceMatrix);
+            PopulateKirchhoffGrid(selectedGraf.KirchhoffMatrix);
         }
 
         private string ConvertNodesToString(List<Node> list)
@@ -162,6 +164,74 @@ namespace WpfGrafApp1
             Graf.FindMaximalSizeClique(selectedGraf);
             string output = "";
             MessageBox.Show(output, "Bron Kerbosch - Multimea stabila interior maxima", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void DrawText(Canvas canvas, double x, double y, string text, Color color)
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = text;
+            textBlock.Foreground = new SolidColorBrush(color);
+            Canvas.SetLeft(textBlock, x);
+            Canvas.SetTop(textBlock, y);
+            Canvas.SetZIndex(textBlock, 1);
+            canvas.Children.Add(textBlock);
+        }
+
+        private void PopulateAdjacencyGrid(int[,] aMatrix)
+        {
+            int rows = (int)Math.Sqrt(aMatrix.Length);
+            int delta = 0;
+            int beta = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < rows; j++)
+                {
+                    DrawText(aCanvas, delta, beta, aMatrix[i, j].ToString(), Color.FromRgb(0, 0, 0));
+                    beta += 15;
+                }
+                beta = 0;
+                delta += 15;
+            }
+        }
+
+        private void PopulateIncidenceGrid(int[,] iMatrix)
+        {
+            int rows = selectedGraf.Nodes.Count;
+            int columns = selectedGraf.Edges.Count;
+            int delta = 0;
+            int beta = 0;
+            for (int j = 0; j < rows; j++)
+            {
+                for (int i = 0; i < columns; i++)
+                {
+                    DrawText(iCanvas, delta, beta, iMatrix[i, j].ToString(), Color.FromRgb(0, 0, 0));
+                    beta += 15;
+                }
+                beta = 0;
+                delta += 15;
+            }
+        }
+
+        private void PopulateKirchhoffGrid(int[,] kMatrix)
+        {
+            int rows = (int)Math.Sqrt(kMatrix.Length);
+            int delta = 0;
+            int beta = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < rows; j++)
+                {
+                    DrawText(kCanvas, delta, beta, kMatrix[i, j]< 0 ? kMatrix[i, j].ToString() : " " + kMatrix[i, j].ToString(), Color.FromRgb(0, 0, 0));
+                    beta += 15;
+                }
+                beta = 0;
+                delta += 15;
+            }
+        }
+
+        private void CloseDetailsButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

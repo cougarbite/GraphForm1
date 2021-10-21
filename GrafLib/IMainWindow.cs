@@ -11,7 +11,7 @@ namespace GrafLib
         List<Node> Nodes { get; set; }
         List<Edge> Edges { get; set; }
         int[,] AdjacencyMatrix { get; set; }
-        int[,] IncidencyMatrix { get; set; }
+        int[,] IncidenceMatrix { get; set; }
         int[,] KirchhoffMatrix { get; set; }
         //CreateGraf()
         //DeleteGraf()

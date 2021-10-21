@@ -11,7 +11,7 @@ namespace GrafLib
         public int MaxGrade { get; set; }
         public int MinGrade { get; set; }
         public int[,] AdjacencyMatrix { get; set; }
-        public int[,] IncidencyMatrix { get; set; }
+        public int[,] IncidenceMatrix { get; set; }
         public int[,] KirchhoffMatrix { get; set; }
 
         public static int createdGrafs = 1;
@@ -58,7 +58,7 @@ namespace GrafLib
             }
         }
 
-        public static int[,] CreateIncidencyMatrix(Graf graf)
+        public static int[,] CreateIncidenceMatrix(Graf graf)
         {
             if (graf.Edges is null)
             {

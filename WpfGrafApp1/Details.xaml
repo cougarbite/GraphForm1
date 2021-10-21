@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="grafNodesLabel" Content="V(G)={}" HorizontalAlignment="Left" Margin="10,312,0,0" VerticalAlignment="Top" Width="772"/>
         <Label x:Name="grafEdgesLabel" Content="E(G) = {}" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top" Width="772"/>
-        <Label Content="Matrice" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
+        <Label x:Name="aLabel" Content="Matricea de adiacenta" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
         <Label x:Name="grafMaxGradeLabel" Content="Delta(G) =" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top" Width="80"/>
         <Label x:Name="grafMinGradeLabel" Content="Gama(G) = " HorizontalAlignment="Left" Margin="10,281,0,0" VerticalAlignment="Top" Width="80"/>
         <Label x:Name="grafNCountLabel" Content="|G| = " HorizontalAlignment="Left" Margin="121,250,0,0" VerticalAlignment="Top" Width="80"/>
@@ -20,11 +20,13 @@
         <Button x:Name="algritmDFSButton" Content="DFS" HorizontalAlignment="Left" Margin="121,383,0,0" VerticalAlignment="Top" Width="80" Click="algoritmDFSButton_Click"/>
         <Label x:Name="grafECoverage" Content=" β1(G) =" HorizontalAlignment="Left" Margin="230,281,0,0" VerticalAlignment="Top" Width="80"/>
         <Label x:Name="grafNCoverage" Content=" β0(G) =" HorizontalAlignment="Left" Margin="230,250,0,0" VerticalAlignment="Top" Width="80"/>
-        <Button x:Name="CloseDetailsButton" Content="Close Details" HorizontalAlignment="Left" Margin="702,383,0,0" VerticalAlignment="Top" Width="80" Foreground="#FFF50C0C"/>
+        <Button x:Name="CloseDetailsButton" Content="Close Details" HorizontalAlignment="Left" Margin="702,383,0,0" VerticalAlignment="Top" Width="80" Foreground="#FFF50C0C" Click="CloseDetailsButton_Click_1"/>
         <Button x:Name="MaximalSizeCliqueButton" Content="Bron Kerbosch" HorizontalAlignment="Left" Margin="230,383,0,0" VerticalAlignment="Top" Width="80" Click="MaximalSizeCliqueButton_Click"/>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="332,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="437,41,0,0" VerticalAlignment="Top" Width="100"/>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="542,41,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="kLabel" Content="Matricea lui Kirchoff" HorizontalAlignment="Left" Margin="645,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
+        <Label x:Name="iLabel" Content="Matricea de incidenta" HorizontalAlignment="Left" Margin="490,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
+        <Canvas x:Name="aCanvas" HorizontalAlignment="Left" Height="150" Margin="332,41,0,0" VerticalAlignment="Top" Width="150"/>
+        <Canvas x:Name="kCanvas" HorizontalAlignment="Left" Height="150" Margin="645,41,0,0" VerticalAlignment="Top" Width="150"/>
+        <Canvas x:Name="iCanvas" HorizontalAlignment="Left" Height="150" Margin="487,41,0,0" VerticalAlignment="Top" Width="150"/>
 
     </Grid>
 </Window>

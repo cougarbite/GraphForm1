@@ -192,7 +192,7 @@ namespace WpfGrafApp1
         {
             graf.AdjacencyMatrix = Graf.CreateAdjacencyMatrix(graf);
             graf.KirchhoffMatrix = Graf.CreateKirchhoffMatrix(graf);
-            graf.IncidencyMatrix = Graf.CreateIncidencyMatrix(graf);
+            graf.IncidenceMatrix = Graf.CreateIncidenceMatrix(graf);
             graf.MaxGrade = Graf.FindMaxGrade(graf);
             graf.MinGrade = Graf.FindMinGrade(graf);
             SaveGrafToFile();
@@ -201,19 +201,6 @@ namespace WpfGrafApp1
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
             ClearCanvasAndDeleteGraf();
-        }
-        private void DrawMatrixes(Graf graf)
-        {
-            //TODO - implement method for listing matrix transformation & graf details
-            Grid grid = new Grid();
-            grid.Width = 400;
-            grid.HorizontalAlignment = HorizontalAlignment.Left;
-            grid.VerticalAlignment = VerticalAlignment.Top;
-            grid.ShowGridLines = true;
-            grid.Background = new SolidColorBrush(Colors.AliceBlue);
-
-
-            drawCanvas.Children.Add(grid);
         }
         private void SaveGrafToFile()
         {
@@ -242,18 +229,15 @@ namespace WpfGrafApp1
 
             return output;
         }
-
         private void ViewGrafButton_Click(object sender, RoutedEventArgs e)
         {
             Details details = new Details(graf);
             details.Show();
         }
-
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
             // From Adjacency Matrix
@@ -280,12 +264,12 @@ namespace WpfGrafApp1
                 // To Adjacency Matrix
                 if (toMatrixComboBox.SelectedIndex == 0)
                 {
-                    graf.CreateAfromI(graf.IncidencyMatrix);
+                    graf.CreateAfromI(graf.IncidenceMatrix);
                 }
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromI(graf.IncidencyMatrix);
+                    graf.CreateKfromI(graf.IncidenceMatrix);
                 }
                 else
                 {
@@ -323,10 +307,10 @@ namespace WpfGrafApp1
                     graf.CreateAfromK(graf.AdjacencyMatrix);
                     break;
                 case 2:
-                    graf.CreateIfromA(graf.IncidencyMatrix);
+                    graf.CreateIfromA(graf.IncidenceMatrix);
                     break;
                 case 3:
-                    graf.CreateIfromK(graf.IncidencyMatrix);
+                    graf.CreateIfromK(graf.IncidenceMatrix);
                     break;
                 case 4:
                     graf.CreateKfromA(graf.KirchhoffMatrix);
