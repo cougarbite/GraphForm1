@@ -1,4 +1,5 @@
 ﻿using GrafLib;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -87,7 +88,7 @@ namespace WpfGrafApp1
                     Node newNode = CreateNode(newRectangle);
                     nodePairs.Add(newRectangle, newNode);
 
-                    DrawText(Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0,0, 0));
+                    DrawText(drawCanvas, Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0,0, 0));
                 }
             }
             else if (drawEdgeRadioButton.IsChecked == true)
@@ -141,7 +142,7 @@ namespace WpfGrafApp1
                             Edge newEdge = CreateEdge(node1, node2);
                             edgePairs.Add(newLine, newEdge);
 
-                            DrawText((newLine.X2 - newLine.X1) / 2 + newLine.X1, (newLine.Y2 - newLine.Y1) / 2 + newLine.Y1, newEdge.Name, Color.FromRgb(0, 0, 0));
+                            DrawText(drawCanvas, (newLine.X2 - newLine.X1) / 2 + newLine.X1, (newLine.Y2 - newLine.Y1) / 2 + newLine.Y1, newEdge.Name, Color.FromRgb(0, 0, 0));
 
                             newLine = new Line();
                         }
@@ -166,7 +167,7 @@ namespace WpfGrafApp1
             return edge;
         }
 
-        private void DrawText(double x, double y, string text, Color color)
+        private void DrawText(Canvas canvas, double x, double y, string text, Color color)
         {
             TextBlock textBlock = new TextBlock();
             textBlock.Text = text;
@@ -174,7 +175,7 @@ namespace WpfGrafApp1
             Canvas.SetLeft(textBlock, x);
             Canvas.SetTop(textBlock, y);
             Canvas.SetZIndex(textBlock, 1);
-            drawCanvas.Children.Add(textBlock);
+            canvas.Children.Add(textBlock);
         }
 
         private void ClearCanvasAndDeleteGraf()
@@ -318,6 +319,62 @@ namespace WpfGrafApp1
                     break;
             }
         }
+
+        private void fromMatrixComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mCanvas.Children.Clear();
+            if (fromMatrixComboBox.SelectedIndex == 0)
+            {
+                PopulateGrid(graf.AdjacencyMatrix);
+            }
+            else if (fromMatrixComboBox.SelectedIndex == 1)
+            {
+                PopulateIncidenceGrid(graf.IncidenceMatrix);
+            }
+            else if (fromMatrixComboBox.SelectedIndex == 2)
+            {
+                PopulateGrid(graf.KirchhoffMatrix);
+            }
+            else
+            {
+                mCanvas.Children.Clear();
+            }
+        }
+        private void PopulateGrid(int[,] aMatrix)
+        {
+            int rows = (int)Math.Sqrt(aMatrix.Length);
+            int delta = 0;
+            int beta = 0;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < rows; j++)
+                {
+                    DrawText(mCanvas, delta, beta, aMatrix[i, j] < 0 ? aMatrix[i, j].ToString() : " " + aMatrix[i, j].ToString(), Color.FromRgb(0, 0, 0));
+                    beta += 15;
+                }
+                beta = 0;
+                delta += 15;
+            }
+        }
+
+        private void PopulateIncidenceGrid(int[,] iMatrix)
+        {
+            int rows = graf.Nodes.Count;
+            int columns = graf.Edges.Count;
+            int delta = 0;
+            int beta = 0;
+            for (int j = 0; j < rows; j++)
+            {
+                for (int i = 0; i < columns; i++)
+                {
+                    DrawText(mCanvas, delta, beta, iMatrix[i, j].ToString(), Color.FromRgb(0, 0, 0));
+                    beta += 15;
+                }
+                beta = 0;
+                delta += 15;
+            }
+        }
+
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

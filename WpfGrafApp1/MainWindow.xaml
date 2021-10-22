@@ -5,25 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGrafApp1"
         mc:Ignorable="d"
-        Title="Graf App" Height="500" Width="851.577">
+        Title="Graf App" Height="522" Width="851.577">
     <Grid Margin="0,0,2,0">
         <Canvas Name="drawCanvas" Background ="AntiqueWhite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Height="421" Margin="10,10,0,0" Focusable="True" MouseLeftButtonDown="drawCanvas_MouseLeftButtonDown" MouseMove="drawCanvas_MouseMove"/>
-        <Label x:Name="mouseStatus" Content="Label" HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Width="500"/>
+        <Label x:Name="mouseStatus" Content="Label" HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Width="251"/>
         <RadioButton x:Name="drawNodeRadioButton" Content="Draw Node" HorizontalAlignment="Left" Margin="533,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <RadioButton x:Name="drawEdgeRadioButton" Content="Draw Edge" HorizontalAlignment="Left" Margin="695,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="nodesListLabel" Content="Nodes:" HorizontalAlignment="Left" Margin="533,38,0,0" VerticalAlignment="Top"/>
         <Label x:Name="edgesListLabel" Content="Edges:" HorizontalAlignment="Left" Margin="695,38,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="nodesListBox" HorizontalAlignment="Left" Height="205" Margin="533,69,0,0" VerticalAlignment="Top" Width="120"/>
         <ListBox x:Name="edgesListBox" HorizontalAlignment="Left" Height="205" Margin="695,69,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="CreateGrafButton" Content="Create Graf" HorizontalAlignment="Left" Margin="533,300,0,0" VerticalAlignment="Top" Width="120" Click="CreateGrafButton_Click" Height="22"/>
-        <Button x:Name="DeleteGrafButton" Content="Delete Graf" HorizontalAlignment="Left" Margin="533,353,0,0" VerticalAlignment="Top" Width="120" Click="DeleteGrafButton_Click" Height="22"/>
+        <Button x:Name="CreateGrafButton" Content="Create Graf" HorizontalAlignment="Left" Margin="266,440,0,0" VerticalAlignment="Top" Width="120" Click="CreateGrafButton_Click" Height="22"/>
+        <Button x:Name="DeleteGrafButton" Content="Delete Graf" HorizontalAlignment="Left" Margin="516,440,0,0" VerticalAlignment="Top" Width="120" Click="DeleteGrafButton_Click" Height="22"/>
         <Label Content="From:" HorizontalAlignment="Left" Margin="695,274,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="fromMatrixComboBox" HorizontalAlignment="Left" Margin="695,300,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="fromMatrixComboBox" HorizontalAlignment="Left" Margin="695,300,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="fromMatrixComboBox_SelectionChanged"/>
         <Label Content="To:" HorizontalAlignment="Left" Margin="695,327,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="toMatrixComboBox" HorizontalAlignment="Left" Margin="695,353,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="TransformMatrixButton" Content="Transform Matrix" HorizontalAlignment="Left" Margin="695,380,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click" Height="22"/>
-        <Button x:Name="ViewGrafButton" Content="View Details" HorizontalAlignment="Left" Margin="533,326,0,0" VerticalAlignment="Top" Width="120" Click="ViewGrafButton_Click" Height="22"/>
-        <Button x:Name="CloseAppButton" Content="Close App" HorizontalAlignment="Left" Margin="695,420,0,0" VerticalAlignment="Top" Width="120" Height="22" Foreground="#FFF50C0C" Click="CloseAppButton_Click"/>
+        <Button x:Name="TransformMatrixButton" Content="Transform Matrix" HorizontalAlignment="Left" Margin="695,390,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click" Height="22"/>
+        <Button x:Name="ViewGrafButton" Content="View Details" HorizontalAlignment="Left" Margin="391,440,0,0" VerticalAlignment="Top" Width="120" Click="ViewGrafButton_Click" Height="22"/>
+        <Button x:Name="CloseAppButton" Content="Close App" HorizontalAlignment="Left" Margin="695,438,0,0" VerticalAlignment="Top" Width="120" Height="22" Foreground="#FFF50C0C" Click="CloseAppButton_Click"/>
+        <Canvas x:Name="mCanvas" HorizontalAlignment="Left" Height="150" Margin="516,279,0,0" VerticalAlignment="Top" Width="150"/>
 
     </Grid>
 </Window>
