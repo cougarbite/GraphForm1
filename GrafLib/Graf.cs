@@ -363,8 +363,6 @@ namespace GrafLib
         /// <returns>Matricea lui Kirchoff rezultata din matricea de baza.</returns>
         public int[,] CreateKfromI(int[,] iMatrix)
         {
-            //TODO - Check for solutions when edges < nodes
-            //TODO - check node grade !!! urgent
             int edges = 0;
             //Aflam numarul de muchii
             foreach (int val in iMatrix)
@@ -391,9 +389,9 @@ namespace GrafLib
                             {
                                 grade++;
                             }
-                            resultingMatrix[nod, nod] = grade;
-                            grade = 0;
                         }
+                        resultingMatrix[nod, nod] = grade;
+                        grade = 0;
                         nod++;
                     }
                     if (iMatrix[i, j] == 1 && counter % 2 == 0)
