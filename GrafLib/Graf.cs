@@ -16,6 +16,8 @@ namespace GrafLib
 
         public static int createdGrafs = 1;
 
+        List<Node> noduriFolosite = new List<Node>();
+
         public Graf()
         {
             DateTime time = DateTime.Now;
@@ -151,7 +153,7 @@ namespace GrafLib
                 return output;
             }
         }
-        public static int FindNodeCover(Graf selectedGraf)
+        public static int FindNodeCover(Graf graf)
         {
             //TODO - (Optional) De implementat logica gasirii acoperiri minime de varfuri
 
@@ -168,45 +170,76 @@ namespace GrafLib
         }
 
         //TODO bron kerbosh algoritm
-        public static List<List<Node>> FindMaximalSizeClique(Graf graf)
+
+        public static void BronKerbosch(List<Node> noduriPotentiale, List<Node> noduriFolosite)
         {
             List<List<Node>> multimiStabileInterior = new List<List<Node>>();
             List<Node> multimeStabilaInterior = new List<Node>();
-            List<Node> noduriPotentiale = new List<Node>();
-            List<Node> noduriFolosite = new List<Node>();
 
-            noduriPotentiale = graf.Nodes;
-
-            List<Node> BronKerbosch(List<Node> noduriDisponibile, List<Node>noduriIndisponibile)
+            while (noduriPotentiale.Count > 0)
             {
-                while ((noduriDisponibile.Count > 0))
+                foreach (Node node in noduriPotentiale)
                 {
-                    //Luam un nod din lista de noduri a grafului
-                    foreach (Node node in noduriDisponibile)
+                    noduriPotentiale.Remove(node);
+                    noduriFolosite.Add(node);
+
+                    multimeStabilaInterior.Add(node);
+
+                    foreach (Node adj in node.AdjacentNodes)
                     {
-                        //Il plasam in multimea stabile interior
-                        multimeStabilaInterior.Add(node);
-
-                        //Crem lista cu nodurile potentiale de adaugat in multimea stabila interior relativ la nodul selectat
-                        List<Node> noduriPotentialeRelative = noduriDisponibile;
-
-                        //Scoatem din lista nodurilor potentiale relative nodurile adiacente cu nodul selectat
-                        foreach (Node adj in node.AdjacentNodes)
-                        {
-                            noduriPotentialeRelative.Remove(adj);
-                            noduriFolosite.Add(adj);
-                        }
-                        //aici noduriPotentialRelative e corect
-                        BronKerbosch(noduriDisponibile, noduriIndisponibile);
+                        noduriFolosite.Add(adj);
                     }
                 }
-                return multimeStabilaInterior;
+
+                BronKerbosch(noduriPotentiale, noduriFolosite);
+
             }
-
-            multimiStabileInterior.Add(multimeStabilaInterior);
-
-            return multimiStabileInterior;
         }
+
+
+
+
+
+        //public static List<List<Node>> FindMaximalSizeClique(Graf graf)
+        //{
+        //    List<List<Node>> multimiStabileInterior = new List<List<Node>>();
+        //    List<Node> multimeStabilaInterior = new List<Node>();
+        //    List<Node> noduriPotentiale = new List<Node>();
+        //    List<Node> noduriFolosite = new List<Node>();
+
+        //    noduriPotentiale = graf.Nodes;
+
+        //    List<Node> BronKerbosch(List<Node> noduriDisponibile, List<Node>noduriIndisponibile)
+        //    {
+        //        while ((noduriDisponibile.Count > 0))
+        //        {
+        //            //Luam un nod din lista de noduri a grafului
+        //            foreach (Node node in noduriDisponibile)
+        //            {
+        //                //Il plasam in multimea stabile interior
+        //                multimeStabilaInterior.Add(node);
+
+        //                //Cream lista cu nodurile potentiale de adaugat in multimea stabila interior relativ la nodul selectat
+        //                List<Node> noduriPotentialeRelative = noduriDisponibile;
+
+        //                //Scoatem din lista nodurilor potentiale relative nodurile adiacente cu nodul selectat
+        //                foreach (Node adj in node.AdjacentNodes)
+        //                {
+        //                    noduriPotentialeRelative.Remove(adj);
+        //                    noduriFolosite.Add(adj);
+        //                }
+        //                //aici noduriPotentialRelative e corect
+                        
+        //                BronKerbosch(noduriPotentialeRelative, noduriFolosite);
+        //            }
+        //        }
+        //        return multimeStabilaInterior;
+        //    }
+
+        //    multimiStabileInterior.Add(multimeStabilaInterior);
+
+        //    return multimiStabileInterior;
+        //}
 
         /////////////////////////////////////////////////////////
         // Methods for transforming from one matrix to another //
@@ -310,13 +343,12 @@ namespace GrafLib
             return resultingMatrix;
         }
         /// <summary>
-        /// 
+        /// Creaza matricea de adiacenta din matricea lui Kirchoff.
         /// </summary>
         /// <param name="kMatrix"></param>
-        /// <returns></returns>
+        /// <returns>Matricea de incidenta rezultata din matricea de baza.</returns>
         public int[,] CreateIfromK(int[,] kMatrix)
         {
-            //TODO - Implement i from k
             int nodes = (int)Math.Sqrt(kMatrix.Length), edges = 0;
 
             //Aflam numarul de muchii

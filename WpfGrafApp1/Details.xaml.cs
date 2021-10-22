@@ -162,7 +162,7 @@ namespace WpfGrafApp1
         {
             ResetVisitedNodes(selectedGraf);
             ResetCoveredEdges(selectedGraf);
-            Graf.FindMaximalSizeClique(selectedGraf);
+            Graf.BronKerbosch(selectedGraf);
             string output = "";
             MessageBox.Show(output, "Bron Kerbosch - Multimea stabila interior maxima", MessageBoxButton.OK, MessageBoxImage.Information);
         }
