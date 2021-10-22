@@ -227,24 +227,22 @@ namespace GrafLib
                     edges++;
             edges /= 2;
 
+            //Cream noua matrice
             int[,] resultingMatrix = new int[edges,nodes];
 
-            int k;
+            int k = 0;
             for (int i = 0; i < nodes; i++)
             {
-                for (int j = 0; j < nodes; j++)
+                for (int j =0; j < nodes; j++)
                 {
-                    if (i == j)
-                    {
-                        continue;
-                    }
                     if (aMatrix[i, j] == 1)
-                        resultingMatrix[i, j] = 1;
-                    else
-                        resultingMatrix[i, j] = 0;
+                    {
+                        resultingMatrix[k, i] = 1;
+                        resultingMatrix[k, j] = 1;
+                        k++;
+                    }
                 }
             }
-
             return resultingMatrix;
         }
 

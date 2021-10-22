@@ -195,8 +195,8 @@ namespace WpfGrafApp1
             graf.IncidenceMatrix = Graf.CreateIncidenceMatrix(graf);
             graf.MaxGrade = Graf.FindMaxGrade(graf);
             graf.MinGrade = Graf.FindMinGrade(graf);
-            SaveGrafToFile();
-            mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
+            //SaveGrafToFile();
+            //mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
         }
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
