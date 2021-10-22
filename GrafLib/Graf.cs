@@ -244,7 +244,6 @@ namespace GrafLib
             }
             return resultingMatrix;
         }
-
         /// <summary>
         /// Creaza matricea lui Kirchoff din matricea de adiacenta.
         /// </summary>
@@ -365,6 +364,7 @@ namespace GrafLib
         public int[,] CreateKfromI(int[,] iMatrix)
         {
             //TODO - Check for solutions when edges < nodes
+            //TODO - check node grade !!! urgent
             int edges = 0;
             //Aflam numarul de muchii
             foreach (int val in iMatrix)
@@ -375,25 +375,27 @@ namespace GrafLib
             int nodes = iMatrix.Length / edges;
 
             int[,] resultingMatrix = new int[nodes, nodes];
-            int x = 0, y = 0, counter = 0, grade = 0;
+            int nod = 0, x = 0, y = 0, counter = 0, grade = 0;
+
             for (int i = 0; i < edges; i++)
             {
                 for (int j = 0; j < nodes; j++)
                 {
-                    //Daca e vorba despre acelasi nod, ii aflam gradul si il punem in matrice
-                    if (i == j)
+                    //Daca e vorba despre acelasi nod
+                    if (nod == j)
                     {
+                        //Aflam gradul lui nod
                         for (int k = 0; k < edges; k++)
                         {
-                            if (iMatrix[k, j] == 1)
+                            if (iMatrix[k, nod] == 1)
                             {
                                 grade++;
                             }
+                            resultingMatrix[nod, nod] = grade;
+                            grade = 0;
                         }
-                        resultingMatrix[i, j] = grade;
-                        grade = 0;
+                        nod++;
                     }
-
                     if (iMatrix[i, j] == 1 && counter % 2 == 0)
                     {
                         x = j;
