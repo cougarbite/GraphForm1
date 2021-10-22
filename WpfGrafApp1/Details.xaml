@@ -23,7 +23,7 @@
         <Button x:Name="CloseDetailsButton" Content="Close Details" HorizontalAlignment="Left" Margin="702,383,0,0" VerticalAlignment="Top" Width="80" Foreground="#FFF50C0C" Click="CloseDetailsButton_Click_1"/>
         <Button x:Name="MaximalSizeCliqueButton" Content="Bron Kerbosch" HorizontalAlignment="Left" Margin="230,383,0,0" VerticalAlignment="Top" Width="80" Click="MaximalSizeCliqueButton_Click"/>
         <Label x:Name="kLabel" Content="Matricea lui Kirchoff" HorizontalAlignment="Left" Margin="645,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
-        <Label x:Name="iLabel" Content="Matricea de incidenta" HorizontalAlignment="Left" Margin="490,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
+        <Label x:Name="iLabel" Content="Matricea de incidenta" HorizontalAlignment="Left" Margin="487,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.097,-0.21"/>
         <Canvas x:Name="aCanvas" HorizontalAlignment="Left" Height="150" Margin="332,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Canvas x:Name="kCanvas" HorizontalAlignment="Left" Height="150" Margin="645,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Canvas x:Name="iCanvas" HorizontalAlignment="Left" Height="150" Margin="487,41,0,0" VerticalAlignment="Top" Width="150"/>

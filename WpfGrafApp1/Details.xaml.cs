@@ -37,6 +37,7 @@ namespace WpfGrafApp1
         private void PopulateForm()
         {
             grafNameLabel.Content = $"Nume : {selectedGraf.Name}";
+            //TODO - Load graf from canvas instead of file
             grafImage.Source = new BitmapImage(new Uri($@"C:\Users\darks\source\repos\GraphForm1\WpfGrafApp1\Grafuri\{selectedGraf.Name}.png"));
             grafMaxGradeLabel.Content = $"Δ(G) = {selectedGraf.MaxGrade}";
             grafMinGradeLabel.Content = $"δ(G) = {selectedGraf.MinGrade}";

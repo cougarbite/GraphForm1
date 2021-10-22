@@ -195,8 +195,8 @@ namespace WpfGrafApp1
             graf.IncidenceMatrix = Graf.CreateIncidenceMatrix(graf);
             graf.MaxGrade = Graf.FindMaxGrade(graf);
             graf.MinGrade = Graf.FindMinGrade(graf);
-            //SaveGrafToFile();
-            //mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
+            SaveGrafToFile();
+            mouseStatus.Content = $"Successfully saved {graf.Name} to file.";
         }
         private void DeleteGrafButton_Click(object sender, RoutedEventArgs e)
         {
@@ -233,10 +233,6 @@ namespace WpfGrafApp1
         {
             Details details = new Details(graf);
             details.Show();
-        }
-        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
@@ -316,11 +312,15 @@ namespace WpfGrafApp1
                     graf.CreateKfromA(graf.KirchhoffMatrix);
                     break;
                 case 5:
-                    //graf.CreateKfromI(graf.KirchhoffMatrix);
+                    graf.CreateKfromI(graf.KirchhoffMatrix);
                     break;
                 default:
                     break;
             }
+        }
+        private void CloseAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

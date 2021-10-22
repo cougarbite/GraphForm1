@@ -212,13 +212,12 @@ namespace GrafLib
         /////////////////////////////////////////////////////////
 
         /// <summary>
-        /// 
+        /// Creaza matricea de incidenta din matricea de adiacenta.
         /// </summary>
-        /// <param name="aMatrix"></param>
-        /// <returns></returns>
+        /// <param name="aMatrix">Matricea de baza.</param>
+        /// <returns>Matricea de incidenta rezultata din matricea de baza.</returns>
         public int[,] CreateIfromA(int[,] aMatrix)
         {
-            //TODO - Implement i from a
             int nodes = (int)Math.Sqrt(aMatrix.Length), edges = 0;
 
             //Aflam numarul de muchii
@@ -233,7 +232,7 @@ namespace GrafLib
             int k = 0;
             for (int i = 0; i < nodes; i++)
             {
-                for (int j =0; j < nodes; j++)
+                for (int j =i+1; j < nodes; j++)
                 {
                     if (aMatrix[i, j] == 1)
                     {
