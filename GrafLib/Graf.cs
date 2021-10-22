@@ -153,7 +153,7 @@ namespace GrafLib
         }
         public static int FindNodeCover(Graf selectedGraf)
         {
-            //TODO - De implementat logica gasirii acoperiri minime de varfuri
+            //TODO - (Optional) De implementat logica gasirii acoperiri minime de varfuri
 
             return 0;
         }
@@ -167,6 +167,7 @@ namespace GrafLib
             return output;
         }
 
+        //TODO bron kerbosh algoritm
         public static List<List<Node>> FindMaximalSizeClique(Graf graf)
         {
             List<List<Node>> multimiStabileInterior = new List<List<Node>>();
@@ -316,7 +317,31 @@ namespace GrafLib
         public int[,] CreateIfromK(int[,] kMatrix)
         {
             //TODO - Implement i from k
-            throw new NotImplementedException();
+            int nodes = (int)Math.Sqrt(kMatrix.Length), edges = 0;
+
+            //Aflam numarul de muchii
+            foreach (int val in kMatrix)
+                if (val == -1)
+                    edges++;
+            edges /= 2;
+
+            //Cream noua matrice
+            int[,] resultingMatrix = new int[edges, nodes];
+
+            int k = 0;
+            for (int i = 0; i < nodes; i++)
+            {
+                for (int j = i + 1; j < nodes; j++)
+                {
+                    if (kMatrix[i, j] == -1)
+                    {
+                        resultingMatrix[k, i] = 1;
+                        resultingMatrix[k, j] = 1;
+                        k++;
+                    }
+                }
+            }
+            return resultingMatrix;
         }
         /// <summary>
         /// Creaza matricea de adiacenta din matricea de incidenta.

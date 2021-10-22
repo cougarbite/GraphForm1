@@ -237,18 +237,21 @@ namespace WpfGrafApp1
         }
         private void CreateMatrixButton_Click(object sender, RoutedEventArgs e)
         {
+            mCanvas.Children.Clear();
             // From Adjacency Matrix
             if (fromMatrixComboBox.SelectedIndex == 0)
             {
                 // To Incidency Matrix
                 if (toMatrixComboBox.SelectedIndex == 1)
                 {
-                    graf.CreateIfromA(graf.AdjacencyMatrix);
+                    //graf.CreateIfromA(graf.AdjacencyMatrix);
+                    PopulateIncidenceGrid(graf.CreateIfromA(graf.AdjacencyMatrix));
                 }
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromA(graf.AdjacencyMatrix);
+                    //graf.CreateKfromA(graf.AdjacencyMatrix);
+                    PopulateGrid(graf.CreateKfromA(graf.AdjacencyMatrix));
                 }
                 else
                 {
@@ -261,12 +264,14 @@ namespace WpfGrafApp1
                 // To Adjacency Matrix
                 if (toMatrixComboBox.SelectedIndex == 0)
                 {
-                    graf.CreateAfromI(graf.IncidenceMatrix);
+                    //graf.CreateAfromI(graf.IncidenceMatrix);
+                    PopulateGrid(graf.CreateAfromI(graf.IncidenceMatrix));
                 }
                 // To Kirchhoff Matrix
                 else if (toMatrixComboBox.SelectedIndex == 2)
                 {
-                    graf.CreateKfromI(graf.IncidenceMatrix);
+                    //graf.CreateKfromI(graf.IncidenceMatrix);
+                    PopulateGrid(graf.CreateKfromI(graf.IncidenceMatrix));
                 }
                 else
                 {
@@ -279,12 +284,14 @@ namespace WpfGrafApp1
                 // To Adjacency Matrix
                 if (toMatrixComboBox.SelectedIndex == 0)
                 {
-                    graf.CreateAfromK(graf.KirchhoffMatrix);
+                    //graf.CreateAfromK(graf.KirchhoffMatrix);
+                    PopulateGrid(graf.CreateAfromK(graf.KirchhoffMatrix));
                 }
                 // To Incidency Matrix
                 else if (toMatrixComboBox.SelectedIndex == 1)
                 {
-                    graf.CreateIfromK(graf.KirchhoffMatrix);
+                    //graf.CreateIfromK(graf.KirchhoffMatrix);
+                    PopulateIncidenceGrid(graf.CreateIfromK(graf.KirchhoffMatrix));
                 }
                 else
                 {
@@ -319,7 +326,6 @@ namespace WpfGrafApp1
                     break;
             }
         }
-
         private void fromMatrixComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             mCanvas.Children.Clear();
@@ -356,7 +362,6 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
-
         private void PopulateIncidenceGrid(int[,] iMatrix)
         {
             int rows = graf.Nodes.Count;
@@ -374,7 +379,6 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
-
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
