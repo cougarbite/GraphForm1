@@ -22,14 +22,15 @@ namespace WpfGrafApp1
     public partial class Details : Window
     {
         Graf selectedGraf;
-        //public Details()
-        //{
-        //    InitializeComponent();
-        //}
+        List<Node> multimeaStabilaInteriorMaximala = new List<Node>();
+        List<Node> multimeaVarfurilorPotentiale = new List<Node>();
+        List<Node> multimeaVarfurilorFolosite = new List<Node>();
+        
 
         public Details(Graf graf)
         {
             selectedGraf = graf;
+            multimeaVarfurilorPotentiale = selectedGraf.Nodes;
             InitializeComponent();
             PopulateForm();
         }
@@ -114,11 +115,6 @@ namespace WpfGrafApp1
             while (queuedNodes.Count > 0)
                 BFS(queuedNodes.Dequeue(), queuedNodes, visited);
         }
-        private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void ResetVisitedNodes(Graf graf)
         {
             foreach (Node node in graf.Nodes)
@@ -158,15 +154,17 @@ namespace WpfGrafApp1
             MessageBox.Show(output, "DFS - Parcurgerea in latime", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void MaximalSizeCliqueButton_Click(object sender, RoutedEventArgs e)
+        private void BronKerboschButton_Click(object sender, RoutedEventArgs e)
         {
-            ResetVisitedNodes(selectedGraf);
-            ResetCoveredEdges(selectedGraf);
-            Graf.BronKerbosch(selectedGraf);
+            List<List<Node>> Rezultat = new List<List<Node>>();
+            List<Node> AvailableNodes = selectedGraf.Nodes;
+            foreach (Node node in AvailableNodes)
+            {
+                Rezultat.Add(Graf.BronKerbosch(node, AvailableNodes));
+            }
             string output = "";
             MessageBox.Show(output, "Bron Kerbosch - Multimea stabila interior maxima", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
         private void DrawText(Canvas canvas, double x, double y, string text, Color color)
         {
             TextBlock textBlock = new TextBlock();
@@ -177,7 +175,6 @@ namespace WpfGrafApp1
             Canvas.SetZIndex(textBlock, 1);
             canvas.Children.Add(textBlock);
         }
-
         private void PopulateAdjacencyGrid(int[,] aMatrix)
         {
             int rows = (int)Math.Sqrt(aMatrix.Length);
@@ -194,7 +191,6 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
-
         private void PopulateIncidenceGrid(int[,] iMatrix)
         {
             int rows = selectedGraf.Nodes.Count;
@@ -212,7 +208,6 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
-
         private void PopulateKirchhoffGrid(int[,] kMatrix)
         {
             int rows = (int)Math.Sqrt(kMatrix.Length);
@@ -229,8 +224,7 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
-
-        private void CloseDetailsButton_Click_1(object sender, RoutedEventArgs e)
+        private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

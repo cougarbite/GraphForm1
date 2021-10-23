@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GrafLib
 {
@@ -168,31 +171,59 @@ namespace GrafLib
 
             return output;
         }
-
-        //TODO bron kerbosh algoritm
-
-        public static void BronKerbosch(List<Node> noduriPotentiale, List<Node> noduriFolosite)
+        
+        //TODO work on this
+        public static List<Node> BronKerbosch(Node start, List<Node> GraphNodes)
         {
-            List<List<Node>> multimiStabileInterior = new List<List<Node>>();
-            List<Node> multimeStabilaInterior = new List<Node>();
+            List<Node> AvailableNodes = GraphNodes.Select(n => new Node(n.XCoord, n.YCoord)).ToList();
 
-            while (noduriPotentiale.Count > 0)
+            List<Node> Rezultat = new List<Node>();
+            while (AvailableNodes.Count != 0)
             {
-                foreach (Node node in noduriPotentiale)
+                Node selectedNode = AvailableNodes[0];
+                Rezultat.Add(selectedNode);
+                foreach (Node adiacentNode in selectedNode.AdjacentNodes)
                 {
-                    noduriPotentiale.Remove(node);
-                    noduriFolosite.Add(node);
-
-                    multimeStabilaInterior.Add(node);
-
-                    foreach (Node adj in node.AdjacentNodes)
-                    {
-                        noduriFolosite.Add(adj);
-                    }
+                    AvailableNodes.Remove(adiacentNode);
                 }
+                AvailableNodes.Remove(selectedNode);
+            }
+            return Rezultat;
+        }
 
-                BronKerbosch(noduriPotentiale, noduriFolosite);
+        public static List<Node> BronKerboschRecursiv(List<Node> multimeaStabilaInteriorMaximala, List<Node> multimeaVarfurilorPotentiale, List<Node> multimeaVarfurilorFolosite)
+        {
+            if (multimeaVarfurilorPotentiale.Count == 0)
+                return multimeaStabilaInteriorMaximala;
+            else
+            {
+                foreach (Node node in multimeaVarfurilorPotentiale)
+                {
+                    List<Node> varfuriPotentialeRelative = new List<Node>();
+                    List<Node> varfuriFolositeRelative = new List<Node>();
 
+                    multimeaVarfurilorFolosite.Add(node);
+                    varfuriFolositeRelative.Add(node);
+                    varfuriPotentialeRelative = multimeaVarfurilorPotentiale;
+                    varfuriPotentialeRelative.Remove(node);
+
+                    foreach (Node adiacent in node.AdjacentNodes)
+                    {
+                        if (varfuriPotentialeRelative.Contains(adiacent))
+                            varfuriPotentialeRelative.Remove(adiacent);
+
+                        if (!varfuriFolositeRelative.Contains(adiacent))
+                            varfuriFolositeRelative.Add(adiacent);
+                    }
+                    if (!multimeaVarfurilorFolosite.Contains(node))
+                        multimeaVarfurilorFolosite.Add(node);
+                    multimeaStabilaInteriorMaximala.Add(node);
+
+                    BronKerboschRecursiv(multimeaStabilaInteriorMaximala, multimeaVarfurilorPotentiale, multimeaVarfurilorFolosite);
+                    multimeaVarfurilorPotentiale.Remove(node);
+                    multimeaVarfurilorFolosite.Add(node);
+                }
+                return multimeaStabilaInteriorMaximala;
             }
         }
 
@@ -200,46 +231,51 @@ namespace GrafLib
 
 
 
-        //public static List<List<Node>> FindMaximalSizeClique(Graf graf)
-        //{
-        //    List<List<Node>> multimiStabileInterior = new List<List<Node>>();
-        //    List<Node> multimeStabilaInterior = new List<Node>();
-        //    List<Node> noduriPotentiale = new List<Node>();
-        //    List<Node> noduriFolosite = new List<Node>();
+        //TODO bron kerbosh algoritm
 
-        //    noduriPotentiale = graf.Nodes;
+        public static List<Node> BronKerboschRecursiv1(List<Node> multimeaStabilaInteriorMaximala, List<Node> multimeaVarfurilorPotentiale, List<Node> multimeaVarfurilorFolosite) 
+        {
+            if (multimeaVarfurilorPotentiale.Count == 0)
+                return multimeaStabilaInteriorMaximala;
+            else
+            {
+                foreach (Node node in multimeaVarfurilorPotentiale)
+                {
+                    List<Node> varfuriPotentialeRelative = new List<Node>();
+                    List<Node> varfuriFolositeRelative = new List<Node>();
 
-        //    List<Node> BronKerbosch(List<Node> noduriDisponibile, List<Node>noduriIndisponibile)
-        //    {
-        //        while ((noduriDisponibile.Count > 0))
-        //        {
-        //            //Luam un nod din lista de noduri a grafului
-        //            foreach (Node node in noduriDisponibile)
-        //            {
-        //                //Il plasam in multimea stabile interior
-        //                multimeStabilaInterior.Add(node);
+                    multimeaVarfurilorFolosite.Add(node);
+                    varfuriFolositeRelative.Add(node);
+                    varfuriPotentialeRelative = multimeaVarfurilorPotentiale;
+                    varfuriPotentialeRelative.Remove(node);
 
-        //                //Cream lista cu nodurile potentiale de adaugat in multimea stabila interior relativ la nodul selectat
-        //                List<Node> noduriPotentialeRelative = noduriDisponibile;
+                    foreach (Node adiacent in node.AdjacentNodes)
+                    {
+                        if (varfuriPotentialeRelative.Contains(adiacent))
+                            varfuriPotentialeRelative.Remove(adiacent);
 
-        //                //Scoatem din lista nodurilor potentiale relative nodurile adiacente cu nodul selectat
-        //                foreach (Node adj in node.AdjacentNodes)
-        //                {
-        //                    noduriPotentialeRelative.Remove(adj);
-        //                    noduriFolosite.Add(adj);
-        //                }
-        //                //aici noduriPotentialRelative e corect
-                        
-        //                BronKerbosch(noduriPotentialeRelative, noduriFolosite);
-        //            }
-        //        }
-        //        return multimeStabilaInterior;
-        //    }
+                        if (!varfuriFolositeRelative.Contains(adiacent))
+                            varfuriFolositeRelative.Add(adiacent);
+                    }
+                    if (!multimeaVarfurilorFolosite.Contains(node))
+                        multimeaVarfurilorFolosite.Add(node);
+                    multimeaStabilaInteriorMaximala.Add(node);
 
-        //    multimiStabileInterior.Add(multimeStabilaInterior);
+                    BronKerboschRecursiv(multimeaStabilaInteriorMaximala, varfuriPotentialeRelative, multimeaVarfurilorFolosite);
+                    multimeaVarfurilorPotentiale.Remove(node);
+                    multimeaVarfurilorFolosite.Add(node);
+                }
+                return multimeaStabilaInteriorMaximala;
+            }
+        }
 
-        //    return multimiStabileInterior;
-        //}
+
+
+
+
+
+
+
 
         /////////////////////////////////////////////////////////
         // Methods for transforming from one matrix to another //
