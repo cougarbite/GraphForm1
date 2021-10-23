@@ -193,47 +193,43 @@ namespace GrafLib
             return Rezultat;
         }
 
-        public static List<Node> BronKerboschRecursiv(List<Node> Disponibile, List<Node> Folosite)
+        public static List<Node> BronKerboschRecursiv(List<Node> Rezultat, List<Node> noduriPosibile, List<Node> noduriFolosite)
         {
-            List<Node> S = new List<Node>();
-            List<Node> qPlus = new List<Node>(Disponibile);
-            List<Node> qMinus = new List<Node>(Folosite);
 
-            //test
-            //qPlus.Clear();
+            //algorithm BronKerbosch1(Rezultat, noduriPosibile, noduriFolosite) is
+            //if noduriPosibile and noduriFolositeX are both empty then
+            //      report Rezultat as a maximal clique
+            //for each vertex v in noduriPosibile do
+            //      noduriPosibile:= noduriPosibile \ { v}
+            //      BronKerbosch1(Rezultat ⋃ { v}, noduriPosibile ⋂ N(v), noduriFolosite ⋂ N(v))
+            //      noduriFolosite:= noduriFolosite ⋃ { v}
 
-
-            while (qPlus.Count != 0)
+            if (noduriPosibile.Count == 0 && noduriFolosite.Count == 0)
+                return Rezultat;
+            foreach (Node nod in noduriPosibile)
             {
-                foreach (Node node in qPlus)
-                {
-                    S.Add(node);
-                    List<Node> qPlusNew = new List<Node>(qPlus);
-                    List<Node> qMinusNew = new List<Node>(qMinus);
-                    qPlusNew.Remove(node);
-                    foreach (Node adiacent in node.AdjacentNodes)
-                    {
-                        qPlusNew.Remove(adiacent);
-                        qMinusNew.Add(adiacent);
-                    }
+                noduriPosibile.Remove(nod);
 
-                    if (qPlusNew.Count == 0 && qMinusNew.Count == 0)
-                    {
-                        return S;
-                    }
-                    BronKerboschRecursiv(qPlusNew, qMinusNew);
-                    S.Remove(node);
-                    qPlus.Remove(node);
-                    qMinus.Add(node);
-                }
+                // Intersecia noduriPosibile cu vecinii lui nod
+                foreach (Node posibil in noduriPosibile)
+                    if (!nod.AdjacentNodes.Contains(posibil))
+                        noduriPosibile.Remove(posibil);
+
+                // Intersectia noduriFolosite cu vecinii lui nod
+                foreach (Node folosit in noduriFolosite)
+                    if (!nod.AdjacentNodes.Contains(folosit))
+                        noduriFolosite.Remove(folosit);
+
+
+                Rezultat.Add(nod);
+                BronKerboschRecursiv(Rezultat, noduriPosibile, noduriFolosite);
+                noduriFolosite.Add(nod);
             }
-
-            return S;
+            return Rezultat;
         }
 
         public static List<Node> BronKerboschIterativ(List<Node> Disponibile)
         {
-            Stack<Node> S = new Stack<Node>();
             throw new NotImplementedException();
         }
 

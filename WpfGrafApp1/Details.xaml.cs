@@ -157,7 +157,9 @@ namespace WpfGrafApp1
         private void BronKerboschButton_Click(object sender, RoutedEventArgs e)
         {
             // Incercare personala
-            Graf.BronKerboschRecursiv(selectedGraf.Nodes, new List<Node>());
+            List<Node> Rezultat = new List<Node>();
+
+            Graf.BronKerboschRecursiv(Rezultat, selectedGraf.Nodes, new List<Node>());
 
 
 
