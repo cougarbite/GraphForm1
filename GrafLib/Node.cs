@@ -15,6 +15,11 @@ namespace GrafLib
         public List<Edge> AdjacentEdges;
         public bool isVisited = false;
         public static int createdNodes = 1;
+
+        public Node()
+        {
+
+        }
         public Node(int X, int Y)
         {
             XCoord = X;
@@ -30,3 +35,4 @@ namespace GrafLib
         }
     }
 }
+ 

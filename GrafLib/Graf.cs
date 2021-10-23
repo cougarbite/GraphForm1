@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -172,110 +173,69 @@ namespace GrafLib
             return output;
         }
         
-        //TODO work on this
-        public static List<Node> BronKerbosch(Node start, List<Node> GraphNodes)
+        public static List<Node> MultimeaStabilaInteriorMaximala(Node start, List<Node> GraphNodes)
         {
-            List<Node> AvailableNodes = GraphNodes.Select(n => new Node(n.XCoord, n.YCoord)).ToList();
-
+            List<Node> AvailableNodes = new List<Node>(GraphNodes);
             List<Node> Rezultat = new List<Node>();
+            Node selectedNode = start;
+
             while (AvailableNodes.Count != 0)
             {
-                Node selectedNode = AvailableNodes[0];
-                Rezultat.Add(selectedNode);
                 foreach (Node adiacentNode in selectedNode.AdjacentNodes)
                 {
                     AvailableNodes.Remove(adiacentNode);
                 }
                 AvailableNodes.Remove(selectedNode);
+                Rezultat.Add(selectedNode);
+                if (AvailableNodes.Count != 0)
+                    selectedNode = (Node)AvailableNodes[0];
             }
             return Rezultat;
         }
 
-        public static List<Node> BronKerboschRecursiv(List<Node> multimeaStabilaInteriorMaximala, List<Node> multimeaVarfurilorPotentiale, List<Node> multimeaVarfurilorFolosite)
+        public static List<Node> BronKerboschRecursiv(List<Node> Disponibile, List<Node> Folosite)
         {
-            if (multimeaVarfurilorPotentiale.Count == 0)
-                return multimeaStabilaInteriorMaximala;
-            else
+            List<Node> S = new List<Node>();
+            List<Node> qPlus = new List<Node>(Disponibile);
+            List<Node> qMinus = new List<Node>(Folosite);
+
+            //test
+            //qPlus.Clear();
+
+
+            while (qPlus.Count != 0)
             {
-                foreach (Node node in multimeaVarfurilorPotentiale)
+                foreach (Node node in qPlus)
                 {
-                    List<Node> varfuriPotentialeRelative = new List<Node>();
-                    List<Node> varfuriFolositeRelative = new List<Node>();
-
-                    multimeaVarfurilorFolosite.Add(node);
-                    varfuriFolositeRelative.Add(node);
-                    varfuriPotentialeRelative = multimeaVarfurilorPotentiale;
-                    varfuriPotentialeRelative.Remove(node);
-
+                    S.Add(node);
+                    List<Node> qPlusNew = new List<Node>(qPlus);
+                    List<Node> qMinusNew = new List<Node>(qMinus);
+                    qPlusNew.Remove(node);
                     foreach (Node adiacent in node.AdjacentNodes)
                     {
-                        if (varfuriPotentialeRelative.Contains(adiacent))
-                            varfuriPotentialeRelative.Remove(adiacent);
-
-                        if (!varfuriFolositeRelative.Contains(adiacent))
-                            varfuriFolositeRelative.Add(adiacent);
+                        qPlusNew.Remove(adiacent);
+                        qMinusNew.Add(adiacent);
                     }
-                    if (!multimeaVarfurilorFolosite.Contains(node))
-                        multimeaVarfurilorFolosite.Add(node);
-                    multimeaStabilaInteriorMaximala.Add(node);
 
-                    BronKerboschRecursiv(multimeaStabilaInteriorMaximala, multimeaVarfurilorPotentiale, multimeaVarfurilorFolosite);
-                    multimeaVarfurilorPotentiale.Remove(node);
-                    multimeaVarfurilorFolosite.Add(node);
-                }
-                return multimeaStabilaInteriorMaximala;
-            }
-        }
-
-
-
-
-
-        //TODO bron kerbosh algoritm
-
-        public static List<Node> BronKerboschRecursiv1(List<Node> multimeaStabilaInteriorMaximala, List<Node> multimeaVarfurilorPotentiale, List<Node> multimeaVarfurilorFolosite) 
-        {
-            if (multimeaVarfurilorPotentiale.Count == 0)
-                return multimeaStabilaInteriorMaximala;
-            else
-            {
-                foreach (Node node in multimeaVarfurilorPotentiale)
-                {
-                    List<Node> varfuriPotentialeRelative = new List<Node>();
-                    List<Node> varfuriFolositeRelative = new List<Node>();
-
-                    multimeaVarfurilorFolosite.Add(node);
-                    varfuriFolositeRelative.Add(node);
-                    varfuriPotentialeRelative = multimeaVarfurilorPotentiale;
-                    varfuriPotentialeRelative.Remove(node);
-
-                    foreach (Node adiacent in node.AdjacentNodes)
+                    if (qPlusNew.Count == 0 && qMinusNew.Count == 0)
                     {
-                        if (varfuriPotentialeRelative.Contains(adiacent))
-                            varfuriPotentialeRelative.Remove(adiacent);
-
-                        if (!varfuriFolositeRelative.Contains(adiacent))
-                            varfuriFolositeRelative.Add(adiacent);
+                        return S;
                     }
-                    if (!multimeaVarfurilorFolosite.Contains(node))
-                        multimeaVarfurilorFolosite.Add(node);
-                    multimeaStabilaInteriorMaximala.Add(node);
-
-                    BronKerboschRecursiv(multimeaStabilaInteriorMaximala, varfuriPotentialeRelative, multimeaVarfurilorFolosite);
-                    multimeaVarfurilorPotentiale.Remove(node);
-                    multimeaVarfurilorFolosite.Add(node);
+                    BronKerboschRecursiv(qPlusNew, qMinusNew);
+                    S.Remove(node);
+                    qPlus.Remove(node);
+                    qMinus.Add(node);
                 }
-                return multimeaStabilaInteriorMaximala;
             }
+
+            return S;
         }
 
-
-
-
-
-
-
-
+        public static List<Node> BronKerboschIterativ(List<Node> Disponibile)
+        {
+            Stack<Node> S = new Stack<Node>();
+            throw new NotImplementedException();
+        }
 
         /////////////////////////////////////////////////////////
         // Methods for transforming from one matrix to another //

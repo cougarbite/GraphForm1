@@ -379,6 +379,12 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
+
+        private void nodesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

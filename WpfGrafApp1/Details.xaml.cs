@@ -156,14 +156,24 @@ namespace WpfGrafApp1
 
         private void BronKerboschButton_Click(object sender, RoutedEventArgs e)
         {
-            List<List<Node>> Rezultat = new List<List<Node>>();
-            List<Node> AvailableNodes = selectedGraf.Nodes;
-            foreach (Node node in AvailableNodes)
-            {
-                Rezultat.Add(Graf.BronKerbosch(node, AvailableNodes));
-            }
-            string output = "";
-            MessageBox.Show(output, "Bron Kerbosch - Multimea stabila interior maxima", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Incercare personala
+            Graf.BronKerboschRecursiv(selectedGraf.Nodes, new List<Node>());
+
+
+
+
+            //// Merge... relativ
+            //List<List<Node>> Rezultat = new List<List<Node>>();
+            //foreach (Node node in selectedGraf.Nodes)
+            //    Rezultat.Add(Graf.MultimeaStabilaInteriorMaximala(node, selectedGraf.Nodes));
+
+
+
+
+
+
+
+
         }
         private void DrawText(Canvas canvas, double x, double y, string text, Color color)
         {

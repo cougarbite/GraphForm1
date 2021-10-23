@@ -13,7 +13,7 @@
         <RadioButton x:Name="drawEdgeRadioButton" Content="Draw Edge" HorizontalAlignment="Left" Margin="695,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="nodesListLabel" Content="Nodes:" HorizontalAlignment="Left" Margin="533,38,0,0" VerticalAlignment="Top"/>
         <Label x:Name="edgesListLabel" Content="Edges:" HorizontalAlignment="Left" Margin="695,38,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="nodesListBox" HorizontalAlignment="Left" Height="205" Margin="533,69,0,0" VerticalAlignment="Top" Width="120"/>
+        <ListBox x:Name="nodesListBox" HorizontalAlignment="Left" Height="205" Margin="533,69,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="nodesListBox_SelectionChanged"/>
         <ListBox x:Name="edgesListBox" HorizontalAlignment="Left" Height="205" Margin="695,69,0,0" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="CreateGrafButton" Content="Create Graf" HorizontalAlignment="Left" Margin="266,440,0,0" VerticalAlignment="Top" Width="120" Click="CreateGrafButton_Click" Height="22"/>
         <Button x:Name="DeleteGrafButton" Content="Delete Graf" HorizontalAlignment="Left" Margin="516,440,0,0" VerticalAlignment="Top" Width="120" Click="DeleteGrafButton_Click" Height="22"/>
