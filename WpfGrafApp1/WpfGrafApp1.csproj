@@ -54,10 +54,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8A404C49BA4C7642099C3758A615CDEE4FC5C51F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>26AB56540FA7217E038FDEC2843300D2BAB4AE77</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WpfGrafApp1_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>WpfGrafApp1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -125,7 +125,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="WpfGrafApp1_1_TemporaryKey.pfx" />
+    <None Include="WpfGrafApp1_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

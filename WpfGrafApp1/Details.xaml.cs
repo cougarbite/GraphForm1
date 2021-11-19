@@ -39,7 +39,7 @@ namespace WpfGrafApp1
         {
             grafNameLabel.Content = $"Nume : {selectedGraf.Name}";
             //TODO - (Optional) Load graf from canvas instead of file
-            grafImage.Source = new BitmapImage(new Uri($@"C:\Users\darks\source\repos\GraphForm1\WpfGrafApp1\Grafuri\{selectedGraf.Name}.png"));
+            grafImage.Source = new BitmapImage(new Uri($@"D:\FACULTATE\Anul 2\Semestrul 1\Programare Orientata pe Obiecte\New folder\GraphForm1\WpfGrafApp1\Grafuri\{selectedGraf.Name}.png"));
             grafMaxGradeLabel.Content = $"Δ(G) = {selectedGraf.MaxGrade}";
             grafMinGradeLabel.Content = $"δ(G) = {selectedGraf.MinGrade}";
             grafNCountLabel.Content = $"|G| = {selectedGraf.Nodes.Count}";
