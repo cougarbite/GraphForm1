@@ -218,11 +218,11 @@ namespace WpfGrafApp1
 
             pngEncoder.Save(ms);
             ms.Close();
-            if (!System.IO.Directory.Exists(@"..\..\Grafuri"))
+            if (!System.IO.Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Grafuri\\"))
             {
-                System.IO.Directory.CreateDirectory(@"..\..\Grafuri");
+                System.IO.Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Grafuri");
             }
-            System.IO.File.WriteAllBytes($@"..\..\Grafuri\{graf.Name}.png", ms.ToArray());
+            System.IO.File.WriteAllBytes($@"Grafuri\{graf.Name}.png", ms.ToArray());
         }
         private int CreateSwitch()
         {

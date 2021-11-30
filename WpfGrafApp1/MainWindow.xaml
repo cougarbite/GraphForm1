@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfGrafApp1"
         mc:Ignorable="d"
-        Title="Graf App" Height="522" Width="851.577">
+        Title="Graf App" Height="543" Width="851.577">
     <Grid Margin="0,0,2,0">
         <Canvas Name="drawCanvas" Background ="AntiqueWhite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Height="421" Margin="10,10,0,0" Focusable="True" MouseLeftButtonDown="drawCanvas_MouseLeftButtonDown" MouseMove="drawCanvas_MouseMove"/>
         <Label x:Name="mouseStatus" Content="Label" HorizontalAlignment="Left" Margin="10,436,0,0" VerticalAlignment="Top" Width="251"/>
@@ -24,7 +24,8 @@
         <Button x:Name="TransformMatrixButton" Content="Transform Matrix" HorizontalAlignment="Left" Margin="695,390,0,0" VerticalAlignment="Top" Width="120" Click="CreateMatrixButton_Click" Height="22"/>
         <Button x:Name="ViewGrafButton" Content="View Details" HorizontalAlignment="Left" Margin="391,440,0,0" VerticalAlignment="Top" Width="120" Click="ViewGrafButton_Click" Height="22"/>
         <Button x:Name="CloseAppButton" Content="Close App" HorizontalAlignment="Left" Margin="695,438,0,0" VerticalAlignment="Top" Width="120" Height="22" Foreground="#FFF50C0C" Click="CloseAppButton_Click"/>
-        <Canvas x:Name="mCanvas" HorizontalAlignment="Left" Height="150" Margin="516,279,0,0" VerticalAlignment="Top" Width="150"/>
+        <Canvas x:Name="mCanvas" HorizontalAlignment="Left" Height="141" Margin="533,290,0,0" VerticalAlignment="Top" Width="157"/>
+        <Button x:Name="ColourGraphButton" Content="Color Graf" HorizontalAlignment="Left" Margin="391,467,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
