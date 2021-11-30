@@ -20,6 +20,7 @@ namespace WpfGrafApp1
         List<Edge> edges = new List<Edge>();
         Line newLine = new Line();
         Node node1, node2;
+        List<Brushes> brushes = new List<Brushes>();
 
         // Variabila pentru capetele unei muchii.
         int n = 0;
@@ -383,6 +384,35 @@ namespace WpfGrafApp1
         private void nodesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ColourGraphButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorGraph(graf);
+        }
+
+        private void ColorGraph(Graf graf)
+        {
+            int startNode = PickRandomNode(graf);
+            GenerateNodeColours(startNode, graf);
+            GenerateEdgeColours(startNode, graf);
+        }
+
+        private int PickRandomNode(Graf graf)
+        {
+            Random rnd = new Random();
+            int nodeId = rnd.Next(graf.Nodes.Count + 1);
+            return nodeId;
+        }
+
+        int void GenerateNodeColours(int startNode, Graf graf)
+        {
+            
+        }
+
+        private void GenerateEdgeColours(int startNode, Graf graf)
+        {
+            throw new NotImplementedException();
         }
 
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
