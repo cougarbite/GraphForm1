@@ -1,6 +1,7 @@
 ﻿using GrafLib;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,6 +28,8 @@ namespace WpfGrafApp1
 
         Dictionary<Rectangle, Node> nodePairs = new Dictionary<Rectangle, Node>();
         Dictionary<Line, Edge> edgePairs = new Dictionary<Line, Edge>();
+
+        Dictionary<Node, Rectangle> rectPairs = new Dictionary<Node, Rectangle>();
         public MainWindow()
         {
             InitializeComponent();
@@ -77,6 +80,10 @@ namespace WpfGrafApp1
                     drawCanvas.Children.Remove(selectedRectangle);
                     //remove from dictionary
                     nodePairs.Remove(selectedRectangle);
+
+                    //TODO - Just inserted. Check for behaviour.
+                    rectPairs.Remove(selectedNode);
+
                     RefreshNodesListBox();
                 }
                 else
@@ -88,6 +95,9 @@ namespace WpfGrafApp1
                     drawCanvas.Children.Add(newRectangle);
                     Node newNode = CreateNode(newRectangle);
                     nodePairs.Add(newRectangle, newNode);
+
+                    //TODO - Just inserted. Check for behaviour.
+                    rectPairs.Add(newNode, newRectangle);
 
                     DrawText(drawCanvas, Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0,0, 0));
                 }
@@ -393,26 +403,79 @@ namespace WpfGrafApp1
 
         private void ColorGraph(Graf graf)
         {
-            int startNode = PickRandomNode(graf);
-            GenerateNodeColours(startNode, graf);
-            GenerateEdgeColours(startNode, graf);
+            Node startNode = PickRandomNode(graf.Nodes);
+            ColorGraf(graf);
         }
 
-        private int PickRandomNode(Graf graf)
+        private Node PickRandomNode(List<Node> nodes)
         {
             Random rnd = new Random();
-            int nodeId = rnd.Next(graf.Nodes.Count + 1);
-            return nodeId;
+            int nodeId = rnd.Next(nodes.Count);
+            return nodes[nodeId];
         }
 
-        int void GenerateNodeColours(int startNode, Graf graf)
+        private void ColorGraf(Graf graf)
         {
-            
+            List<Node> varfuriNecolorate = new List<Node>();
+            varfuriNecolorate = graf.Nodes;
+
+            List<Node> varfuriDisponibile = new List<Node>();
+            varfuriDisponibile = graf.Nodes;
+
+            while (varfuriNecolorate.Count > 0)
+            {
+                Brush color = GenerateColor();
+                List<Node> varfuriIndisponibile = new List<Node>();
+
+                while (varfuriDisponibile.Count > 0)
+                {
+                    Node selectedNode = PickRandomNode(varfuriDisponibile);
+                    ColorNode(selectedNode, color);
+
+                    //selectedNode.isColored = true;
+                    //selectedNode.isDisabled = true;
+                    varfuriNecolorate.Remove(selectedNode);
+                    varfuriDisponibile.Remove(selectedNode);
+
+                    //Disable adjacent uncolored nodes, if any
+                    if (selectedNode.AdjacentNodes.Count > 0)
+                    {
+                        foreach (Node adjacentNode in selectedNode.AdjacentNodes.FindAll(x => x.isColored == false))
+                        {
+                            adjacentNode.isDisabled = true;
+                            varfuriDisponibile.Remove(adjacentNode);
+
+                            if (!varfuriIndisponibile.Contains(adjacentNode))
+                            {
+                                varfuriIndisponibile.Add(adjacentNode);
+                            }
+                        }
+                    }
+                }
+                //reseteaza varfurile indisponibile ?!
+            }
         }
 
-        private void GenerateEdgeColours(int startNode, Graf graf)
+        private Brush GenerateColor()
         {
-            throw new NotImplementedException();
+            Brush result = Brushes.Transparent;
+
+            Random rnd = new Random();
+
+            Type brushesType = typeof(Brushes);
+
+            PropertyInfo[] properties = brushesType.GetProperties();
+
+            int random = rnd.Next(properties.Length);
+            result = (Brush)properties[random].GetValue(null, null);
+
+            return result;
+        }
+
+        private void ColorNode(Node selectedNode, Brush color)
+        {
+            Rectangle selectedRectangle = rectPairs[selectedNode];
+            selectedRectangle.Stroke = color;
         }
 
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)

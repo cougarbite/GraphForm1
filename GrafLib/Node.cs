@@ -14,6 +14,9 @@ namespace GrafLib
         public List<Node> AdjacentNodes;
         public List<Edge> AdjacentEdges;
         public bool isVisited = false;
+        public bool isColored = false;
+        //TODO - DE adaugat culoarea?!
+        public bool isDisabled = false;
         public static int createdNodes = 1;
 
         public Node()
