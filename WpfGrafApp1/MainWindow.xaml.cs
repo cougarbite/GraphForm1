@@ -487,6 +487,13 @@ namespace WpfGrafApp1
             selectedRectangle.Stroke = color;
         }
 
+        private void edgesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Edge selectedEdge = (Edge)e.AddedItems[0];
+            EdgeDetails ed = new EdgeDetails(selectedEdge);
+            ed.Show();
+        }
+
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
