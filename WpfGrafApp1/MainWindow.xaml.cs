@@ -21,6 +21,10 @@ namespace WpfGrafApp1
         List<Edge> edges = new List<Edge>();
         Line newLine = new Line();
         Node node1, node2;
+        
+        //Pentru functia de GenerateColor
+        //Random rnd = new Random();
+
         List<Brushes> brushes = new List<Brushes>();
 
         // Variabila pentru capetele unei muchii.
@@ -450,6 +454,7 @@ namespace WpfGrafApp1
             while (varfuriColorate.Count < varfuriGraf.Count)
             {
                 Brush color = colors[i++];
+                //Brush color = GenerateColor();
                 while (varfuriDisponibile.Count > 0)
                 {
                     Node selectedNode = PickRandomNode(varfuriDisponibile);
@@ -486,6 +491,7 @@ namespace WpfGrafApp1
         {
             Brush result = Brushes.Transparent;
 
+            //TODO - comenteaza linia urmatoare
             Random rnd = new Random();
 
             Type brushesType = typeof(Brushes);
