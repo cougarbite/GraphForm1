@@ -416,12 +416,13 @@ namespace WpfGrafApp1
 
         private void ColorGraf(Graf graf)
         {
-            List<Node> varfuriNecolorate = new List<Node>();
-            varfuriNecolorate = graf.Nodes;
+            List<Node> varfuriNecolorate = new List<Node>(graf.Nodes);
+            //varfuriNecolorate = graf.Nodes;
 
-            List<Node> varfuriDisponibile = new List<Node>();
-            varfuriDisponibile = graf.Nodes;
+            List<Node> varfuriDisponibile = new List<Node>(graf.Nodes);
+            //varfuriDisponibile = graf.Nodes;
 
+            List<Node> varfuriGraf = new List<Node>(graf.Nodes);
             while (varfuriNecolorate.Count > 0)
             {
                 Brush color = GenerateColor();
@@ -432,8 +433,8 @@ namespace WpfGrafApp1
                     Node selectedNode = PickRandomNode(varfuriDisponibile);
                     ColorNode(selectedNode, color);
 
-                    //selectedNode.isColored = true;
-                    //selectedNode.isDisabled = true;
+                    selectedNode.isColored = true;
+                    selectedNode.isDisabled = true;
                     varfuriNecolorate.Remove(selectedNode);
                     varfuriDisponibile.Remove(selectedNode);
 
@@ -452,7 +453,15 @@ namespace WpfGrafApp1
                         }
                     }
                 }
-                //reseteaza varfurile indisponibile ?!
+                //reseteaza varfurile indisponibile necolorate
+                foreach (Node uncoloredNode in varfuriGraf.FindAll(x => x.isColored == false && x.isDisabled == true))
+                {
+                    uncoloredNode.isDisabled = false;
+                    if (!varfuriDisponibile.Contains(uncoloredNode))
+	                {
+                        varfuriDisponibile.Add(uncoloredNode);
+	                }
+                }
             }
         }
 
