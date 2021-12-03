@@ -486,7 +486,7 @@ namespace WpfGrafApp1
         }
 
         //Probleme cu compilerul
-        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", false)]
+        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", true)]
         private Brush GenerateColor()
         {
             Brush result = Brushes.Transparent;
@@ -505,7 +505,7 @@ namespace WpfGrafApp1
         }
 
         //Probleme cu compilerul
-        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", false)]
+        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", true)]
         private Brush GenerateColor2()
         {
             List<Brush> colors = new List<Brush>();
