@@ -396,6 +396,13 @@ namespace WpfGrafApp1
 
         }
 
+        private void edgesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Edge selectedEdge = (Edge)e.AddedItems[0];
+            EdgeDetails ed = new EdgeDetails(selectedEdge);
+            ed.Show();
+        }
+
         private void ColourGraphButton_Click(object sender, RoutedEventArgs e)
         {
             ColorGraph(graf);
@@ -403,7 +410,7 @@ namespace WpfGrafApp1
 
         private void ColorGraph(Graf graf)
         {
-            Node startNode = PickRandomNode(graf.Nodes);
+            //Node startNode = PickRandomNode(graf.Nodes);
             ColorGraf(graf);
         }
 
@@ -416,51 +423,45 @@ namespace WpfGrafApp1
 
         private void ColorGraf(Graf graf)
         {
-            List<Node> varfuriNecolorate = new List<Node>(graf.Nodes);
-            //varfuriNecolorate = graf.Nodes;
-
-            List<Node> varfuriDisponibile = new List<Node>(graf.Nodes);
-            //varfuriDisponibile = graf.Nodes;
+            //Cleanup
+            foreach (Node node in graf.Nodes)
+            {
+                node.isDisabled = false;
+                node.isColored = false;
+            }
 
             List<Node> varfuriGraf = new List<Node>(graf.Nodes);
-            while (varfuriNecolorate.Count > 0)
+            List<Node> varfuriColorate = new List<Node>();
+            List<Node> varfuriDisponibile = new List<Node>(varfuriGraf);
+            while (varfuriColorate.Count < varfuriGraf.Count)
             {
-                Brush color = GenerateColor();
-                List<Node> varfuriIndisponibile = new List<Node>();
-
+                Brush color = GenerateColor2();
                 while (varfuriDisponibile.Count > 0)
                 {
                     Node selectedNode = PickRandomNode(varfuriDisponibile);
                     ColorNode(selectedNode, color);
-
                     selectedNode.isColored = true;
                     selectedNode.isDisabled = true;
-                    varfuriNecolorate.Remove(selectedNode);
+                    varfuriColorate.Add(selectedNode);
                     varfuriDisponibile.Remove(selectedNode);
-
-                    //Disable adjacent uncolored nodes, if any
+                    //Disable adjacent nodes, if any
                     if (selectedNode.AdjacentNodes.Count > 0)
                     {
-                        foreach (Node adjacentNode in selectedNode.AdjacentNodes.FindAll(x => x.isColored == false))
+                        foreach (Node adjacentNode in selectedNode.AdjacentNodes)
                         {
                             adjacentNode.isDisabled = true;
                             varfuriDisponibile.Remove(adjacentNode);
-
-                            if (!varfuriIndisponibile.Contains(adjacentNode))
-                            {
-                                varfuriIndisponibile.Add(adjacentNode);
-                            }
                         }
                     }
                 }
                 //reseteaza varfurile indisponibile necolorate
-                foreach (Node uncoloredNode in varfuriGraf.FindAll(x => x.isColored == false && x.isDisabled == true))
+                foreach (Node uncoloredNode in varfuriGraf.FindAll(x => x.isColored == false))
                 {
                     uncoloredNode.isDisabled = false;
-                    if (!varfuriDisponibile.Contains(uncoloredNode))
-	                {
+                 //   if (!varfuriDisponibile.Contains(uncoloredNode))
+	                //{
                         varfuriDisponibile.Add(uncoloredNode);
-	                }
+	                //}
                 }
             }
         }
@@ -481,17 +482,27 @@ namespace WpfGrafApp1
             return result;
         }
 
+        private Brush GenerateColor2()
+        {
+            List<Brush> colors = new List<Brush>();
+            Random rnd = new Random();
+            colors.Add(Brushes.Blue);
+            colors.Add(Brushes.Green);
+            colors.Add(Brushes.Red);
+            colors.Add(Brushes.Orange);
+            colors.Add(Brushes.Orchid);
+            colors.Add(Brushes.Purple);
+            colors.Add(Brushes.Coral);
+            colors.Add(Brushes.Yellow);
+
+            Brush color = colors[rnd.Next(colors.Count)];
+            return color;
+        }
+
         private void ColorNode(Node selectedNode, Brush color)
         {
             Rectangle selectedRectangle = rectPairs[selectedNode];
             selectedRectangle.Stroke = color;
-        }
-
-        private void edgesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Edge selectedEdge = (Edge)e.AddedItems[0];
-            EdgeDetails ed = new EdgeDetails(selectedEdge);
-            ed.Show();
         }
 
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
