@@ -74,7 +74,7 @@ namespace WpfGrafApp1
                     nodes.Remove(selectedNode);
 
                     //remove associated TexBox from graphics
-                    drawCanvas.Children.RemoveAt(drawCanvas.Children.IndexOf(selectedRectangle)+1);
+                    drawCanvas.Children.RemoveAt(drawCanvas.Children.IndexOf(selectedRectangle) + 1);
 
                     //remove from graphics
                     drawCanvas.Children.Remove(selectedRectangle);
@@ -99,7 +99,7 @@ namespace WpfGrafApp1
                     //TODO - Just inserted. Check for behaviour.
                     rectPairs.Add(newNode, newRectangle);
 
-                    DrawText(drawCanvas, Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0,0, 0));
+                    DrawText(drawCanvas, Mouse.GetPosition(drawCanvas).X, Mouse.GetPosition(drawCanvas).Y, newNode.Name, Color.FromRgb(0, 0, 0));
                 }
             }
             else if (drawEdgeRadioButton.IsChecked == true)
@@ -433,9 +433,23 @@ namespace WpfGrafApp1
             List<Node> varfuriGraf = new List<Node>(graf.Nodes);
             List<Node> varfuriColorate = new List<Node>();
             List<Node> varfuriDisponibile = new List<Node>(varfuriGraf);
+
+
+            List<Brush> colors = new List<Brush>();
+            colors.Add(Brushes.Blue);
+            colors.Add(Brushes.Green);
+            colors.Add(Brushes.Red);
+            colors.Add(Brushes.Orange);
+            colors.Add(Brushes.Orchid);
+            colors.Add(Brushes.Purple);
+            colors.Add(Brushes.Coral);
+            colors.Add(Brushes.Yellow);
+            int i = 0;
+
+
             while (varfuriColorate.Count < varfuriGraf.Count)
             {
-                Brush color = GenerateColor2();
+                Brush color = colors[i++];
                 while (varfuriDisponibile.Count > 0)
                 {
                     Node selectedNode = PickRandomNode(varfuriDisponibile);
@@ -458,14 +472,16 @@ namespace WpfGrafApp1
                 foreach (Node uncoloredNode in varfuriGraf.FindAll(x => x.isColored == false))
                 {
                     uncoloredNode.isDisabled = false;
-                 //   if (!varfuriDisponibile.Contains(uncoloredNode))
-	                //{
-                        varfuriDisponibile.Add(uncoloredNode);
-	                //}
+                    //   if (!varfuriDisponibile.Contains(uncoloredNode))
+                    //{
+                    varfuriDisponibile.Add(uncoloredNode);
+                    //}
                 }
             }
         }
 
+        //Probleme cu compilerul
+        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", false)]
         private Brush GenerateColor()
         {
             Brush result = Brushes.Transparent;
@@ -482,6 +498,8 @@ namespace WpfGrafApp1
             return result;
         }
 
+        //Probleme cu compilerul
+        [Obsolete("Aceasta metoda creaza probleme cu functionarea normala a programului.", false)]
         private Brush GenerateColor2()
         {
             List<Brush> colors = new List<Brush>();
