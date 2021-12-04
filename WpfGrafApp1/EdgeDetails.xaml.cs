@@ -27,6 +27,8 @@ namespace WpfGrafApp1
             selectedEdge = edge;
             edgeNameLabel.Content = selectedEdge;
             edgeWeightTextBox.Text = selectedEdge.Weight.ToString();
+            edgeWeightTextBox.Focus();
+            edgeWeightTextBox.SelectAll();
 
         }
         private void UpdateWeight(Edge edge)
