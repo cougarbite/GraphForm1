@@ -1,5 +1,6 @@
 ﻿using GrafLib;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
@@ -534,46 +535,49 @@ namespace WpfGrafApp1
             generateMST_Kruskal(graf);
         }
 
-        private void generateMST_Kruskal(Graf graf)
+        private List<Edge> generateMST_Kruskal(Graf graf)
         {
             //Cleanup
             int groupNumber = 0;
             foreach (Node node in graf.Nodes)
                 node.group = 0;
 
-            List<Edge> orderedEdges = new List<Edge>(graf.Edges);
+            List<Edge> edges = new List<Edge>(graf.Edges);
+
             EdgeComparer ec = new EdgeComparer();
-            orderedEdges.Sort(ec);
+            edges.Sort(ec);
 
-            List<Edge> minimalSpanningTree = new List<Edge>();
+            Queue<Edge> sortedEdges = new Queue<Edge>(edges);
 
-            foreach (Edge edge in orderedEdges)
+            List<Edge> MST = new List<Edge>();
+
+            while (MST.Count < (graf.Nodes.Count - 1))
             {
-                if (edge.AdjacentNodes[0].group == 0 && edge.AdjacentNodes[1].group == 0)
+                Edge selectedEdge = sortedEdges.Dequeue();
+
+                if (selectedEdge.AdjacentNodes[0].group == selectedEdge.AdjacentNodes[1].group)
                 {
-                    edge.AdjacentNodes[0].group = ++groupNumber;
-                    edge.AdjacentNodes[1].group = edge.AdjacentNodes[0].group;
-                }
-                else if (edge.AdjacentNodes[0].group != edge.AdjacentNodes[1].group)
-                {
-                    if (edge.AdjacentNodes[0].group > edge.AdjacentNodes[1].group)
+                    if (selectedEdge.AdjacentNodes[0].group == 0)
                     {
-                        foreach (Node node in graf.Nodes.FindAll(x => x.group == edge.AdjacentNodes[1].group))
-                        {
-                            node.group = edge.AdjacentNodes[0].group;
-                        }
+                        selectedEdge.AdjacentNodes[0].group = ++groupNumber;
+                        selectedEdge.AdjacentNodes[1].group = selectedEdge.AdjacentNodes[0].group;
+                        MST.Add(selectedEdge);
+                    }
+                }
+                else if (selectedEdge.AdjacentNodes[0].group != selectedEdge.AdjacentNodes[1].group)
+                {
+                    if (selectedEdge.AdjacentNodes[0].group > selectedEdge.AdjacentNodes[1].group)
+                    {
+                        selectedEdge.AdjacentNodes[1].group = selectedEdge.AdjacentNodes[0].group;
                     }
                     else
                     {
-                        foreach (Node node in graf.Nodes.FindAll(x => x.group == edge.AdjacentNodes[0].group))
-                        {
-                            node.group = edge.AdjacentNodes[1].group;
-                        }
+                        selectedEdge.AdjacentNodes[0].group = selectedEdge.AdjacentNodes[1].group;
                     }
-                    minimalSpanningTree.Add(edge);
+                    MST.Add(selectedEdge);
                 }
             }
-            MessageBox.Show(minimalSpanningTree.ToString());
+            return MST;
         }
 
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
