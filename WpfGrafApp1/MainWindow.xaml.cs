@@ -35,6 +35,8 @@ namespace WpfGrafApp1
         Dictionary<Line, Edge> edgePairs = new Dictionary<Line, Edge>();
 
         Dictionary<Node, Rectangle> rectPairs = new Dictionary<Node, Rectangle>();
+        Dictionary<Edge, Line> linePairs = new Dictionary<Edge, Line>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -127,6 +129,10 @@ namespace WpfGrafApp1
 
                     //remove from dictionary
                     edgePairs.Remove(selectedLine);
+
+                    //TODO - Just inserted. Check for behaviour
+                    linePairs.Remove(selectedEdge);
+
                     RefreshEdgesListBox();
                 }
                 else
@@ -157,6 +163,9 @@ namespace WpfGrafApp1
                             drawCanvas.Children.Add(newLine);
                             Edge newEdge = CreateEdge(node1, node2);
                             edgePairs.Add(newLine, newEdge);
+
+                            //TODO - Just inserted. Check for behaviour.
+                            linePairs.Add(newEdge, newLine);
 
                             DrawText(drawCanvas, (newLine.X2 - newLine.X1) / 2 + newLine.X1, (newLine.Y2 - newLine.Y1) / 2 + newLine.Y1, newEdge.Name, Color.FromRgb(0, 0, 0));
 
@@ -403,9 +412,12 @@ namespace WpfGrafApp1
 
         private void edgesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Edge selectedEdge = (Edge)e.AddedItems[0];
-            EdgeDetails ed = new EdgeDetails(selectedEdge);
-            ed.Show();
+            if (edgesListBox.Items.Count != 0)
+            {
+                Edge selectedEdge = (Edge)e.AddedItems[0];
+                EdgeDetails ed = new EdgeDetails(selectedEdge);
+                ed.Show();
+            }
         }
 
         private void ColourGraphButton_Click(object sender, RoutedEventArgs e)
@@ -532,7 +544,7 @@ namespace WpfGrafApp1
 
         private void generateMSTButton_Click(object sender, RoutedEventArgs e)
         {
-            generateMST_Kruskal(graf);
+            drawMST(generateMST_Kruskal(graf));
         }
 
         private List<Edge> generateMST_Kruskal(Graf graf)
@@ -580,6 +592,15 @@ namespace WpfGrafApp1
             return MST;
         }
 
+        private void drawMST(List<Edge> mst)
+        {
+            foreach (Edge edge in mst)
+            {
+                //gaseste linia din canvas si set newLine.StrokeThickness = 4;
+                Line selectedLine = linePairs[edge];
+                selectedLine.StrokeThickness = 4;
+            }
+        }
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
