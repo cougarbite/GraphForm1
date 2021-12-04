@@ -26,6 +26,7 @@
         <Button x:Name="CloseAppButton" Content="Close App" HorizontalAlignment="Left" Margin="695,438,0,0" VerticalAlignment="Top" Width="120" Height="22" Foreground="#FFF50C0C" Click="CloseAppButton_Click"/>
         <Canvas x:Name="mCanvas" HorizontalAlignment="Left" Height="141" Margin="533,290,0,0" VerticalAlignment="Top" Width="157"/>
         <Button x:Name="ColourGraphButton" Content="Color Graf" HorizontalAlignment="Left" Margin="391,467,0,0" VerticalAlignment="Top" Width="120" Click="ColourGraphButton_Click"/>
+        <Button x:Name="generateMSTButton" Content="Generate MST" HorizontalAlignment="Left" Margin="266,467,0,0" VerticalAlignment="Top" Width="120" Click="generateMSTButton_Click"/>
 
     </Grid>
 </Window>

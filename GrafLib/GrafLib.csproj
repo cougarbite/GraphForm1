@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Edge.cs" />
+    <Compile Include="EdgeComparer.cs" />
     <Compile Include="Graf.cs" />
     <Compile Include="IMainWindow.cs" />
     <Compile Include="Node.cs" />

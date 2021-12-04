@@ -529,6 +529,53 @@ namespace WpfGrafApp1
             selectedRectangle.Stroke = color;
         }
 
+        private void generateMSTButton_Click(object sender, RoutedEventArgs e)
+        {
+            generateMST_Kruskal(graf);
+        }
+
+        private void generateMST_Kruskal(Graf graf)
+        {
+            //Cleanup
+            int groupNumber = 0;
+            foreach (Node node in graf.Nodes)
+                node.group = 0;
+
+            List<Edge> orderedEdges = new List<Edge>(graf.Edges);
+            EdgeComparer ec = new EdgeComparer();
+            orderedEdges.Sort(ec);
+
+            List<Edge> minimalSpanningTree = new List<Edge>();
+
+            foreach (Edge edge in orderedEdges)
+            {
+                if (edge.AdjacentNodes[0].group == 0 && edge.AdjacentNodes[1].group == 0)
+                {
+                    edge.AdjacentNodes[0].group = ++groupNumber;
+                    edge.AdjacentNodes[1].group = edge.AdjacentNodes[0].group;
+                }
+                else if (edge.AdjacentNodes[0].group != edge.AdjacentNodes[1].group)
+                {
+                    if (edge.AdjacentNodes[0].group > edge.AdjacentNodes[1].group)
+                    {
+                        foreach (Node node in graf.Nodes.FindAll(x => x.group == edge.AdjacentNodes[1].group))
+                        {
+                            node.group = edge.AdjacentNodes[0].group;
+                        }
+                    }
+                    else
+                    {
+                        foreach (Node node in graf.Nodes.FindAll(x => x.group == edge.AdjacentNodes[0].group))
+                        {
+                            node.group = edge.AdjacentNodes[1].group;
+                        }
+                    }
+                    minimalSpanningTree.Add(edge);
+                }
+            }
+            MessageBox.Show(minimalSpanningTree.ToString());
+        }
+
         private void CloseAppButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

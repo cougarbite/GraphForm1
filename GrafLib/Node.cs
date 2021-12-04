@@ -17,6 +17,7 @@ namespace GrafLib
         public bool isColored = false;
         //TODO - DE adaugat culoarea?!
         public bool isDisabled = false;
+        public int group = 0;
         public static int createdNodes = 1;
 
         public Node()
