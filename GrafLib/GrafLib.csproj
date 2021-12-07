@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BellmanFordAlgorithm.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="EdgeComparer.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Graf.cs" />
     <Compile Include="IMainWindow.cs" />
     <Compile Include="Node.cs" />

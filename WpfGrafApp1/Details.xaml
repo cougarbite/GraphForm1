@@ -27,6 +27,7 @@
         <Canvas x:Name="aCanvas" HorizontalAlignment="Left" Height="150" Margin="332,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Canvas x:Name="kCanvas" HorizontalAlignment="Left" Height="150" Margin="645,41,0,0" VerticalAlignment="Top" Width="150"/>
         <Canvas x:Name="iCanvas" HorizontalAlignment="Left" Height="150" Margin="487,41,0,0" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="BellmanFordButton" Content="Bellman Ford" HorizontalAlignment="Left" Margin="343,383,0,0" VerticalAlignment="Top" Width="80" Click="BellmanFordButton_Click"/>
 
     </Grid>
 </Window>

@@ -241,6 +241,13 @@ namespace WpfGrafApp1
                 delta += 15;
             }
         }
+
+        private void BellmanFordButton_Click(object sender, RoutedEventArgs e)
+        {
+            //BellmanFordAlgorithm.BellmanFord(BellmanFordAlgorithm.GenerateMatrix(selectedGraf),selectedGraf.Nodes.Count, selectedGraf.Edges.Count, 0);
+            BellmanFordAlgorithm.StanescuBellmanFord(selectedGraf, selectedGraf.Nodes[0]);
+        }
+
         private void closeDetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
