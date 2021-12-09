@@ -427,8 +427,8 @@ namespace WpfGrafApp1
 
         private void ColorGraph(Graf graf)
         {
-            //Node startNode = PickRandomNode(graf.Nodes);
-            ColorGraf(graf);
+            ColorGrafNodes(graf);
+            ColorGrafEdges(graf);
         }
 
         private Node PickRandomNode(List<Node> nodes)
@@ -438,7 +438,21 @@ namespace WpfGrafApp1
             return nodes[nodeId];
         }
 
-        private void ColorGraf(Graf graf)
+        private Edge PickRandomEdge(List<Edge> edges)
+        {
+            Random rnd = new Random();
+            int edgeId = rnd.Next(edges.Count);
+            return edges[edgeId];
+        }
+
+        private T PickRandom<T>(List<T> collection)
+        {
+            Random rnd = new Random();
+            int id = rnd.Next(collection.Count);
+            return collection[id];
+        }
+
+        private void ColorGrafNodes(Graf graf)
         {
             //Cleanup
             foreach (Node node in graf.Nodes)
@@ -454,9 +468,9 @@ namespace WpfGrafApp1
 
             List<Brush> colors = new List<Brush>();
             colors.Add(Brushes.Blue);
-            colors.Add(Brushes.Green);
             colors.Add(Brushes.Red);
             colors.Add(Brushes.Orange);
+            colors.Add(Brushes.Green);
             colors.Add(Brushes.Orchid);
             colors.Add(Brushes.Purple);
             colors.Add(Brushes.Coral);
@@ -470,7 +484,8 @@ namespace WpfGrafApp1
                 //Brush color = GenerateColor();
                 while (varfuriDisponibile.Count > 0)
                 {
-                    Node selectedNode = PickRandomNode(varfuriDisponibile);
+                    Node selectedNode = PickRandom(varfuriDisponibile);
+                    //Node selectedNode = PickRandomNode(varfuriDisponibile);
                     ColorNode(selectedNode, color);
                     selectedNode.isColored = true;
                     selectedNode.isDisabled = true;
@@ -496,6 +511,78 @@ namespace WpfGrafApp1
                     //}
                 }
             }
+        }
+        private void ColorNode(Node selectedNode, Brush color)
+        {
+            Rectangle selectedRectangle = rectPairs[selectedNode];
+            selectedRectangle.Stroke = color;
+        }
+
+        private void ColorGrafEdges(Graf graf)
+        {
+            //Cleanup
+            foreach (Edge edge in graf.Edges)
+            {
+                edge.isDisabled = false;
+                edge.isColored = false;
+            }
+
+            List<Edge> muchiiGraf = new List<Edge>(graf.Edges);
+            List<Edge> muchiiColorate = new List<Edge>();
+            List<Edge> muchiiDisponibile = new List<Edge>(muchiiGraf);
+
+
+            List<Brush> colors = new List<Brush>();
+            colors.Add(Brushes.DarkBlue);
+            colors.Add(Brushes.DarkRed);
+            colors.Add(Brushes.DarkGreen);
+            colors.Add(Brushes.DarkKhaki);
+            colors.Add(Brushes.DarkCyan);
+            colors.Add(Brushes.DarkMagenta);
+            colors.Add(Brushes.DarkGray);
+            colors.Add(Brushes.DarkTurquoise);
+            int i = 0;
+
+
+            while (muchiiColorate.Count < muchiiGraf.Count)
+            {
+                Brush color = colors[i++];
+                //Brush color = GenerateColor();
+                while (muchiiDisponibile.Count > 0)
+                {
+                    Edge selectedEdge = PickRandom(muchiiDisponibile);
+                    //Edge selectedEdge = PickRandomEdge(muchiiDisponibile);
+                    ColorEdge(selectedEdge, color);
+                    selectedEdge.isColored = true;
+                    selectedEdge.isDisabled = true;
+                    muchiiColorate.Add(selectedEdge);
+                    muchiiDisponibile.Remove(selectedEdge);
+                    //Disable adjacent nodes, if any
+                    if (selectedEdge.AdjacentEdges.Count > 0)
+                    {
+                        foreach (Edge adjacentEdge in selectedEdge.AdjacentEdges)
+                        {
+                            adjacentEdge.isDisabled = true;
+                            muchiiDisponibile.Remove(adjacentEdge);
+                        }
+                    }
+                }
+                //reseteaza varfurile indisponibile necolorate
+                foreach (Edge uncoloredEdge in muchiiGraf.FindAll(x => x.isColored == false))
+                {
+                    uncoloredEdge.isDisabled = false;
+                    //   if (!varfuriDisponibile.Contains(uncoloredNode))
+                    //{
+                    muchiiDisponibile.Add(uncoloredEdge);
+                    //}
+                }
+            }
+        }
+
+        private void ColorEdge(Edge selectedEdge, Brush color)
+        {
+            Line selectedLine = linePairs[selectedEdge];
+            selectedLine.Stroke = color;
         }
 
         //Probleme cu compilerul
@@ -536,11 +623,6 @@ namespace WpfGrafApp1
             return color;
         }
 
-        private void ColorNode(Node selectedNode, Brush color)
-        {
-            Rectangle selectedRectangle = rectPairs[selectedNode];
-            selectedRectangle.Stroke = color;
-        }
 
         private void generateMSTButton_Click(object sender, RoutedEventArgs e)
         {

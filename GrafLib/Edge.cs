@@ -8,7 +8,12 @@ namespace GrafLib
         public string Name { get; set; }
         public List<Edge> AdjacentEdges { get; set; } = new List<Edge>();
         public List<Node> AdjacentNodes { get; set; } = new List<Node>();
+
         public bool isCovered = false;
+        public bool isColored = false;
+        //TODO - DE adaugat culoarea?!
+        public bool isDisabled = false;
+
         public int Weight = 0;
         public static int createdEdges = 1;
         public Edge(Node p1, Node p2)
