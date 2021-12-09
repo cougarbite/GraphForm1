@@ -26,7 +26,7 @@ namespace WpfGrafApp1
         //Pentru functia de GenerateColor
         //Random rnd = new Random();
 
-        List<Brushes> brushes = new List<Brushes>();
+        //List<Brushes> brushes = new List<Brushes>();
 
         // Variabila pentru capetele unei muchii.
         int n = 0;
