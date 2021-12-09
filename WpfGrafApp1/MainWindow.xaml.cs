@@ -22,7 +22,7 @@ namespace WpfGrafApp1
         List<Edge> edges = new List<Edge>();
         Line newLine = new Line();
         Node node1, node2;
-        
+
         //Pentru functia de GenerateColor
         //Random rnd = new Random();
 
@@ -431,6 +431,7 @@ namespace WpfGrafApp1
             ColorGrafEdges(graf);
         }
 
+        [Obsolete ("Este implementata metoda generica, Foloseste-o!", true)]
         private Node PickRandomNode(List<Node> nodes)
         {
             Random rnd = new Random();
@@ -438,6 +439,7 @@ namespace WpfGrafApp1
             return nodes[nodeId];
         }
 
+        [Obsolete("Este implementata metoda generica, Foloseste-o!", true)]
         private Edge PickRandomEdge(List<Edge> edges)
         {
             Random rnd = new Random();
@@ -638,7 +640,7 @@ namespace WpfGrafApp1
 
             List<Edge> edges = new List<Edge>(graf.Edges);
 
-            EdgeComparer ec = new EdgeComparer();
+            EdgeWeightComparer ec = new EdgeWeightComparer();
             edges.Sort(ec);
 
             Queue<Edge> sortedEdges = new Queue<Edge>(edges);

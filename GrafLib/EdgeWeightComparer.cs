@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrafLib
 {
-    public class EdgeComparer : IComparer<Edge>
+    public class EdgeWeightComparer : IComparer<Edge>
     {
         public int Compare(Edge x, Edge y)
         {
