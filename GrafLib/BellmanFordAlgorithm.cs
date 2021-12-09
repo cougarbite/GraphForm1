@@ -87,7 +87,7 @@ namespace GrafLib
                             distance[edge.AdjacentNodes[0].Id-1] = 0;
 
                         distance[edge.AdjacentNodes[1].Id-1] = distance[edge.AdjacentNodes[0].Id-1] + edge.Weight;
-                        //previous[edge.AdjacentNodes[0].Id-1] = edge.AdjacentNodes[0].Id-1;                                      /// ???????
+                        //previous[edge.AdjacentNodes[0].Id-1] = edge.AdjacentNodes[0].Id-1;                                                /// ???????
                     } 
                 }
             }

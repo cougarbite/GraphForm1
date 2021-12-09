@@ -31,7 +31,7 @@ namespace GrafLib
         ////////////////////////////////////////////////////////////////////
         // Static methods for creating matrix representation of the Graph //
         ////////////////////////////////////////////////////////////////////
-        
+
         public static int[,] CreateAdjacencyMatrix(Graf graf)
         {
             if (graf.Nodes is null)
@@ -70,7 +70,7 @@ namespace GrafLib
             {
                 List<Edge> edges = new List<Edge>();
                 graf.Edges = edges;
-                return new int[1,graf.Nodes.Count];
+                return new int[1, graf.Nodes.Count];
             }
             else
             {
@@ -172,7 +172,7 @@ namespace GrafLib
 
             return output;
         }
-        
+
         public static List<Node> MultimeaStabilaInteriorMaximala(Node start, List<Node> GraphNodes)
         {
             List<Node> AvailableNodes = new List<Node>(GraphNodes);
@@ -195,7 +195,6 @@ namespace GrafLib
 
         public static List<Node> BronKerboschRecursiv(List<Node> Rezultat, List<Node> noduriPosibile, List<Node> noduriFolosite)
         {
-
             //algorithm BronKerbosch1(Rezultat, noduriPosibile, noduriFolosite) is
             //if noduriPosibile and noduriFolositeX are both empty then
             //      report Rezultat as a maximal clique
@@ -204,30 +203,33 @@ namespace GrafLib
             //      BronKerbosch1(Rezultat ⋃ { v}, noduriPosibile ⋂ N(v), noduriFolosite ⋂ N(v))
             //      noduriFolosite:= noduriFolosite ⋃ { v}
 
+
             if (noduriPosibile.Count == 0 && noduriFolosite.Count == 0)
                 return Rezultat;
-            foreach (Node nod in noduriPosibile)
+
+            foreach (Node node in noduriPosibile)
             {
-                noduriPosibile.Remove(nod);
+                List<Node> noduriPosibileRelative = new List<Node>(noduriPosibile);
+                noduriPosibileRelative.Remove(node);
 
-                // Intersecia noduriPosibile cu vecinii lui nod
-                foreach (Node posibil in noduriPosibile)
-                    if (!nod.AdjacentNodes.Contains(posibil))
-                        noduriPosibile.Remove(posibil);
+                foreach (Node adjNode in node.AdjacentNodes)
+                {
+                    noduriPosibileRelative.Remove(adjNode);
+                    noduriFolosite.Remove(adjNode);
+                }
 
-                // Intersectia noduriFolosite cu vecinii lui nod
-                foreach (Node folosit in noduriFolosite)
-                    if (!nod.AdjacentNodes.Contains(folosit))
-                        noduriFolosite.Remove(folosit);
+                Rezultat.Add(node);
 
+                BronKerboschRecursiv(Rezultat, noduriPosibileRelative, noduriFolosite);
 
-                Rezultat.Add(nod);
-                BronKerboschRecursiv(Rezultat, noduriPosibile, noduriFolosite);
-                noduriFolosite.Add(nod);
+                noduriFolosite.Add(node);
+
+                foreach (Node adjNode in node.AdjacentNodes)
+                    if (!noduriFolosite.Contains(adjNode))
+                        noduriFolosite.Add(adjNode);
             }
             return Rezultat;
         }
-
         public static List<Node> BronKerboschIterativ(List<Node> Disponibile)
         {
             throw new NotImplementedException();
@@ -253,12 +255,12 @@ namespace GrafLib
             edges /= 2;
 
             //Cream noua matrice
-            int[,] resultingMatrix = new int[edges,nodes];
+            int[,] resultingMatrix = new int[edges, nodes];
 
             int k = 0;
             for (int i = 0; i < nodes; i++)
             {
-                for (int j =i+1; j < nodes; j++)
+                for (int j = i + 1; j < nodes; j++)
                 {
                     if (aMatrix[i, j] == 1)
                     {
@@ -381,7 +383,7 @@ namespace GrafLib
                     edges++;
             edges /= 2;
 
-            int nodes = iMatrix.Length/edges;
+            int nodes = iMatrix.Length / edges;
 
             int[,] resultingMatrix = new int[nodes, nodes];
             int x = 0, y = 0, counter = 0;
@@ -389,12 +391,12 @@ namespace GrafLib
             {
                 for (int j = 0; j < nodes; j++)
                 {
-                    if (iMatrix[i,j] == 1 && counter % 2 == 0)
+                    if (iMatrix[i, j] == 1 && counter % 2 == 0)
                     {
                         x = j;
                         counter++;
                     }
-                    else if (iMatrix[i,j] == 1 && counter % 2 == 1)
+                    else if (iMatrix[i, j] == 1 && counter % 2 == 1)
                     {
                         y = j;
                         counter++;

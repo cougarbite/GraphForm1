@@ -163,9 +163,10 @@ namespace WpfGrafApp1
         {
             // Incercare personala
             List<Node> Rezultat = new List<Node>();
+            List<Node> Posibile = new List<Node>(selectedGraf.Nodes);
 
-            Graf.BronKerboschRecursiv(Rezultat, selectedGraf.Nodes, new List<Node>());
-
+            Graf.BronKerboschRecursiv(Rezultat, Posibile, new List<Node>());
+            MessageBox.Show(Rezultat.ToString());
 
 
 
