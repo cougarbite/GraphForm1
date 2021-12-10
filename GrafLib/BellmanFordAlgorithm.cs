@@ -77,7 +77,6 @@ namespace GrafLib
 
             for (int i = 0; i < graf.Nodes.Count - 1; i++)
             {
-                shuffledEdges.Shuffle();
 
                 foreach (Edge edge in shuffledEdges)
                 {
@@ -90,6 +89,12 @@ namespace GrafLib
                         //previous[edge.AdjacentNodes[0].Id-1] = edge.AdjacentNodes[0].Id-1;                                                /// ???????
                     } 
                 }
+                if (i == 0)
+                {
+                    shuffledEdges.Reverse();
+                }
+                else
+                    shuffledEdges.Shuffle();
             }
 
             foreach (Edge edge in graf.Edges)

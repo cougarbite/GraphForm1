@@ -628,7 +628,18 @@ namespace WpfGrafApp1
 
         private void generateMSTButton_Click(object sender, RoutedEventArgs e)
         {
+            resetMST(graf.Edges);
             drawMST(generateMST_Kruskal(graf));
+        }
+
+        private void resetMST(List<Edge> mst)
+        {
+            foreach (Edge edge in mst)
+            {
+                //gaseste linia din canvas si set newLine.StrokeThickness = 4;
+                Line selectedLine = linePairs[edge];
+                selectedLine.StrokeThickness = 2;
+            }
         }
 
         private List<Edge> generateMST_Kruskal(Graf graf)

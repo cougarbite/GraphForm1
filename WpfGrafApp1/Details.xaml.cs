@@ -168,19 +168,10 @@ namespace WpfGrafApp1
             Graf.BronKerboschRecursiv(Rezultat, Posibile, new List<Node>());
             MessageBox.Show(Rezultat.ToString());
 
-
-
             //// Merge... relativ
             //List<List<Node>> Rezultat = new List<List<Node>>();
             //foreach (Node node in selectedGraf.Nodes)
             //    Rezultat.Add(Graf.MultimeaStabilaInteriorMaximala(node, selectedGraf.Nodes));
-
-
-
-
-
-
-
 
         }
         private void DrawText(Canvas canvas, double x, double y, string text, Color color)
@@ -246,7 +237,22 @@ namespace WpfGrafApp1
         private void BellmanFordButton_Click(object sender, RoutedEventArgs e)
         {
             //BellmanFordAlgorithm.BellmanFord(BellmanFordAlgorithm.GenerateMatrix(selectedGraf),selectedGraf.Nodes.Count, selectedGraf.Edges.Count, 0);
-            BellmanFordAlgorithm.StanescuBellmanFord(selectedGraf, selectedGraf.Nodes[0]);
+            List<int?> rezultat = (BellmanFordAlgorithm.StanescuBellmanFord(selectedGraf, selectedGraf.Nodes[0])).ToList();
+            StringBuilder sb = new StringBuilder();
+            sb.Append(selectedGraf.Nodes[0].Name + ": ");
+            foreach (int? item in rezultat)
+            {
+                if (item == int.MaxValue)
+                {
+                    sb.Append("∞");
+                }
+                else
+                    sb.Append(item + " ");
+            }
+            sb.Remove(sb.Length - 1, 1);
+
+            MessageBox.Show(sb.ToString(), "Algoritmul Bellman-Ford: Distantele minime", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         private void closeDetailsButton_Click(object sender, RoutedEventArgs e)

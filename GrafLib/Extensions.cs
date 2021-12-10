@@ -23,5 +23,19 @@ namespace GrafLib
             }
             return list;
         }
+
+        public static IList<T> Reverse<T>(this IList<T> list)
+        {
+            int i = 0;
+            int n = list.Count;
+            T value = list[0];
+            for (; i < n-1; i++)
+            {
+                list[i] = list[i + 1];
+            }
+            list[i] = value;
+
+            return list;
+        }
     }
 }
