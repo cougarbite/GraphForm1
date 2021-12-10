@@ -251,7 +251,7 @@ namespace WpfGrafApp1
             }
             sb.Remove(sb.Length - 1, 1);
 
-            MessageBox.Show(sb.ToString(), "Algoritmul Bellman-Ford: Distantele minime", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(sb.ToString(), "Bellman-Ford: Drumurile de lungime minima", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
 

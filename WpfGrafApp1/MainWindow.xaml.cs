@@ -513,6 +513,7 @@ namespace WpfGrafApp1
                     //}
                 }
             }
+            MessageBox.Show($"Numar de culori folosite: {i}", "Colorare de Varfuri", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
         private void ColorNode(Node selectedNode, Brush color)
         {
@@ -522,63 +523,67 @@ namespace WpfGrafApp1
 
         private void ColorGrafEdges(Graf graf)
         {
-            //Cleanup
-            foreach (Edge edge in graf.Edges)
+            if (graf.Edges != null)
             {
-                edge.isDisabled = false;
-                edge.isColored = false;
-            }
-
-            List<Edge> muchiiGraf = new List<Edge>(graf.Edges);
-            List<Edge> muchiiColorate = new List<Edge>();
-            List<Edge> muchiiDisponibile = new List<Edge>(muchiiGraf);
-
-
-            List<Brush> colors = new List<Brush>();
-            colors.Add(Brushes.DarkBlue);
-            colors.Add(Brushes.DarkRed);
-            colors.Add(Brushes.DarkGreen);
-            colors.Add(Brushes.DarkKhaki);
-            colors.Add(Brushes.DarkCyan);
-            colors.Add(Brushes.DarkMagenta);
-            colors.Add(Brushes.DarkGray);
-            colors.Add(Brushes.DarkTurquoise);
-            int i = 0;
-
-
-            while (muchiiColorate.Count < muchiiGraf.Count)
-            {
-                Brush color = colors[i++];
-                //Brush color = GenerateColor();
-                while (muchiiDisponibile.Count > 0)
+                //Cleanup
+                foreach (Edge edge in graf.Edges)
                 {
-                    Edge selectedEdge = PickRandom(muchiiDisponibile);
-                    //Edge selectedEdge = PickRandomEdge(muchiiDisponibile);
-                    ColorEdge(selectedEdge, color);
-                    selectedEdge.isColored = true;
-                    selectedEdge.isDisabled = true;
-                    muchiiColorate.Add(selectedEdge);
-                    muchiiDisponibile.Remove(selectedEdge);
-                    //Disable adjacent nodes, if any
-                    if (selectedEdge.AdjacentEdges.Count > 0)
+                    edge.isDisabled = false;
+                    edge.isColored = false;
+                }
+
+                List<Edge> muchiiGraf = new List<Edge>(graf.Edges);
+                List<Edge> muchiiColorate = new List<Edge>();
+                List<Edge> muchiiDisponibile = new List<Edge>(muchiiGraf);
+
+
+                List<Brush> colors = new List<Brush>();
+                colors.Add(Brushes.DarkBlue);
+                colors.Add(Brushes.DarkRed);
+                colors.Add(Brushes.DarkGreen);
+                colors.Add(Brushes.DarkKhaki);
+                colors.Add(Brushes.DarkCyan);
+                colors.Add(Brushes.DarkMagenta);
+                colors.Add(Brushes.DarkGray);
+                colors.Add(Brushes.DarkTurquoise);
+                int i = 0;
+
+
+                while (muchiiColorate.Count < muchiiGraf.Count)
+                {
+                    Brush color = colors[i++];
+                    //Brush color = GenerateColor();
+                    while (muchiiDisponibile.Count > 0)
                     {
-                        foreach (Edge adjacentEdge in selectedEdge.AdjacentEdges)
+                        Edge selectedEdge = PickRandom(muchiiDisponibile);
+                        //Edge selectedEdge = PickRandomEdge(muchiiDisponibile);
+                        ColorEdge(selectedEdge, color);
+                        selectedEdge.isColored = true;
+                        selectedEdge.isDisabled = true;
+                        muchiiColorate.Add(selectedEdge);
+                        muchiiDisponibile.Remove(selectedEdge);
+                        //Disable adjacent nodes, if any
+                        if (selectedEdge.AdjacentEdges.Count > 0)
                         {
-                            adjacentEdge.isDisabled = true;
-                            muchiiDisponibile.Remove(adjacentEdge);
+                            foreach (Edge adjacentEdge in selectedEdge.AdjacentEdges)
+                            {
+                                adjacentEdge.isDisabled = true;
+                                muchiiDisponibile.Remove(adjacentEdge);
+                            }
                         }
                     }
+                    //reseteaza varfurile indisponibile necolorate
+                    foreach (Edge uncoloredEdge in muchiiGraf.FindAll(x => x.isColored == false))
+                    {
+                        uncoloredEdge.isDisabled = false;
+                        //   if (!varfuriDisponibile.Contains(uncoloredNode))
+                        //{
+                        muchiiDisponibile.Add(uncoloredEdge);
+                        //}
+                    }
                 }
-                //reseteaza varfurile indisponibile necolorate
-                foreach (Edge uncoloredEdge in muchiiGraf.FindAll(x => x.isColored == false))
-                {
-                    uncoloredEdge.isDisabled = false;
-                    //   if (!varfuriDisponibile.Contains(uncoloredNode))
-                    //{
-                    muchiiDisponibile.Add(uncoloredEdge);
-                    //}
-                }
-            }
+                MessageBox.Show($"Numar de culori folosite: {i}", "Colorare de Muchii", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }            
         }
 
         private void ColorEdge(Edge selectedEdge, Brush color)
